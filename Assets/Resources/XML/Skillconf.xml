@@ -1,0 +1,14 @@
+<RECORDS>
+	<RECORD>
+		<id>1001</id>
+		<skillAreaType>2</skillAreaType>
+		<skillEffectType>0</skillEffectType>
+		<skillAdditionType>0</skillAdditionType>
+		<skillName>测试</skillName>
+		<original>100</original>
+		<multiple>0.10</multiple>
+		<range>2.00</range>
+		<buffList/>
+	</RECORD>
+</RECORDS>
+
