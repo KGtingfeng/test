@@ -22,7 +22,6 @@ public class SkillConf:XMLConfig
     /// </summary>
     public float range;
     public string buffList;
-
     public override void Read(XmlNode item)
     {
         skillAreaType = (SkillAreaType)GetInt(item, "skillAreaType");

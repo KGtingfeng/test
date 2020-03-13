@@ -8,7 +8,7 @@ public class GameManage : MonoBehaviour
     public static GameManage Instance;
     static string ROLEPATH = "GameObject/Role/";
     public GameObject ground;
-    public List<List<int>> intMap;
+    public List<List<mapPoint>> mapPoints;
     public List<List<Ground>> groundList;
 
     public  static int row = 10;
@@ -20,7 +20,9 @@ public class GameManage : MonoBehaviour
     public bool IsMyRound;
     public bool IsSkill;
     public bool IsWalk;
-    List<Point> walkables;
+    List<mapPoint> walkables;
+
+    public int skillNum=0;
 
     private void Start()
     {
@@ -64,14 +66,11 @@ public class GameManage : MonoBehaviour
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.transform.tag == "ground")
-                    {
-                        
+                    {              
                         role.Goto(hit);
-                    }
-                       
+                    }                      
                 }
-            }
-           
+            }          
         }
         if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk)
         {
@@ -95,23 +94,35 @@ public class GameManage : MonoBehaviour
 
     void CreateGround()
     {
-        intMap = new List<List<int>>();
+        mapPoints = new List<List<mapPoint>>();
         groundList = new List<List<Ground>>();
         for (int i = 0; i < row; i++)
         {
-            List<int> intRow = new List<int>();
+            List<mapPoint> intRow = new List<mapPoint>();
             List<Ground> pointRow = new List<Ground>();
             for (int j = 0; j < col; j++)
             {
-                int intCol = 0;
                 GameObject go = Instantiate(ground);
                 go.GetComponent<Ground>().Init(i, j);
                 go.name = i + "," + j;
                 go.transform.parent = this.transform;
                 pointRow.Add(go.GetComponent<Ground>());
+
+                System.Random random = new System.Random(i+j+ DateTime.Now.Millisecond);
+                int r = random.Next(10);
+                if (r < 8)
+                {
+                    r = 0;
+                }
+                else
+                {
+                    r = 1;
+                    go.GetComponent<Ground>().ChangeMaterial0();
+                }
+                mapPoint intCol = new mapPoint(i,j,r);
                 intRow.Add(intCol);
             }
-            intMap.Add(intRow);
+            mapPoints.Add(intRow);
             groundList.Add(pointRow);
         }
     }

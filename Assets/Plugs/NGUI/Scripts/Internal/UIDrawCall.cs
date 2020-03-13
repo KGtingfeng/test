@@ -770,8 +770,10 @@ public class UIDrawCall : MonoBehaviour
 #endif
 		if (mInactiveList.size > 0)
 		{
-			UIDrawCall dc = mInactiveList.Pop();
-			mActiveList.Add(dc);
+			UIDrawCall dc = mInactiveList[mInactiveList.size-1];
+            mInactiveList.RemoveAt(mInactiveList.size - 1);
+
+            mActiveList.Add(dc);
 			if (name != null) dc.name = name;
 			NGUITools.SetActive(dc.gameObject, true);
 			return dc;

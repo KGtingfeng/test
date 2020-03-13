@@ -45,6 +45,10 @@ public class Character : MonoBehaviour {
     /// </summary>
     public int EXP;
 
+    public bool IsPlayer;
+
+    public int skillNum=0;
+
     List<Buff> buffList;
     List<SkillConf> skillList;
     public int x;
@@ -119,6 +123,10 @@ public class Character : MonoBehaviour {
                 road.Reverse();
                 StartCoroutine(GoToFinish(road));
             }
+            else
+            {
+                Debug.LogError("不可走");
+            }
 
         }
     }
@@ -129,7 +137,7 @@ public class Character : MonoBehaviour {
         foreach (mapPoint point in road)
         {
             SetPosition(point.x, point.y);
-            this.point = point;
+            this.point = new mapPoint(point);
             transform.LookAt(GameManage.Instance.groundList[point.x][point.y].transform);
             GameManage.Instance.IsWalk = true;
             
@@ -153,8 +161,8 @@ public class Character : MonoBehaviour {
     {
         if (GameManage.Instance.IsWalk)
         {
+            if(point!=null)
             transform.position = Vector3.MoveTowards(transform.position, GameManage.Instance.groundList[point.x][point.y].transform.position, Time.deltaTime * 0.18f);
-
         }
     }
 }

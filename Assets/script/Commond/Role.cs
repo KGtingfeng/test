@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Role : Character
 {
-    List<Point> walkables;
+    List<mapPoint> walkables;
     SkillArea skillArea;
     SkillConf skillConf;
 
@@ -27,7 +27,7 @@ public class Role : Character
         go.transform.localPosition = Vector3.zero;
 
         go.transform.LookAt(target);
-        
+        go.GetComponent<SkillColl>().skillNum = GameManage.Instance.skillNum++;
         GameManage.Instance.IsSkill = false;
     }
 

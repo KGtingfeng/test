@@ -11,6 +11,7 @@ public class Ground : MonoBehaviour {
     public MeshRenderer meshRenderer;
     public Material material0;
     public Material material1;
+    public Material material2;
 
 
     public void Init(int x,int y)
@@ -30,14 +31,18 @@ public class Ground : MonoBehaviour {
     }
 
     public void ChangeMaterial()
-    {
-        
+    {       
         meshRenderer.materials[0].CopyPropertiesFromMaterial(material1);
     }
 
     public void ReturnMaterial()
     {
         meshRenderer.materials[0].CopyPropertiesFromMaterial(material0);
+    }
+
+    public void ChangeMaterial0()
+    {
+        meshRenderer.materials[0].CopyPropertiesFromMaterial(material2);
     }
 
     /// <summary>

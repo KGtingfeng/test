@@ -53,7 +53,17 @@ public class CameraMove : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift)) dirVector3.x = 3;
             else dirVector3.x = 1;
         }
-        
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if (this.transform.localPosition.y < 12)
+                dirVector3.z = -2;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if (this.transform.localPosition.y > 4)
+                dirVector3.z = 2;
+        }
+
         transform.Translate(dirVector3 * paramater, Space.Self);
 
     }

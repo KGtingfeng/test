@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class SkillColl : MonoBehaviour
 {
+    public Character character;
+    public SkillConf skill;
+    public int skillNum;
     private void OnParticleCollision(GameObject other)
     {
-        if (other.tag == "NPC")
+        if (character.IsPlayer)
         {
-            Debug.LogError("1");
+            if (other.tag == "NPC"&&other.GetComponent<Character>().skillNum!=skillNum)
+            {
+                float damage = GameTools.CalculateDamage(character,skill);
+                GameTools.Damage(other.GetComponent<Character>(), (int)damage,skill.skillEffectType);
+                character.skillNum = skillNum;
+            }
+        }
+        else
+        {
+            if (other.tag == "NPC" && other.GetComponent<Character>().skillNum != skillNum)
+            {
+                float damage = GameTools.CalculateDamage(character, skill);
+                GameTools.Damage(other.GetComponent<Character>(), (int)damage, skill.skillEffectType);
+                character.skillNum = skillNum;
+            }
         }
     }
 }

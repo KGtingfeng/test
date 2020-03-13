@@ -6,23 +6,29 @@ public class AStar : MonoBehaviour {
 
     static  int finishx;
     static  int finishy;
+    static List<mapPoint> open = new List<mapPoint>();
+    static List<mapPoint> close = new List<mapPoint>();
     public static List<mapPoint> find(Ground start, Ground finish)
     {
-        List<mapPoint> open = new List<mapPoint>();
-        List<mapPoint> close = new List<mapPoint>();
+        Debug.LogError(finish.x + "    " + finish.y);
+        if (GameManage.Instance.mapPoints[finish.x][finish.y].vaule==1)
+        {            
+            return null;
+        }
+        open.Clear();
+        close.Clear();
         int startx = start.x;
         int starty = start.y;
         finishx = finish.x;
         finishy = finish.y;
         bool haveRoad = false;
 
-        List<List<mapPoint>> mapp = GetMapPoint();
+        List<List<mapPoint>> mapp = GameManage.Instance.mapPoints;
 
         mapp[startx][starty].f = 0;
         mapp[startx][starty].parent = null;
-        mapp[startx][starty].isFind = true;
         mapPoint now = new mapPoint(mapp[startx][starty]);
-
+        
         close.Add(now);
         while (true)
         {
@@ -48,9 +54,12 @@ public class AStar : MonoBehaviour {
                 if (now.y - 1 >= 0 && now.x - 1 >= 0)
                     addOpen(mapp[now.x - 1][now.y - 1],  now,open);
             }
+            if(open.Count==0)
+            {
+                return null;
+            }
             SortRobMessage(open);
             now =open[0];
-            mapp[now.x][now.y].isColse = true;
             close.Add(open[0]);
             open.Remove(open[0]);
             if(now.x==finishx&&now.y==finishy)
@@ -75,19 +84,21 @@ public class AStar : MonoBehaviour {
             }
             return road;
         }
-        return new List<mapPoint>();
+        return null;
     }
 
    static void addOpen(mapPoint point, mapPoint start,List<mapPoint> open)
     {
-        if (point.isColse)
+        if (point.vaule == 1)
+            return;
+        if (close.Find(a=>a.x==point.x&&a.y==point.y)!=null)
             return;
         int f, g, h;
         g = start.g + 1;
         h = GetH( point.x,point.y, finishx, finishy);
         f = g + h;
         //Debug.LogError("  point.x  " + point.x + "  point.y  " + point.y + "   start.x  " + start.x+ "   start.y    " + start.y + "   g   " + g + "  h    " + h + "   f   " + f);
-        if (point.isFind)
+        if (open.Find(a => a.x == point.x && a.y == point.y)!= null)
         {
             if (point.f > f)
             {
@@ -96,7 +107,6 @@ public class AStar : MonoBehaviour {
                 point.h = h;
                 point.parent = start;
             }
-
         }
         else
         {
@@ -105,7 +115,6 @@ public class AStar : MonoBehaviour {
             point.h = h;
             point.parent = start;
             open.Add(point);
-            point.isFind=true;
         }
 
     }
@@ -186,24 +195,6 @@ public class AStar : MonoBehaviour {
         }
     }
 
-    static List<List<mapPoint>> GetMapPoint()
-    {
-        List<List<mapPoint>> maps = new List<List<mapPoint>>();
-        for(int i = 0; i < GameManage.Instance.intMap.Count;i++)
-        {
-            List<mapPoint> points = new List<mapPoint>();
-            for(int j=0;j< GameManage.Instance.intMap[i].Count; j++)
-            {
-                mapPoint point = new mapPoint(i,j, GameManage.Instance.intMap[i][j]);
-                points.Add(point);
-            }
-            maps.Add(points);
-        }
-        return maps;
-
-    }
-
-
    
 }
 
@@ -212,8 +203,7 @@ public  class mapPoint
     public int x;
     public int y;
     public int vaule = 0;
-    public bool isFind = false;
-    public bool isColse = false;
+    
     public int f;
     public int g;
     public int h;

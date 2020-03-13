@@ -11,7 +11,6 @@ public enum SkillAreaType
     InnerCircle,    // 内圆
     Cube,           // 矩形 
     Sector60,        // 扇形
-    Sector120,        // 扇形
 }
 
 /// <summary>
@@ -44,7 +43,7 @@ public class SkillArea : MonoBehaviour
 
     float outerRadius = 2f;      
     float innerRadius = 1f;     
-    float cubeWidth = 1f;       
+    float cubeWidth = 0.5f;       
 
     string path = "SkillArea/Prefabs/Hero_skillarea/";  // 路径
     string circle = "quan_hero";    // 圆形
@@ -74,14 +73,12 @@ public class SkillArea : MonoBehaviour
         allElementPath.Add(SkillAreaType.InnerCircle, circle);
         allElementPath.Add(SkillAreaType.Cube, cube);
         allElementPath.Add(SkillAreaType.Sector60, sector60);
-        allElementPath.Add(SkillAreaType.Sector120, sector120);
 
         allElementTrans = new Dictionary<SkillAreaType, Transform>();
         allElementTrans.Add(SkillAreaType.OuterCircle, null);
         allElementTrans.Add(SkillAreaType.InnerCircle, null);
         allElementTrans.Add(SkillAreaType.Cube, null);
         allElementTrans.Add(SkillAreaType.Sector60, null);
-        allElementTrans.Add(SkillAreaType.Sector120, null);
 
         areaType = SkillAreaType.Cube;
         CreateSkillArea();
@@ -135,7 +132,6 @@ public class SkillArea : MonoBehaviour
                 elementTrans.localScale = new Vector3(cubeWidth, 1, outerRadius) * 0.2f;
                 break;
             case SkillAreaType.Sector60:
-            case SkillAreaType.Sector120:
                 elementTrans.localScale = new Vector3(outerRadius, 1, outerRadius) * 0.2f;
                 break;
             default:
