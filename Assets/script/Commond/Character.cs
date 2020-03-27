@@ -7,7 +7,7 @@ public class Character : MonoBehaviour {
     /// <summary>
     /// 速度 
     /// </summary>
-   public int speed;
+    public int speed;
     /// <summary>
     /// 体力 
     /// </summary>
@@ -25,11 +25,11 @@ public class Character : MonoBehaviour {
     /// </summary>
     public int blood;
     /// <summary>
-    /// 总血量 体力*100+装备
+    /// 总血量 
     /// </summary>
     public int totalBlood;
     /// <summary>
-    /// 行动力 速度/3+装备
+    /// 行动力 速度/3+装备+初始
     /// </summary>
     public int moves;
     /// <summary>
@@ -37,7 +37,11 @@ public class Character : MonoBehaviour {
     /// </summary>
     public int gas;
     /// <summary>
-    /// 气最高存储数 精力*2+装备
+    /// 每回合得气
+    /// </summary>
+    public int roundGas;
+    /// <summary>
+    /// 气最高存储数 精力+装备+初始
     /// </summary>
     public int totalGas;
     /// <summary>
@@ -49,18 +53,15 @@ public class Character : MonoBehaviour {
 
     public int skillNum=0;
 
-    List<Buff> buffList;
-    List<SkillConf> skillList;
+    public List<Buff> buffList;
+    public List<Skill> skills;
     public int x;
     public int y;
 
     public  Animation animation;
     mapPoint point;
 
-    public void StartRound()
-    {
-        CalculateBuff();
-    }
+   
 
     void CalculateBuff()
     {
@@ -69,22 +70,22 @@ public class Character : MonoBehaviour {
             switch (buff.skillEffectType)
             {
                 case SkillEffectType.blood:
-                    if (blood + (int)GameTools.CalculateDamage(this,buff) < 0)
+                    if (blood - buff.original < 0)
                         blood = 0;
                     else
-                        blood += (int)GameTools.CalculateDamage(this, buff);
+                        blood -= buff.original;
                     break;
                 case SkillEffectType.gas:
-                    if (gas + (int)GameTools.CalculateDamage(this, buff) < 0)
+                    if (gas - buff.original < 0)
                         gas = 0;
                     else
-                        gas += (int)GameTools.CalculateDamage(this, buff);
+                        gas -= buff.original;
                     break;
                 case SkillEffectType.moves:
-                    if (moves + (int)GameTools.CalculateDamage(this, buff) < 0)
+                    if (moves - buff.original < 0)
                         moves = 0;
                     else
-                        moves += (int)GameTools.CalculateDamage(this, buff);
+                        moves -= buff.original;
                     break;
             }
             if (buff.times <= 1)
@@ -167,3 +168,29 @@ public class Character : MonoBehaviour {
     }
 }
 
+public enum EquipmentEffectType
+{
+    speed,
+    strength,
+    energy,
+    blood,
+    moves,
+    roundGas,
+    totalGas,
+}
+
+public enum EquipmentType
+{
+    /// <summary>
+    /// 头盔
+    /// </summary>
+    helmet,
+    /// <summary>
+    /// 铠甲
+    /// </summary>
+    armor,
+    /// <summary>
+    /// 鞋子
+    /// </summary>
+    shoes,
+}

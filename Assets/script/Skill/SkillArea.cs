@@ -57,11 +57,11 @@ public class SkillArea : MonoBehaviour
     public GameObject role;
     bool isCreate;
 
-    public void skillArea(SkillConf skillConf,GameObject role)
+    public void skillArea(SkillLevelConf levelConf,SkillConf skillConf, GameObject role)
     {
         this.role = role;
         this.areaType = skillConf.skillAreaType;
-        this.outerRadius = skillConf.range;
+        this.outerRadius = levelConf.range;
         InitSkillAreaType();
     } 
 

@@ -6,7 +6,8 @@ public class Ground : MonoBehaviour {
 
     public int x;
     public int y;
-    
+
+    public bool isCanWlak;
     public  bool isNothing;
     public MeshRenderer meshRenderer;
     public Material material0;

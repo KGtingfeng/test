@@ -26,7 +26,66 @@ public class XMLData
         
     }
 
+    static List<SkillLevelConf> skillLevelConfs;
+    public static List<SkillLevelConf> SkillLevelConfs
+    {
+        get
+        {
+            if (skillLevelConfs == null)
+            {
+                skillLevelConfs = GetAll<SkillLevelConf>();
+            }
+            return skillLevelConfs;
+        }
 
+    }
+
+    static List<EquipmentConf> equipmentConfs;
+    public static List<EquipmentConf> EquipmentConfs
+    {
+        get
+        {
+            if (equipmentConfs == null)
+            {
+                equipmentConfs = GetAll<EquipmentConf>();
+            }
+            return equipmentConfs;
+        }
+
+    }
+
+
+    static List<CharacterConf> characterConfs;
+    public static List<CharacterConf> CharacterConfs
+    {
+        get
+        {
+            if (characterConfs == null)
+            {
+                characterConfs = GetAll<CharacterConf>();
+            }
+            return characterConfs;
+        }
+
+    }
+
+    static List<MapConf> mapConfs;
+    public static List<MapConf> MapConfs
+    {
+        get
+        {
+            if (mapConfs == null)
+            {
+                mapConfs = GetAll<MapConf>();
+            }
+            return mapConfs;
+        }
+
+    }
+
+
+
+    #region xml读取
     /// <summary>
     /// xml地址
     /// </summary>
@@ -67,5 +126,5 @@ public class XMLData
         return xMLConfig;
 
     }
-    
+    #endregion
 }

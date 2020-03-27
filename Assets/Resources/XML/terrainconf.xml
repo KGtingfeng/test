@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes"?>
+<RECORDS>
+	<RECORD>
+		<id>3001</id>
+		<canDestroy>1</canDestroy>
+		<canWlak>0</canWlak>
+		<terrainName>石头</terrainName>
+		<introduction>石头</introduction>
+	</RECORD>
+</RECORDS>
+
