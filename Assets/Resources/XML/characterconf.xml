@@ -41,8 +41,80 @@
 		<speed>5</speed>
 		<strength>5</strength>
 		<energy>5</energy>
-		<blood>500</blood>
+		<blood>300</blood>
 		<levelSpeed>1</levelSpeed>
+		<levelStrength>1</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>20</levelBlood>
+		<skill>1001</skill>
+	</RECORD>
+	<RECORD>
+		<id>2202</id>
+		<speed>5</speed>
+		<strength>5</strength>
+		<energy>6</energy>
+		<blood>300</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>2</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>20</levelBlood>
+		<skill>1001</skill>
+	</RECORD>
+	<RECORD>
+		<id>2203</id>
+		<speed>5</speed>
+		<strength>6</strength>
+		<energy>6</energy>
+		<blood>240</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>1</levelStrength>
+		<levelEnergy>2</levelEnergy>
+		<levelBlood>25</levelBlood>
+		<skill>1001</skill>
+	</RECORD>
+	<RECORD>
+		<id>2204</id>
+		<speed>5</speed>
+		<strength>5</strength>
+		<energy>5</energy>
+		<blood>320</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>1</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>25</levelBlood>
+		<skill>1001</skill>
+	</RECORD>
+	<RECORD>
+		<id>2205</id>
+		<speed>5</speed>
+		<strength>5</strength>
+		<energy>6</energy>
+		<blood>350</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>1</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>40</levelBlood>
+		<skill>1001</skill>
+	</RECORD>
+	<RECORD>
+		<id>2206</id>
+		<speed>6</speed>
+		<strength>5</strength>
+		<energy>5</energy>
+		<blood>270</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>2</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>20</levelBlood>
+		<skill>1001</skill>
+	</RECORD>
+	<RECORD>
+		<id>2207</id>
+		<speed>6</speed>
+		<strength>5</strength>
+		<energy>5</energy>
+		<blood>200</blood>
+		<levelSpeed>2</levelSpeed>
 		<levelStrength>1</levelStrength>
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>20</levelBlood>

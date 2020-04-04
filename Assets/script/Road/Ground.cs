@@ -7,13 +7,9 @@ public class Ground : MonoBehaviour {
     public int x;
     public int y;
 
-    public bool isCanWlak;
-    public  bool isNothing;
     public MeshRenderer meshRenderer;
     public Material material0;
     public Material material1;
-    public Material material2;
-
 
     public void Init(int x,int y)
     {
@@ -39,11 +35,6 @@ public class Ground : MonoBehaviour {
     public void ReturnMaterial()
     {
         meshRenderer.materials[0].CopyPropertiesFromMaterial(material0);
-    }
-
-    public void ChangeMaterial0()
-    {
-        meshRenderer.materials[0].CopyPropertiesFromMaterial(material2);
     }
 
     /// <summary>

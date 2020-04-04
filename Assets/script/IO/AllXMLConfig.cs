@@ -37,7 +37,7 @@ public class SkillLevelConf : XMLConfig
     /// <summary>
     /// 范围
     /// </summary>
-    public float range;
+    public int range;
     public string buffList;
     public override void Read(XmlNode item)
     {        
@@ -45,7 +45,7 @@ public class SkillLevelConf : XMLConfig
         level = GetInt(item, "level");
         original = GetInt(item, "original");
         multiple = GetFloat(item, "multiple");
-        range = GetFloat(item, "range");
+        range = GetInt(item, "range");
         buffList = GetString(item, "buffList");
     }
 }
@@ -140,6 +140,7 @@ public class TerrainConf : XMLConfig
 public class PropsConf : XMLConfig
 {
     public int id;
+    public PropType type;
     public string buff;
     public string introduction;
     public string propsName;
@@ -147,6 +148,7 @@ public class PropsConf : XMLConfig
     public override void Read(XmlNode item)
     {
         id = GetInt(item, "id");
+        type = (PropType)GetInt(item, "type");
         buff = GetString(item, "buff");
         introduction = GetString(item, "introduction");
         propsName = GetString(item, "propsName");
@@ -158,17 +160,12 @@ public class MapConf : XMLConfig
     public int id;
     public int mapType;
     public string map;
-    public int x;
-    public string y;
-    public int size;
+    
 
     public override void Read(XmlNode item)
     {
         id = GetInt(item, "id");
         mapType = GetInt(item, "mapType");
         map = GetString(item, "map");
-        x = GetInt(item, "x");
-        y = GetString(item, "y");
-        size = GetInt(item, "size");
     }
 }

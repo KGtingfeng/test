@@ -8,9 +8,8 @@ using System.Collections.Generic;
 public enum SkillAreaType
 {
     OuterCircle,    // 外圆
-    InnerCircle,    // 内圆
     Cube,           // 矩形 
-    Sector60,        // 扇形
+    Now,
 }
 
 /// <summary>
@@ -70,15 +69,11 @@ public class SkillArea : MonoBehaviour
     {
         allElementPath = new Dictionary<SkillAreaType, string>();
         allElementPath.Add(SkillAreaType.OuterCircle, circle);
-        allElementPath.Add(SkillAreaType.InnerCircle, circle);
         allElementPath.Add(SkillAreaType.Cube, cube);
-        allElementPath.Add(SkillAreaType.Sector60, sector60);
 
         allElementTrans = new Dictionary<SkillAreaType, Transform>();
         allElementTrans.Add(SkillAreaType.OuterCircle, null);
-        allElementTrans.Add(SkillAreaType.InnerCircle, null);
         allElementTrans.Add(SkillAreaType.Cube, null);
-        allElementTrans.Add(SkillAreaType.Sector60, null);
 
         areaType = SkillAreaType.Cube;
         CreateSkillArea();
@@ -125,14 +120,8 @@ public class SkillArea : MonoBehaviour
                 elementTrans.localScale = new Vector3(outerRadius * 2, 1, outerRadius * 2) * 0.2f;
                 elementTrans.gameObject.SetActive(true);
                 break;
-            case SkillAreaType.InnerCircle:
-                elementTrans.localScale = new Vector3(innerRadius * 2, 1, innerRadius * 2) * 0.2f;
-                break;
             case SkillAreaType.Cube:
                 elementTrans.localScale = new Vector3(cubeWidth, 1, outerRadius) * 0.2f;
-                break;
-            case SkillAreaType.Sector60:
-                elementTrans.localScale = new Vector3(outerRadius, 1, outerRadius) * 0.2f;
                 break;
             default:
                 break;

@@ -4,98 +4,100 @@ using UnityEngine;
 
 public class AStar : MonoBehaviour {
 
-    static  int finishx;
-    static  int finishy;
+    static int finishx;
+    static int finishy;
     static List<mapPoint> open = new List<mapPoint>();
     static List<mapPoint> close = new List<mapPoint>();
+    static List<List<mapPoint>> mapp = GameManage.Instance.mapPoints;
+
     public static List<mapPoint> find(Ground start, Ground finish)
     {
-        Debug.LogError(finish.x + "    " + finish.y);
-        if (GameManage.Instance.mapPoints[finish.x][finish.y].vaule==1)
-        {            
-            return null;
-        }
+        Debug.LogError(finish.x + "    " + finish.y);        
         open.Clear();
         close.Clear();
-        int startx = start.x;
-        int starty = start.y;
         finishx = finish.x;
         finishy = finish.y;
-        bool haveRoad = false;
-
-        List<List<mapPoint>> mapp = GameManage.Instance.mapPoints;
-
-        mapp[startx][starty].f = 0;
-        mapp[startx][starty].parent = null;
-        mapPoint now = new mapPoint(mapp[startx][starty]);
-        
+       
+        mapp[start.x][start.y].f = 0;
+        mapp[start.x][start.y].parent = null;
+        mapPoint now = mapp[start.x][start.y];
+        now.parent = null;
         close.Add(now);
         while (true)
         {
             if (now.y + 1 < GameManage.col)
-                addOpen(mapp[now.x][now.y + 1],  now,open);
+                if (addOpen(mapp[now.x][now.y + 1], now, open,now))
+                    break;
             if (now.y - 1 >= 0)
-                addOpen(mapp[now.x][now.y - 1],  now,open);
+                if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    break;
             if (now.x + 1 < GameManage.row)
-                addOpen(mapp[now.x + 1][now.y],  now,open);
+                if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    break;
             if (now.x - 1 >= 0)
-                addOpen(mapp[now.x - 1][now.y],  now,open);
+                if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    break;
             if (now.x % 2 != 0)
             {
                 if (now.y + 1 < GameManage.col && now.x + 1 < GameManage.row)
-                    addOpen(mapp[now.x + 1][now.y + 1],  now,open);
+                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                        break;
                 if (now.y + 1 < GameManage.col && now.x - 1 >= 0)
-                    addOpen(mapp[now.x - 1][now.y + 1],  now,open);
+                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                        break;
             }
             else
             {
                 if (now.y - 1 >= 0 && now.x + 1 < GameManage.row)
-                    addOpen(mapp[now.x + 1][now.y - 1],  now,open);
+                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                        break;
                 if (now.y - 1 >= 0 && now.x - 1 >= 0)
-                    addOpen(mapp[now.x - 1][now.y - 1],  now,open);
+                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                        break;
             }
             if(open.Count==0)
             {
-                return null;
+                break;
             }
             SortRobMessage(open);
             now =open[0];
+            //Debug.LogError( "  nowx  " +now.x + " nowy  " + now.y);
             close.Add(open[0]);
             open.Remove(open[0]);
-            if(now.x==finishx&&now.y==finishy)
-            {
-                haveRoad = true;
-                break;
-            }
-            if (open.Count == 0)
-                break;
+            
+        }
 
-        }
         List<mapPoint> road=new List<mapPoint>();
-       
-        if (haveRoad)
+        while (now.parent != null)
         {
-            while (now.parent != null)
-            {
-                GameManage.Instance.groundList[now.x][now.y].ChangeMaterial();
-               // Debug.LogError("       x       "+now.x+"       y      "+now.y);
-                road.Add(now);
-                now = now.parent;               
-            }
-            return road;
+            //GameManage.Instance.groundList[now.x][now.y].ChangeMaterial();
+            // Debug.LogError("       x       "+now.x+"       y      "+now.y);
+            road.Add(now);
+            now = now.parent;
         }
-        return null;
+        if (road.Count == 0)
+        {
+            return null;
+        }
+        return road;
+
     }
 
-   static void addOpen(mapPoint point, mapPoint start,List<mapPoint> open)
+    static bool addOpen(mapPoint point, mapPoint start,List<mapPoint> open, mapPoint now)
     {
+        if (point.x == finishx && point.y == finishy)
+        {
+            now = point;
+            point.parent = start;
+            return true;
+        }           
         if (point.vaule == 1)
-            return;
+            return false;
         if (close.Find(a=>a.x==point.x&&a.y==point.y)!=null)
-            return;
+            return false;
         int f, g, h;
         g = start.g + 1;
-        h = GetH( point.x,point.y, finishx, finishy);
+        h = GameTools.GetH( point.x,point.y, finishx, finishy);
         f = g + h;
         //Debug.LogError("  point.x  " + point.x + "  point.y  " + point.y + "   start.x  " + start.x+ "   start.y    " + start.y + "   g   " + g + "  h    " + h + "   f   " + f);
         if (open.Find(a => a.x == point.x && a.y == point.y)!= null)
@@ -104,7 +106,6 @@ public class AStar : MonoBehaviour {
             {
                 point.f = f;
                 point.g = g;
-                point.h = h;
                 point.parent = start;
             }
         }
@@ -112,70 +113,10 @@ public class AStar : MonoBehaviour {
         {
             point.f = f;
             point.g = g;
-            point.h = h;
             point.parent = start;
             open.Add(point);
         }
-
-    }
-
-    static int GetH(int posx,int posy, int endposx,int endposy)
-    {
-        int x =posx;
-        int y = posy;
-        int endx = endposx;
-        int endy = endposy;
-        int gapx = Mathf.Abs(endx - x);
-        if (gapx % 2 == 0)
-        {
-            if (endy >= y - gapx / 2 && endy <= y + gapx / 2)
-            {
-                return gapx;
-            }
-            else if (endy < y - gapx / 2)
-            {
-                return gapx + Mathf.Abs(endy - y + gapx / 2);
-            }
-            else if (endy > y + gapx / 2)
-            {
-                return gapx + Mathf.Abs(endy - y - gapx / 2);
-            }
-        }
-        else
-        {
-            if (Mathf.Abs(x) % 2 == 0)
-            {
-                if (endy >= y - gapx / 2 + 0.5 && endy <= y + gapx / 2 + 0.5)
-                {
-                    return gapx;
-                }
-                else if (endy < y - gapx / 2 + 0.5)
-                {
-                    return gapx + (int)Mathf.Abs(endy - y + gapx / 2 - 0.5f);
-                }
-                else if (endy > y + gapx / 2 + 0.5)
-                {
-                    return gapx + (int)Mathf.Abs(endy - y - gapx / 2 - 0.5f);
-                }
-            }
-            else
-            {
-                if (endy >= y - gapx / 2 - 0.5 && endy <= y + gapx / 2 - 0.5)
-                {
-                    return gapx;
-                }
-                else if (endy < y - gapx / 2 - 0.5)
-                {
-                    return gapx + (int)Mathf.Abs(endy - y + gapx / 2 + 0.5f);
-                }
-                else if (endy > y + gapx / 2 - 0.5)
-                {
-                    return gapx + (int)Mathf.Abs(endy - y - gapx / 2 + 0.5f);
-                }
-            }
-
-        }
-        return 0;
+        return false;
     }
 
     static void SortRobMessage(List<mapPoint> list)
@@ -195,31 +136,4 @@ public class AStar : MonoBehaviour {
         }
     }
 
-   
-}
-
-public  class mapPoint
-{
-    public int x;
-    public int y;
-    public int vaule = 0;
-    
-    public int f;
-    public int g;
-    public int h;
-    public mapPoint parent = null;
-
-    public mapPoint(mapPoint mapPoint)
-    {
-        this.x = mapPoint.x;
-        this.y = mapPoint.y;
-        this.vaule = mapPoint.vaule;
-
-    }
-    public mapPoint(int x, int y, int vaule)
-    {
-        this.x = x;
-        this.y = y;
-        this.vaule = vaule;
-    }
 }

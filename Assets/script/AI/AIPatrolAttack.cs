@@ -1,0 +1,93 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class AIPatrolAttack : AIBase
+{
+
+    public override void StartRound()
+    {
+        if (npc == null)
+        {
+            npc = GetComponent<NPC>();
+        }
+        Find();
+        if (IsAttack)
+            Attack();
+        else
+            Patrol();
+        
+    }
+
+    public override bool Find()
+    {
+        if (GameTools.GetDistance(npc.GetPosition()) >= 7)
+        {
+            IsAttack = false;
+            return false;
+        }
+        if (GameTools.GetDistance(npc.GetPosition()) <= 4)
+        {
+            IsAttack = true;
+            return true;
+        }
+        return false;
+    }
+
+    public override void Attack()
+    {
+        if (npc.Attack())
+            return;
+        npc.Goto(GameManage.Instance.role.GetPosition());
+        npc.Attack();
+    }
+
+    public override void Patrol()
+    {
+        if(npc.GetPosition()==patrolPoint)
+        {
+            patrolPoint = oldPoint;
+            oldPoint = npc.GetPosition();
+            GetPPoint();
+        }
+        npc.Goto(patrolPoint);
+    }
+
+    public override void GetPoint()
+    {
+        oldPoint = npc.GetPosition();
+        patrolPoint = oldPoint;
+        patrolPoint.x += Random.Range(-10, 10);
+        if (patrolPoint.x < 0)
+            patrolPoint.x = 0;
+        if (patrolPoint.x >= GameManage.row)
+            patrolPoint.x = GameManage.row - 1;
+        patrolPoint.y += Random.Range(-10, 10);
+        if (patrolPoint.y < 0)
+            patrolPoint.y = 0;
+        if (patrolPoint.y >= GameManage.row)
+            patrolPoint.y = GameManage.row - 1;
+        GetPPoint();
+    }
+
+    public void GetPPoint()
+    {
+        while (true)
+        {
+            if (GameManage.Instance.mapPoints[(int)patrolPoint.x][(int)patrolPoint.y].vaule == 1)
+            {
+                patrolPoint.x += Random.Range(-1, 1);
+                if (patrolPoint.x < 0)
+                    patrolPoint.x = 0;
+                if (patrolPoint.x >= GameManage.row)
+                    patrolPoint.x = GameManage.row - 1;
+                patrolPoint.y += Random.Range(-1, 1);
+                if (patrolPoint.y < 0)
+                    patrolPoint.y = 0;
+                if (patrolPoint.y >= GameManage.row)
+                    patrolPoint.y = GameManage.row - 1;
+                continue;
+            }
+            return;
+        }
+    }
+}

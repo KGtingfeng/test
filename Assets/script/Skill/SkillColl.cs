@@ -15,7 +15,7 @@ public class SkillColl : MonoBehaviour
             if (other.tag == "NPC"&&other.GetComponent<Character>().skillNum!=skillNum)
             {
                 float damage = GameTools.CalculateDamage(character, skillLevelConf,skill);
-                GameTools.Damage(other.GetComponent<Character>(), (int)damage,skill.skillEffectType);
+                GameTools.Damage(other.GetComponent<Character>(), (int)damage,skill.skillEffectType, skillLevelConf);
                 character.skillNum = skillNum;
             }
         }
@@ -24,7 +24,7 @@ public class SkillColl : MonoBehaviour
             if (other.tag == "NPC" && other.GetComponent<Character>().skillNum != skillNum)
             {
                 float damage = GameTools.CalculateDamage(character, skillLevelConf,skill);
-                GameTools.Damage(other.GetComponent<Character>(), (int)damage, skill.skillEffectType);
+                GameTools.Damage(other.GetComponent<Character>(), (int)damage, skill.skillEffectType, skillLevelConf);
                 character.skillNum = skillNum;
             }
         }

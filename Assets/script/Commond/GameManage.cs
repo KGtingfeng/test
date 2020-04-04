@@ -8,15 +8,16 @@ public class GameManage : MonoBehaviour
     public static GameManage Instance;
     static string ROLEPATH = "GameObject/Role/";
     static string TERRAINPATH = "GameObject/Terrain/";
+    public static int row = 50;
+    public static int col = 50;
+
+    List<CharacterConf> npcConf;
+    public UserData userData;
     public GameObject ground;
     public List<List<mapPoint>> mapPoints;
     public List<List<Ground>> groundList;
 
-    public  static int row = 50;
-    public  static int col = 50;
-
-    List<NPC> characterList; 
-    
+    public List<NPC> npcList;     
     public GameObject roleGameObject;
     public Role role;
 
@@ -24,7 +25,6 @@ public class GameManage : MonoBehaviour
     public bool IsSkill;
     public bool IsWalk;
     public bool IsChangeEEquipment;
-    List<mapPoint> walkables;
 
     public int skillNum=0;
 
@@ -80,7 +80,7 @@ public class GameManage : MonoBehaviour
         {
             if (!IsSkill)
             {
-                role.CreateSkillArea();
+                role.CreateSkillArea(1001,1);
                 IsSkill = true;
             }
             else
@@ -92,10 +92,13 @@ public class GameManage : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.KeypadEnter)&&IsMyRound)
         {
             IsMyRound = false;
-            foreach(var npc in characterList)
+            foreach(var npc in npcList)
             {
                 npc.StartRound();
             }
+            Vector2 pos = GameTools.GetPoint(role.GetPosition());            
+            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y);
+            mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
             IsMyRound = true;
         }
     }
@@ -103,15 +106,16 @@ public class GameManage : MonoBehaviour
     int[,] map;
     void CreateGround()
     {
+        List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2400);
+        List<CharacterConf> bossChar = XMLData.CharacterConfs.FindAll(a => a.id > 2500 && a.id <= 3000);
+        npcConf= XMLData.CharacterConfs.FindAll(a => a.id > 2400 && a.id <= 2500);
         CreateMap();
         mapPoints = new List<List<mapPoint>>();
         groundList = new List<List<Ground>>();
         for (int i = 0; i < row; i++)
         {
             List<mapPoint> intRow = new List<mapPoint>();
-            List<Ground> pointRow = new List<Ground>();
-            List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2500);
-            List<CharacterConf> bossChar = XMLData.CharacterConfs.FindAll(a => a.id > 2500 && a.id <= 3000);
+            List<Ground> pointRow = new List<Ground>();           
             for (int j = 0; j < col; j++)
             {
                 GameObject go = Instantiate(ground);
@@ -130,30 +134,17 @@ public class GameManage : MonoBehaviour
                         terrainGo.transform.localPosition = Vector3.zero;
                         break;
                     case 2:
-                        System.Random random = new System.Random(i + j + DateTime.Now.Millisecond);
-                        int npcr = random.Next(smallChar.Count - 1);
-                        GameObject npcGo = Instantiate(Resources.Load(ROLEPATH + smallChar[npcr].id.ToString())) as GameObject;
+                        GameTools.CreateNPC(smallChar, i, j);
                         intCol = new mapPoint(i, j, 1);
-                        npcGo.GetComponent<NPC>().Create(10, smallChar[npcr]);
-                        npcGo.GetComponent<NPC>().SetPosition(i, j);
-                        npcGo.transform.parent = go.transform;
-                        npcGo.transform.localPosition = Vector3.zero;
                         break;
                     case 3:
-                        System.Random bossrandom = new System.Random(i + j + DateTime.Now.Millisecond);
-                        int bossr = bossrandom.Next(bossChar.Count - 1);
-                        GameObject boosGo = Instantiate(Resources.Load(ROLEPATH + bossChar[bossr].id.ToString())) as GameObject;
+                        GameTools.CreateNPC(bossChar, i, j);
                         intCol = new mapPoint(i, j, 1);
-                        boosGo.GetComponent<NPC>().Create(10, smallChar[bossr]);
-                        boosGo.GetComponent<NPC>().SetPosition(i, j);
-                        boosGo.transform.parent = go.transform;
-                        boosGo.transform.localPosition = Vector3.zero;
                         break;
                     default:
                         intCol = new mapPoint(i, j, 0);
                         break;
                 }
-
                 intRow.Add(intCol);
             }
             mapPoints.Add(intRow);
@@ -178,13 +169,13 @@ public class GameManage : MonoBehaviour
         List<MapConf> smaMap = XMLData.MapConfs.FindAll(a => a.mapType == 2);
         for(int i=0; i < 8; i++)
         {
-            System.Random random = new System.Random(i  + DateTime.Now.Millisecond);
+            System.Random random = new System.Random(i  * DateTime.Now.Millisecond);
             int r = random.Next(midMap.Count - 1);
             bigMap.Add(midMap[r]);
         }
         for(int i = 0; i < 13; i++)
         {
-            System.Random random = new System.Random(i + DateTime.Now.Millisecond);
+            System.Random random = new System.Random(i * DateTime.Now.Millisecond);
             int r = random.Next(smaMap.Count - 1);
             bigMap.Add(smaMap[r]);
         }
@@ -201,22 +192,11 @@ public class GameManage : MonoBehaviour
             {
                 if (i == 0 && j == 0)
                     continue;
-                System.Random random = new System.Random(i + j + DateTime.Now.Millisecond);
+                System.Random random = new System.Random(i * j * DateTime.Now.Millisecond);
                 int r = random.Next(mstr.Count-1);
-                MapConf mapConf = mstr[0];
+                MapConf mapConf = mstr[r];
                 mstr.Remove(mapConf);
-                string[] ystring =mapConf.y.Split(',');
-                int y;
-                if(ystring.Length>1)
-                {
-                    System.Random srandom = new System.Random(ystring.Length + DateTime.Now.Millisecond);
-                    int sr = srandom.Next(ystring.Length - 1);
-                    y = int.Parse(ystring[sr]);
-                }
-                else
-                {
-                    y = int.Parse(mapConf.y);
-                }
+                
                 string[] mapstr = mapConf.map.Split(';');
                 List<string[]> m = new List<string[]>();
                 for(int strl = 0; strl < mapstr.Length; strl++)
@@ -224,11 +204,11 @@ public class GameManage : MonoBehaviour
                     string[] mastr = mapstr[strl].Split(',');
                     m.Add(mastr);
                 }
-                for(int a=0;a< mapConf.size; a++)
+                for(int a=0;a< 10; a++)
                 {
-                    for(int b=0;b< mapConf.size; b++)
+                    for(int b=0;b< 10; b++)
                     {
-                        map[i * 10 + mapConf.x + a, j * 10 + y + b] = int.Parse(m[a][b]);
+                        map[i * 10  + a, j * 10  + b] = int.Parse(m[a][b]);
                     }
                 }                
             }

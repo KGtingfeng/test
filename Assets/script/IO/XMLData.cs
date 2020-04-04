@@ -83,7 +83,19 @@ public class XMLData
 
     }
 
+    static List<PropsConf> propsConfs;
+    public static List<PropsConf> PropsConfs
+    {
+        get
+        {
+            if (propsConfs == null)
+            {
+                propsConfs = GetAll<PropsConf>();
+            }
+            return propsConfs;
+        }
 
+    }
 
     #region xml读取
     /// <summary>

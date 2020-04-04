@@ -7,5 +7,19 @@
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>测试</skillName>
 	</RECORD>
+	<RECORD>
+		<id>1002</id>
+		<skillAreaType>0</skillAreaType>
+		<skillEffectType>0</skillEffectType>
+		<skillAdditionType>0</skillAdditionType>
+		<skillName>回复</skillName>
+	</RECORD>
+	<RECORD>
+		<id>1101</id>
+		<skillAreaType>0</skillAreaType>
+		<skillEffectType>0</skillEffectType>
+		<skillAdditionType>0</skillAdditionType>
+		<skillName>火球</skillName>
+	</RECORD>
 </RECORDS>
 
