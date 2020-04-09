@@ -10,6 +10,9 @@ public class Ground : MonoBehaviour {
     public MeshRenderer meshRenderer;
     public Material material0;
     public Material material1;
+    public Material materSkillRange;
+    public Material materSkill;
+    public Character character;
 
     public void Init(int x,int y)
     {
@@ -35,6 +38,16 @@ public class Ground : MonoBehaviour {
     public void ReturnMaterial()
     {
         meshRenderer.materials[0].CopyPropertiesFromMaterial(material0);
+    }
+
+    public void ChangeSkillRange()
+    {
+        meshRenderer.materials[0].CopyPropertiesFromMaterial(materSkillRange);
+    }
+
+    public void ChangeSkill()
+    {
+        meshRenderer.materials[0].CopyPropertiesFromMaterial(materSkill);
     }
 
     /// <summary>

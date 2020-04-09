@@ -92,74 +92,97 @@ public class GameTools : MonoBehaviour
     {
         EquipmentConf oldEquip = XMLData.EquipmentConfs.Find(a => a.equipmentType == old.equipmentType&& a.equipmentEffectType == old.equipmentEffectType);
         EquipmentConf nowEquip= XMLData.EquipmentConfs.Find(a => a.equipmentType == now.equipmentType && a.equipmentEffectType == now.equipmentEffectType);
-        switch (old.equipmentType)
+        if (old != null)
         {
-            case EquipmentType.helmet:
-                GameManage.Instance.role.gas -= oldEquip.equipTypeAdd * old.level;
-                GameManage.Instance.role.gas += nowEquip.equipTypeAdd * now.level;
-                break;
-            case EquipmentType.armor:
-                GameManage.Instance.role.blood -= oldEquip.equipTypeAdd * old.level;
-                GameManage.Instance.role.blood += nowEquip.equipTypeAdd * now.level;
-                break;
-            case EquipmentType.shoes:
-                GameManage.Instance.role.moves -= oldEquip.equipTypeAdd * old.level;
-                GameManage.Instance.role.moves += nowEquip.equipTypeAdd * now.level;
-                break;
+            switch (old.equipmentType)
+            {
+                case EquipmentType.helmet:
+                    GameManage.Instance.role.strength -= oldEquip.equipTypeAdd * old.level;
+                    break;
+                case EquipmentType.armor:
+                    GameManage.Instance.role.blood -= oldEquip.equipTypeAdd * old.level;
+                    break;
+                case EquipmentType.shoes:
+                    GameManage.Instance.role.moves -= oldEquip.equipTypeAdd * old.level;
+                    break;
+            }
         }
-        switch (old.equipmentEffectType)
+        if (now != null)
         {
-            case EquipmentEffectType.blood:
-                GameManage.Instance.role.blood -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.roundGas:
-                GameManage.Instance.role.roundGas -= oldEquip.equipEffectTypeAdd * old.color;
-                GameManage.Instance.role.equRoundGas -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.totalGas:
-                GameManage.Instance.role.totalGas -= oldEquip.equipEffectTypeAdd * old.color;
-                GameManage.Instance.role.equTotalGas -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.energy:
-                GameManage.Instance.role.energy -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.speed:
-                GameManage.Instance.role.speed -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.strength:
-                GameManage.Instance.role.strength -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.moves:
-                GameManage.Instance.role.moves -= oldEquip.equipEffectTypeAdd * old.color;
-                GameManage.Instance.role.equMove -= oldEquip.equipEffectTypeAdd * old.color;
-                break;
+            switch (now.equipmentType)
+            {
+                case EquipmentType.helmet:
+                    GameManage.Instance.role.strength += nowEquip.equipTypeAdd * now.level;
+                    break;
+                case EquipmentType.armor:
+                    GameManage.Instance.role.blood += nowEquip.equipTypeAdd * now.level;
+                    break;
+                case EquipmentType.shoes:
+                    GameManage.Instance.role.moves += nowEquip.equipTypeAdd * now.level;
+                    break;
+            }
         }
-        switch (now.equipmentEffectType)
+        if (old != null)
         {
-            case EquipmentEffectType.blood:
-                GameManage.Instance.role.blood += nowEquip.equipEffectTypeAdd * now.color;
-                break;
-            case EquipmentEffectType.roundGas:
-                GameManage.Instance.role.roundGas += oldEquip.equipEffectTypeAdd * old.color;
-                GameManage.Instance.role.equRoundGas += oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.totalGas:
-                GameManage.Instance.role.totalGas += oldEquip.equipEffectTypeAdd * old.color;
-                GameManage.Instance.role.equTotalGas += oldEquip.equipEffectTypeAdd * old.color;
-                break;
-            case EquipmentEffectType.energy:
-                GameManage.Instance.role.energy += nowEquip.equipEffectTypeAdd * now.color;
-                break;
-            case EquipmentEffectType.speed:
-                GameManage.Instance.role.speed += nowEquip.equipEffectTypeAdd * now.color;
-                break;
-            case EquipmentEffectType.strength:
-                GameManage.Instance.role.strength += nowEquip.equipEffectTypeAdd * now.color;
-                break;
-            case EquipmentEffectType.moves:
-                GameManage.Instance.role.moves += nowEquip.equipEffectTypeAdd * now.color;
-                GameManage.Instance.role.equMove += nowEquip.equipEffectTypeAdd * now.color;
-                break;
+            switch (old.equipmentEffectType)
+            {
+                case EquipmentEffectType.no: break;
+                case EquipmentEffectType.blood:
+                    GameManage.Instance.role.blood -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.roundGas:
+                    GameManage.Instance.role.roundGas -= oldEquip.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.equRoundGas -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.totalGas:
+                    GameManage.Instance.role.totalGas -= oldEquip.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.equTotalGas -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.energy:
+                    GameManage.Instance.role.energy -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.speed:
+                    GameManage.Instance.role.speed -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.strength:
+                    GameManage.Instance.role.strength -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.moves:
+                    GameManage.Instance.role.moves -= oldEquip.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.equMove -= oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+            }
+        }
+        if (now != null)
+        {
+            switch (now.equipmentEffectType)
+            {
+                case EquipmentEffectType.no: break;
+                case EquipmentEffectType.blood:
+                    GameManage.Instance.role.blood += nowEquip.equipEffectTypeAdd * now.color;
+                    break;
+                case EquipmentEffectType.roundGas:
+                    GameManage.Instance.role.roundGas += oldEquip.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.equRoundGas += oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.totalGas:
+                    GameManage.Instance.role.totalGas += oldEquip.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.equTotalGas += oldEquip.equipEffectTypeAdd * old.color;
+                    break;
+                case EquipmentEffectType.energy:
+                    GameManage.Instance.role.energy += nowEquip.equipEffectTypeAdd * now.color;
+                    break;
+                case EquipmentEffectType.speed:
+                    GameManage.Instance.role.speed += nowEquip.equipEffectTypeAdd * now.color;
+                    break;
+                case EquipmentEffectType.strength:
+                    GameManage.Instance.role.strength += nowEquip.equipEffectTypeAdd * now.color;
+                    break;
+                case EquipmentEffectType.moves:
+                    GameManage.Instance.role.moves += nowEquip.equipEffectTypeAdd * now.color;
+                    GameManage.Instance.role.equMove += nowEquip.equipEffectTypeAdd * now.color;
+                    break;
+            }
         }
     }
 
@@ -188,7 +211,6 @@ public class GameTools : MonoBehaviour
                 GameManage.Instance.role.CalculateBuff(buff);
                 GameManage.Instance.role.buffList.Add(buff);
                 break;
-            case PropType.EQUIP: break;
             case PropType.SKILL: break;
         }
     }
@@ -300,16 +322,18 @@ public class GameTools : MonoBehaviour
     /// <summary>
     /// 创建npc
     /// </summary>
-    public static void CreateNPC(List<CharacterConf> charaConf,int x,int y)
+    public static void CreateNPC(List<CharacterConf> charaConf,int x,int y,Transform parent)
     {
         System.Random random = new System.Random(x+y*DateTime.Now.Millisecond);
         int r = random.Next(charaConf.Count - 1);
         GameObject go = Instantiate(Resources.Load(ROLEPATH + charaConf[r].id.ToString())) as GameObject;
         go.GetComponent<NPC>().Create(10, charaConf[r]);
-        go.GetComponent<NPC>().SetPosition(x, y);
-        go.transform.parent = GameManage.Instance.groundList[x][y].transform;
+        go.GetComponent<NPC>().x = x;
+        go.GetComponent<NPC>().y = y;
+        go.transform.parent = parent;
         go.transform.localPosition = Vector3.zero;
         GameManage.Instance.npcList.Add(go.GetComponent<NPC>());
+        parent.GetComponent<Ground>().character = go.GetComponent<NPC>();
     }
 
 }

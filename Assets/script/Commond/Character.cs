@@ -55,7 +55,7 @@ public class Character : MonoBehaviour {
 
     public int skillNum=0;
 
-    public List<Buff> buffList;
+    public List<Buff> buffList=new List<Buff>();
 
     public int x;
     public int y;
@@ -65,15 +65,22 @@ public class Character : MonoBehaviour {
 
     public virtual void StartRound()
     {
-        if ((gas + roundGas) > totalGas)
-        {
-            gas = totalGas;
-        }
+        gas += roundGas;        
         roundMove = moves;
         foreach (Buff buff in buffList)
         {
             CalculateBuff(buff);
         }
+        if (blood <= 0)
+            Dead();
+        else if (blood > totalBlood)
+            blood = totalBlood;
+        if (gas < 0)
+            gas = 0;
+        else if (gas > totalGas)
+            gas = totalGas;
+        if (roundMove < 0)
+            roundMove = 0;
     }
 
     public void CalculateBuff(Buff buff)
@@ -81,22 +88,13 @@ public class Character : MonoBehaviour {
         switch (buff.skillEffectType)
         {
             case SkillEffectType.blood:
-                if (blood - buff.original < 0)
-                    blood = 0;
-                else
                     blood -= buff.original;
                 break;
-            case SkillEffectType.gas:
-                if (gas - buff.original < 0)
-                    gas = 0;
-                else
+            case SkillEffectType.gas:                
                     gas -= buff.original;
                 break;
             case SkillEffectType.moves:
-                if (moves - buff.original < 0)
-                    moves = 0;
-                else
-                    moves -= buff.original;
+                roundMove -= buff.original;
                 break;
         }
         if (buff.times <= 1)
@@ -110,7 +108,9 @@ public class Character : MonoBehaviour {
         GameManage.Instance.mapPoints[x][y].vaule = 1;
         GameManage.Instance.mapPoints[this.x][this.y].vaule = 0;
         this.x = x;
-        this.y = y;       
+        this.y = y;
+        GameManage.Instance.groundList[x][y].character = null;
+        GameManage.Instance.groundList[this.x][this.y].character = this;
     }
 
     public Vector2 GetPosition()

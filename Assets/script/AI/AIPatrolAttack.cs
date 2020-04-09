@@ -10,12 +10,22 @@ public class AIPatrolAttack : AIBase
         {
             npc = GetComponent<NPC>();
         }
+        if (patrolPoint == null)
+            GetPoint();
         Find();
         if (IsAttack)
+        {
             Attack();
+            //Debug.LogError(transform.name + "   Attack");
+        }
+
         else
+        {
             Patrol();
-        
+            //Debug.LogError(transform.name + "   Patrol");
+        }
+
+
     }
 
     public override bool Find()

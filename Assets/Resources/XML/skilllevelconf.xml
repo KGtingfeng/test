@@ -5,160 +5,168 @@
 		<level>1</level>
 		<original>100</original>
 		<multiple>1</multiple>
-		<range>1</range>
 		<buffList/>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1001</id>
 		<level>2</level>
-		<original>100</original>
+		<original>150</original>
 		<multiple>1</multiple>
-		<range>1</range>
 		<buffList/>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1001</id>
 		<level>3</level>
-		<original>100</original>
+		<original>200</original>
 		<multiple>1</multiple>
-		<range>1</range>
 		<buffList/>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1001</id>
 		<level>4</level>
-		<original>100</original>
-		<multiple>1</multiple>
-		<range>1</range>
+		<original>260</original>
+		<multiple>2</multiple>
 		<buffList/>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1001</id>
 		<level>5</level>
-		<original>100</original>
-		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，流血，5，100；</buffList>
+		<original>350</original>
+		<multiple>3</multiple>
+		<buffList>1，燃烧，2，100；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
 		<level>1</level>
 		<original>-100</original>
 		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，治疗，5，-100；</buffList>
+		<buffList>1，治疗，2，-100；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
 		<level>2</level>
 		<original>-100</original>
 		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，治疗，5，-100；</buffList>
+		<buffList>1，治疗，2，-100；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
 		<level>3</level>
 		<original>-100</original>
 		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，治疗，5，-100；</buffList>
+		<buffList>1，治疗，3，-200；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
 		<level>4</level>
-		<original>-100</original>
+		<original>-200</original>
 		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，治疗，5，-100；</buffList>
+		<buffList>1，治疗，3，-300；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
 		<level>5</level>
-		<original>100</original>
+		<original>-300</original>
 		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，治疗，5，-100；</buffList>
+		<buffList>1，治疗，5，-300；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
 		<level>1</level>
 		<original>100</original>
-		<multiple>1</multiple>
-		<range>1</range>
-		<buffList>1，燃烧，3，50；</buffList>
+		<multiple>2</multiple>
+		<buffList>1，燃烧，1，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
 		<level>2</level>
 		<original>120</original>
-		<multiple>1</multiple>
-		<range>2</range>
-		<buffList>1，燃烧，3，50；</buffList>
+		<multiple>3</multiple>
+		<buffList>1，燃烧，1，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
 		<level>3</level>
 		<original>140</original>
-		<multiple>1</multiple>
-		<range>2</range>
+		<multiple>4</multiple>
 		<buffList>1，燃烧，3，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
 		<level>4</level>
 		<original>180</original>
-		<multiple>1</multiple>
-		<range>2</range>
-		<buffList>1，燃烧，5，50；</buffList>
+		<multiple>5</multiple>
+		<buffList>1，燃烧，3，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
 		<level>5</level>
 		<original>220</original>
-		<multiple>1</multiple>
-		<range>3</range>
-		<buffList>1，燃烧，5，50；</buffList>
+		<multiple>5</multiple>
+		<buffList>1，燃烧，3，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
 		<id>1101</id>
 		<level>1</level>
 		<original>100</original>
 		<multiple>1</multiple>
-		<range>2</range>
-		<buffList/>
+		<buffList>1，燃烧，1，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
-		<id>1101</id>
-		<level>2</level>
+		<id>1102</id>
+		<level>1</level>
 		<original>100</original>
-		<multiple>1</multiple>
-		<range>2</range>
-		<buffList/>
+		<multiple>5</multiple>
+		<buffList>0，断腿，1，1；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
-		<id>1101</id>
-		<level>3</level>
-		<original>100</original>
-		<multiple>1</multiple>
-		<range>2</range>
-		<buffList/>
+		<id>1103</id>
+		<level>1</level>
+		<original>120</original>
+		<multiple>4</multiple>
+		<buffList>2，眩晕，2，1；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
-		<id>1101</id>
-		<level>4</level>
-		<original>100</original>
+		<id>1104</id>
+		<level>1</level>
+		<original>140</original>
 		<multiple>1</multiple>
-		<range>2</range>
-		<buffList/>
+		<buffList>1，燃烧，2，50；</buffList>
+		<gas>2</gas>
 	</RECORD>
 	<RECORD>
-		<id>1101</id>
-		<level>5</level>
-		<original>100</original>
-		<multiple>1</multiple>
-		<range>2</range>
-		<buffList/>
+		<id>1105</id>
+		<level>1</level>
+		<original>200</original>
+		<multiple>2</multiple>
+		<buffList>1，燃烧，1，50；</buffList>
+		<gas>2</gas>
+	</RECORD>
+	<RECORD>
+		<id>1106</id>
+		<level>1</level>
+		<original>150</original>
+		<multiple>2</multiple>
+		<buffList>0，骨折，1，2；</buffList>
+		<gas>2</gas>
 	</RECORD>
 </RECORDS>
 

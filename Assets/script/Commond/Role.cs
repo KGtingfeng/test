@@ -10,26 +10,25 @@ public class Role : Character
 
 
     List<mapPoint> walkables;
-    public SkillArea skillArea;
+    //public SkillArea skillArea;
+    public SkillUse SkillUse;
     public SkillConf skillConf;
     public SkillLevelConf skillLevel;
 
     public int id;
 
-    static string SKILLPATH = "GameObject/Skill/";
-
     public void Create( CharacterConf character)
     {
         this.id = character.id;
         this.level = 1;
-        speed = character.speed + ((level - 1) * character.levelSpeed);
-        strength = character.strength + ((level - 1) * character.levelStrength);
-        energy = character.energy + ((level - 1) * character.levelEnergy);
-        blood = character.blood + ((level - 1) * character.levelBlood) + (strength * 20);
+        speed = character.speed  ;
+        strength = character.strength ;
+        energy = character.energy ;
+        blood = character.blood + (strength * 20);
         totalBlood = blood;
         moves =  (speed / 5);
         roundGas = energy / 5;
-        roundMove = 0;
+        roundMove = moves;
         gas = 0;
         totalGas = roundGas * 2;
         Skill skill = new Skill(character.skill,1);
@@ -60,56 +59,37 @@ public class Role : Character
         }
     }
 
-    public void CreateSkill(Vector3 target)
-    {
-        transform.LookAt(target);
-        DelectSkillArea();
-        GameObject go = Instantiate(Resources.Load(SKILLPATH + skillConf.id.ToString())) as GameObject;
-        go.transform.parent = transform;
-        go.transform.localPosition = Vector3.zero;
-
-        go.transform.LookAt(target);
-        go.GetComponent<SkillColl>().character = this;
-        go.GetComponent<SkillColl>().skillNum = GameManage.Instance.skillNum++;
-        go.GetComponent<SkillColl>().skill = skillConf;
-        go.GetComponent<SkillColl>().skillLevelConf = skillLevel;
-        GameManage.Instance.IsSkill = false;
-    }
-
-
     public void CreateSkillArea(int id, int level)
     {        
         skillConf = XMLData.SkillConfigs.Find(a=>a.id==id);
         skillLevel = XMLData.SkillLevelConfs.Find(a=>a.id==id&&a.level==level);
-        if (skillConf.skillAreaType == SkillAreaType.Now)
-        {
-            GameObject go = Instantiate(Resources.Load(SKILLPATH + skillConf.id.ToString())) as GameObject;
-            go.transform.parent = transform;
-            go.transform.localPosition = Vector3.zero;
-            float damage = GameTools.CalculateDamage(GetComponent<Character>(), skillLevel, skillConf);
-            GameTools.Damage(GetComponent<Character>(), (int)damage, skillConf.skillEffectType, skillLevel);
-        }
-        else
-        {
-            skillArea = gameObject.AddComponent<SkillArea>();           
-            skillArea.skillArea(skillLevel, skillConf, gameObject);
-        }
-        
+        SkillUse.GetSkillArea(skillConf, skillLevel);
+        //if (skillConf.skillAreaType == SkillAreaType.Self)
+        //{
+        //    GameObject go = Instantiate(Resources.Load(SKILLPATH + skillConf.id.ToString())) as GameObject;
+        //    go.transform.parent = transform;
+        //    go.transform.localPosition = Vector3.zero;
+        //    float damage = GameTools.CalculateDamage(GetComponent<Character>(), skillLevel, skillConf);
+        //    GameTools.Damage(GetComponent<Character>(), (int)damage, skillConf.skillEffectType, skillLevel);
+        //}
+        //else
+        //{
+        //    skillArea = gameObject.AddComponent<SkillArea>();           
+        //    skillArea.skillArea(skillLevel, skillConf, gameObject);
+        //    GameManage.Instance.IsSkill = true;
+        //}
+
     }
 
     public void DelectSkillArea()
     {
-        skillArea.Delect();
-        Destroy(gameObject.GetComponent<SkillArea>());
+        SkillUse.Cancel();
     }
 
-    public void RoundStart()
-    {
-
-    }
-
+    #region 行走
     public void Goto(RaycastHit hit)
     {
+        roundMove = 5;
         if (roundMove == 0)
             return;
         StartCoroutine(GetFinish(hit));
@@ -182,4 +162,6 @@ public class Role : Character
                 transform.position = Vector3.MoveTowards(transform.position, GameManage.Instance.groundList[point.x][point.y].transform.position, Time.deltaTime * 0.18f);
         }
     }
+
+    #endregion
 }

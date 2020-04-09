@@ -12,7 +12,8 @@ public class AStar : MonoBehaviour {
 
     public static List<mapPoint> find(Ground start, Ground finish)
     {
-        Debug.LogError(finish.x + "    " + finish.y);        
+        //Debug.LogError(finish.x + "    " + finish.y);
+       // Debug.LogError(start.x + "    " + start.y);
         open.Clear();
         close.Clear();
         finishx = finish.x;
@@ -26,34 +27,75 @@ public class AStar : MonoBehaviour {
         while (true)
         {
             if (now.y + 1 < GameManage.col)
-                if (addOpen(mapp[now.x][now.y + 1], now, open,now))
+                if (addOpen(mapp[now.x][now.y + 1], now, open))
+                {
+                    mapPoint p = now;
+                    now = mapp[now.x][now.y + 1];
+                    now.parent = p;
                     break;
+                }
+                    
             if (now.y - 1 >= 0)
-                if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                if (addOpen(mapp[now.x][now.y - 1], now, open))
+                {
+                    mapPoint p = now;
+                    now = mapp[now.x][now.y - 1];
+                    now.parent = p;
                     break;
+                }
             if (now.x + 1 < GameManage.row)
-                if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                if (addOpen(mapp[now.x+1][now.y], now, open))
+                {
+                    mapPoint p = now;
+                    now = mapp[now.x + 1][now.y];
+                    now.parent = p;
                     break;
+                }
             if (now.x - 1 >= 0)
-                if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                if (addOpen(mapp[now.x-1][now.y], now, open))
+                {
+                    mapPoint p = now;
+                    now = mapp[now.x - 1][now.y];
+                    now.parent = p;
                     break;
+                }
             if (now.x % 2 != 0)
             {
                 if (now.y + 1 < GameManage.col && now.x + 1 < GameManage.row)
-                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    if (addOpen(mapp[now.x+1][now.y + 1], now, open))
+                    {
+                        mapPoint p = now;
+                        now = mapp[now.x + 1][now.y + 1];
+                        now.parent = p;
                         break;
+                    }
                 if (now.y + 1 < GameManage.col && now.x - 1 >= 0)
-                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    if (addOpen(mapp[now.x-1][now.y + 1], now, open))
+                    {
+                        mapPoint p = now;
+                        now = mapp[now.x - 1][now.y + 1];
+                        now.parent = p;
                         break;
+                    }
             }
             else
             {
                 if (now.y - 1 >= 0 && now.x + 1 < GameManage.row)
-                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    if (addOpen(mapp[now.x+1][now.y - 1], now, open))
+                    {
+                        mapPoint p = now;
+                        now = mapp[now.x + 1][now.y - 1];
+                        now.parent = p;
                         break;
+                    }
                 if (now.y - 1 >= 0 && now.x - 1 >= 0)
-                    if (addOpen(mapp[now.x][now.y + 1], now, open, now))
+                    if (addOpen(mapp[now.x-1][now.y - 1], now, open))
+                    {
+                        mapPoint p = now;
+                        now = mapp[now.x - 1][now.y - 1];
+                        now.parent = p;
                         break;
+                    }
             }
             if(open.Count==0)
             {
@@ -68,6 +110,7 @@ public class AStar : MonoBehaviour {
         }
 
         List<mapPoint> road=new List<mapPoint>();
+        //Debug.LogError("       x       "+now.x+"       y      "+now.y);
         while (now.parent != null)
         {
             //GameManage.Instance.groundList[now.x][now.y].ChangeMaterial();
@@ -83,12 +126,10 @@ public class AStar : MonoBehaviour {
 
     }
 
-    static bool addOpen(mapPoint point, mapPoint start,List<mapPoint> open, mapPoint now)
+    static bool addOpen(mapPoint point, mapPoint start,List<mapPoint> open)
     {
         if (point.x == finishx && point.y == finishy)
-        {
-            now = point;
-            point.parent = start;
+        {                   
             return true;
         }           
         if (point.vaule == 1)

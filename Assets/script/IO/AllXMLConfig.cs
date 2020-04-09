@@ -9,7 +9,10 @@ public class SkillConf:XMLConfig
     public SkillAdditionType skillAdditionType;
     public int id;
     public string skillName;
-    
+    /// <summary>
+    /// 范围
+    /// </summary>
+    public int range;
     public override void Read(XmlNode item)
     {
         skillAreaType = (SkillAreaType)GetInt(item, "skillAreaType");
@@ -17,14 +20,14 @@ public class SkillConf:XMLConfig
         skillAdditionType = (SkillAdditionType)GetInt(item, "skillAdditionType");
         id = GetInt(item, "id");
         skillName = GetString(item, "skillName");
-        
+        range = GetInt(item, "range");
     }
 }
 
 public class SkillLevelConf : XMLConfig
 {
     public int id;
-
+    public int gas;
     public int level;
     /// <summary>
     /// 原始伤害
@@ -34,19 +37,16 @@ public class SkillLevelConf : XMLConfig
     /// 加成系数
     /// </summary>
     public float multiple;
-    /// <summary>
-    /// 范围
-    /// </summary>
-    public int range;
+
     public string buffList;
     public override void Read(XmlNode item)
     {        
         id = GetInt(item, "id");
         level = GetInt(item, "level");
         original = GetInt(item, "original");
-        multiple = GetFloat(item, "multiple");
-        range = GetInt(item, "range");
+        multiple = GetFloat(item, "multiple");     
         buffList = GetString(item, "buffList");
+        gas = GetInt(item, "gas");
     }
 }
 
@@ -167,5 +167,33 @@ public class MapConf : XMLConfig
         id = GetInt(item, "id");
         mapType = GetInt(item, "mapType");
         map = GetString(item, "map");
+    }
+}
+
+public class TalentConf : XMLConfig
+{
+    public int id;
+    public string buff;
+    public string introduction;
+    public string talentName;
+
+    public override void Read(XmlNode item)
+    {
+        id = GetInt(item, "id");
+        buff = GetString(item, "buff");
+        introduction = GetString(item, "introduction");
+        talentName = GetString(item, "propsName");
+    }
+}
+
+public class GameData:XMLConfig
+{
+    public int score;
+    public string talent;
+
+    public override void Read(XmlNode item)
+    {
+        score = GetInt(item, "score");
+        talent = GetString(item, "talent");
     }
 }

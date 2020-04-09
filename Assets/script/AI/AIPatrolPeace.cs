@@ -9,6 +9,8 @@ public class AIPatrolPeace : AIBase
         {
             npc = GetComponent<NPC>();
         }
+        if (patrolPoint == null)
+            GetPoint();
         Find();
         if (IsAttack)
             Attack();

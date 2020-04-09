@@ -12,10 +12,10 @@ public class GameManage : MonoBehaviour
     public static int col = 50;
 
     List<CharacterConf> npcConf;
-    public UserData userData;
+    public UserData userData=new UserData();
     public GameObject ground;
-    public List<List<mapPoint>> mapPoints;
-    public List<List<Ground>> groundList;
+    public List<List<mapPoint>> mapPoints=new List<List<mapPoint>>();
+    public List<List<Ground>> groundList=new List<List<Ground>>();
 
     public List<NPC> npcList;     
     public GameObject roleGameObject;
@@ -30,6 +30,7 @@ public class GameManage : MonoBehaviour
 
     private void Start()
     {
+        List<GameData> talentConfs= XMLData.GameDatas;
         Instance = this;
         CreateGround();
         CreateRole();
@@ -43,22 +44,9 @@ public class GameManage : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound)
         {
-
-            if (IsSkill)
-            {
-
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hitInfo;
-
-                if (Physics.Raycast(ray, out hitInfo, 200, whatIsGround))
-                {
-                    Vector3 target = hitInfo.point;
-                    target.y = transform.position.y;
-                    role.CreateSkill(target);
-                }
-            }
+            
         }
-        if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk && IsMyRound)
+        if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk )
         {
             if (IsSkill)
             {
@@ -70,13 +58,13 @@ public class GameManage : MonoBehaviour
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.transform.tag == "ground")
-                    {              
+                    {
                         role.Goto(hit);
                     }                      
                 }
             }          
         }
-        if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk && IsMyRound)
+        if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk )
         {
             if (!IsSkill)
             {
@@ -89,7 +77,7 @@ public class GameManage : MonoBehaviour
                 IsSkill = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.KeypadEnter)&&IsMyRound)
+        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound)
         {
             IsMyRound = false;
             foreach(var npc in npcList)
@@ -97,7 +85,7 @@ public class GameManage : MonoBehaviour
                 npc.StartRound();
             }
             Vector2 pos = GameTools.GetPoint(role.GetPosition());            
-            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y);
+            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y,groundList[(int)pos.x][(int)pos.y].transform);
             mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
             IsMyRound = true;
         }
@@ -106,12 +94,10 @@ public class GameManage : MonoBehaviour
     int[,] map;
     void CreateGround()
     {
-        List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2400);
+        List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2500);
         List<CharacterConf> bossChar = XMLData.CharacterConfs.FindAll(a => a.id > 2500 && a.id <= 3000);
         npcConf= XMLData.CharacterConfs.FindAll(a => a.id > 2400 && a.id <= 2500);
         CreateMap();
-        mapPoints = new List<List<mapPoint>>();
-        groundList = new List<List<Ground>>();
         for (int i = 0; i < row; i++)
         {
             List<mapPoint> intRow = new List<mapPoint>();
@@ -134,11 +120,11 @@ public class GameManage : MonoBehaviour
                         terrainGo.transform.localPosition = Vector3.zero;
                         break;
                     case 2:
-                        GameTools.CreateNPC(smallChar, i, j);
+                        GameTools.CreateNPC(smallChar, i, j, go.transform);
                         intCol = new mapPoint(i, j, 1);
                         break;
                     case 3:
-                        GameTools.CreateNPC(bossChar, i, j);
+                        GameTools.CreateNPC(bossChar, i, j, go.transform);
                         intCol = new mapPoint(i, j, 1);
                         break;
                     default:
@@ -158,8 +144,11 @@ public class GameManage : MonoBehaviour
         roleGameObject = Instantiate(roleGameObject);
         roleGameObject.transform.localPosition = groundList[0][0].transform.position;
         role = roleGameObject.GetComponent<Role>();
+        role.Create(XMLData.CharacterConfs.Find(a=>a.id==2001));
         role.SetPosition(0, 0);
         roleGameObject.SetActive(true);
+        mapPoints[0][0].vaule = 1;
+        groundList[0][0].character = role;
     }
 
     private List<MapConf> GetMap()

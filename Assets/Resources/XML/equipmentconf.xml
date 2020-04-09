@@ -3,7 +3,7 @@
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>1</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
+		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
@@ -28,7 +28,7 @@
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>4</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
-		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<equipEffectTypeAdd>10</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
@@ -39,31 +39,31 @@
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>2</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
+		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>3</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
+		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>4</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
-		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<equipTypeAdd>10</equipTypeAdd>
+		<equipEffectTypeAdd>10</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>5</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
+		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
-		<equipmentEffectType>0</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
+		<equipmentEffectType>6</equipmentEffectType>
+		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
@@ -88,23 +88,41 @@
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>4</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
-		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<equipEffectTypeAdd>10</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
-		<equipmentEffectType>0</equipmentEffectType>
+		<equipmentEffectType>6</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
-		<equipmentEffectType>0</equipmentEffectType>
+		<equipmentEffectType>6</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>5</equipmentEffectType>
+		<equipTypeAdd>1</equipTypeAdd>
+		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+	</RECORD>
+	<RECORD>
+		<equipmentType>0</equipmentType>
+		<equipmentEffectType>7</equipmentEffectType>
+		<equipTypeAdd>1</equipTypeAdd>
+		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+	</RECORD>
+	<RECORD>
+		<equipmentType>1</equipmentType>
+		<equipmentEffectType>7</equipmentEffectType>
+		<equipTypeAdd>10</equipTypeAdd>
+		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+	</RECORD>
+	<RECORD>
+		<equipmentType>2</equipmentType>
+		<equipmentEffectType>7</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
 	</RECORD>

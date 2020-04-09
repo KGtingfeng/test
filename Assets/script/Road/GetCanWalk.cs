@@ -19,7 +19,6 @@ public class GetCanWalk : MonoBehaviour
         open.Clear();
         close.Clear();
         List<List<mapPoint>> mapp = GameManage.Instance.mapPoints;
-
         mapPoint startPoint = new mapPoint(start.x,start.y,1);
         open.Add(startPoint);
 
@@ -60,7 +59,7 @@ public class GetCanWalk : MonoBehaviour
 
    static  void addOpen(mapPoint p, List<mapPoint> pointList)
     {
-        if (open.Find(a => a.x == p.x && a.y == p.y) == null && p.vaule == 0)
+        if (open.Find(a => a.x == p.x && a.y == p.y) == null && p.vaule != 0)
         {
             pointList.Add(p);
         }

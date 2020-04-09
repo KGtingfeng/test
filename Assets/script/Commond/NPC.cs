@@ -24,7 +24,6 @@ public class NPC : Character
         totalGas = roundGas * 2;
         skillConf = XMLData.SkillConfigs.Find(a => a.id == character.skill);
         skillLevel= XMLData.SkillLevelConfs.Find(a => a.id == character.skill);
-        AI.GetPoint();
     }
 
     public override void StartRound()
@@ -33,31 +32,40 @@ public class NPC : Character
         AI.StartRound();
     }
 
-    public bool Attack()
-    {
-        if (GameTools.GetDistance(GetPosition()) > skillLevel.range)
-            return false;
-        transform.LookAt(GameManage.Instance.role.GetPosition());
-        GameObject go = Instantiate(Resources.Load(SKILLPATH + skillConf.id.ToString())) as GameObject;
-        go.transform.parent = transform;
-        go.transform.localPosition = Vector3.zero;
-        go.transform.LookAt(GameManage.Instance.role.GetPosition());
-        go.GetComponent<SkillColl>().character = this;
-        go.GetComponent<SkillColl>().skillNum = GameManage.Instance.skillNum++;
-        go.GetComponent<SkillColl>().skill = skillConf;
-        go.GetComponent<SkillColl>().skillLevelConf = skillLevel;
-        return true;
-    }
-
     public override void SetPosition(int x, int y)
     {
         base.SetPosition(x, y);
         transform.parent = GameManage.Instance.groundList[x][y].transform;
     }
 
+    #region 放技能
+    public bool Attack()
+    {
+        if (GameTools.GetDistance(GetPosition()) > skillConf.range)
+            return false;
+        if (gas < skillLevel.gas)
+            return false;
+        CreateSkill();
+        int damage = (int)GameTools.CalculateDamage(GameManage.Instance.role, skillLevel, skillConf);
+        GameTools.Damage(GameManage.Instance.role, damage, skillConf.skillEffectType, skillLevel);       
+        gas -= skillLevel.gas;
+        return true;
+    }
+
+    void CreateSkill()
+    {
+        GameObject go = Instantiate(Resources.Load(SKILLPATH + skillConf.id.ToString())) as GameObject;
+        transform.LookAt(GameManage.Instance.groundList[GameManage.Instance.role.x][GameManage.Instance.role.y].transform);
+        go.transform.parent = GameManage.Instance.groundList[GameManage.Instance.role.x][GameManage.Instance.role.y].transform;
+        go.transform.localPosition = new Vector3(0, 0.2f, 0);
+
+    }
+    #endregion
+
     #region 行走
     public void Goto(Vector2 hit)
     {
+        //Debug.LogError(transform.name+"   roundMove  " + roundMove);
         if (roundMove == 0)
             return;
         Vector2 pos = GetPosition();
@@ -87,6 +95,7 @@ public class NPC : Character
                 if (!AI.IsAttack)
                     if (AI.Find())
                         AI.Attack();
+                roundMove--;
             }            
         }
     }
