@@ -30,53 +30,55 @@ public class GameTools : MonoBehaviour
     
     public static void Damage(Character character,int damage,SkillEffectType skillEffect,SkillLevelConf skillLevel)
     {
+        Debug.LogError("Damage   " + damage+"name  "+character.name);
         switch (skillEffect)
         {
             case SkillEffectType.blood:
-                if (character.blood - damage < 0)
-                    character.blood = 0;
+                if (character.blood - damage <= 0)
+                    character.Dead();
+                else if (character.blood - damage > character.totalBlood)
+                    character.blood = character.totalBlood;
                 else
                     character.blood -= damage;
                 break;
             case SkillEffectType.gas:
                 if (character.gas - damage < 0)
                     character.gas = 0;
+                else if (character.gas - damage > character.totalGas)
+                    character.gas = character.totalGas;
                 else
                     character.gas -= damage;
-                break;
-            case SkillEffectType.moves:
-                if (character.moves - damage < 0)
-                    character.moves = 0;
-                else
-                    character.moves -= damage;
                 break;
         }
         if (skillLevel.buffList != null)
         {
             List<Buff> buffs = GetBuff(skillLevel.buffList);
-            character.buffList.AddRange(buffs);
+            if(buffs!=null)
+                character.buffList.AddRange(buffs);
         }
     }
 
     public static List<Buff> GetBuff(string buffList)
     {
-        string[] bList = buffList.Split(';');
-        if (bList.Length == 0)
+        string[] bList = buffList.Split('；');
+        if (bList.Length == 1)
         {
             return null;
 
         }
         List<Buff> buffs=new List<Buff>();
-        foreach(string b in bList)
+        for(int i=0;i< bList.Length-1;i++)
         {
-            string[] list = b.Split(',');
+            Debug.LogError(bList[i]);
+            string[] list = bList[i].Split('，');
             Buff buff = new Buff();
-            if(list.Length<7)
+            if(list.Length>4)
             {
                 Debug.LogError("Buff格式错误");
                 return null;
             }
-            buff.skillEffectType= (SkillEffectType)int.Parse(list[0]);
+            Debug.LogError(list[0]);
+            buff.skillEffectType = (SkillEffectType)int.Parse(list[0]);
             buff.buffName = list[1];
             buff.times = int.Parse(list[2]);
             buff.original = int.Parse(list[3]);
@@ -322,12 +324,12 @@ public class GameTools : MonoBehaviour
     /// <summary>
     /// 创建npc
     /// </summary>
-    public static void CreateNPC(List<CharacterConf> charaConf,int x,int y,Transform parent)
+    public static void CreateNPC(List<CharacterConf> charaConf,int x,int y,Transform parent,int level)
     {
         System.Random random = new System.Random(x+y*DateTime.Now.Millisecond);
         int r = random.Next(charaConf.Count - 1);
         GameObject go = Instantiate(Resources.Load(ROLEPATH + charaConf[r].id.ToString())) as GameObject;
-        go.GetComponent<NPC>().Create(10, charaConf[r]);
+        go.GetComponent<NPC>().Create(level, charaConf[r]);
         go.GetComponent<NPC>().x = x;
         go.GetComponent<NPC>().y = y;
         go.transform.parent = parent;

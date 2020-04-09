@@ -50,10 +50,7 @@ public class Character : MonoBehaviour {
     /// 经验
     /// </summary>
     public int EXP;
-
-    public bool IsPlayer;
-
-    public int skillNum=0;
+    public int id;
 
     public List<Buff> buffList=new List<Buff>();
 
@@ -85,6 +82,7 @@ public class Character : MonoBehaviour {
 
     public void CalculateBuff(Buff buff)
     {
+        Debug.LogError("buff   " + buff.original);
         switch (buff.skillEffectType)
         {
             case SkillEffectType.blood:

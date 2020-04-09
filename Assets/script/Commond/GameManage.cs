@@ -26,7 +26,8 @@ public class GameManage : MonoBehaviour
     public bool IsWalk;
     public bool IsChangeEEquipment;
 
-    public int skillNum=0;
+    public int round = 1;
+    public int score = 0;
 
     private void Start()
     {
@@ -69,12 +70,55 @@ public class GameManage : MonoBehaviour
             if (!IsSkill)
             {
                 role.CreateSkillArea(1001,1);
-                IsSkill = true;
             }
             else
             {
                 role.DelectSkillArea();
-                IsSkill = false;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha2) && IsMyRound && !IsWalk)
+        {
+            if (!IsSkill)
+            {
+                role.CreateSkillArea(1002, 1);
+            }
+            else
+            {
+                role.DelectSkillArea();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha3) && IsMyRound && !IsWalk)
+        {
+            if (!IsSkill)
+            {
+                role.CreateSkillArea(1003, 1);
+            }
+            else
+            {
+                role.DelectSkillArea();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha4) && IsMyRound && !IsWalk)
+        {
+            if (!IsSkill)
+            {
+                role.CreateSkillArea(1004, 1);
+            }
+            else
+            {
+                role.DelectSkillArea();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha5) && IsMyRound && !IsWalk)
+        {
+            Debug.LogError("skill5");
+            if (!IsSkill)
+            {
+                role.CreateSkillArea(1005, 1);
+            }
+            else
+            {
+                role.DelectSkillArea();
             }
         }
         if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound)
@@ -85,8 +129,10 @@ public class GameManage : MonoBehaviour
                 npc.StartRound();
             }
             Vector2 pos = GameTools.GetPoint(role.GetPosition());            
-            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y,groundList[(int)pos.x][(int)pos.y].transform);
+            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y,groundList[(int)pos.x][(int)pos.y].transform,role.level);
             mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
+            round ++;
+            role.StartRound();
             IsMyRound = true;
         }
     }
@@ -120,11 +166,11 @@ public class GameManage : MonoBehaviour
                         terrainGo.transform.localPosition = Vector3.zero;
                         break;
                     case 2:
-                        GameTools.CreateNPC(smallChar, i, j, go.transform);
+                        GameTools.CreateNPC(smallChar, i, j, go.transform,10);
                         intCol = new mapPoint(i, j, 1);
                         break;
                     case 3:
-                        GameTools.CreateNPC(bossChar, i, j, go.transform);
+                        GameTools.CreateNPC(bossChar, i, j, go.transform,20);
                         intCol = new mapPoint(i, j, 1);
                         break;
                     default:

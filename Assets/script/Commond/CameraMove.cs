@@ -27,8 +27,11 @@ public class CameraMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            if (Input.GetKey(KeyCode.LeftShift)) dirVector3.y = 3;
-            else dirVector3.y = 1;
+            if (this.transform.localPosition.z <= 7.8)
+            {
+                if (Input.GetKey(KeyCode.LeftShift)) dirVector3.y = 3;
+                else dirVector3.y = 1;
+            }
         }
         if (Input.GetKey(KeyCode.S))
         {
@@ -50,8 +53,11 @@ public class CameraMove : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
-            if (Input.GetKey(KeyCode.LeftShift)) dirVector3.x = 3;
-            else dirVector3.x = 1;
+            if (this.transform.localPosition.x <= 8.5)
+            {
+                if (Input.GetKey(KeyCode.LeftShift)) dirVector3.x = 3;
+                else dirVector3.x = 1;
+            }
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {

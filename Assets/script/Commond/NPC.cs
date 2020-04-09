@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class NPC : Character
 {
     public AIBase AI;
-    public int id;
     public SkillConf skillConf;
     public SkillLevelConf skillLevel;
 
@@ -104,6 +103,15 @@ public class NPC : Character
 
     public override void Dead()
     {
-        base.Dead();
+        GameObject go = Instantiate(Resources.Load(SKILLPATH + "dead")) as GameObject;
+        go.transform.parent = transform;
+        go.transform.localPosition = new Vector3(0, 0.2f, 0);
+
+        GameManage.Instance.role.GetExp(level*100);
+        GameManage.Instance.npcList.Remove(GameManage.Instance.npcList.Find(a => a.x == x && a.y == y));
+        GameManage.Instance.groundList[x][y].character = null;
+        GameManage.Instance.mapPoints[x][y].vaule = 0;
+        GameManage.Instance.score += level;
+        Destroy(gameObject);
     }
 }

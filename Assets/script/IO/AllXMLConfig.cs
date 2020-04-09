@@ -197,3 +197,17 @@ public class GameData:XMLConfig
         talent = GetString(item, "talent");
     }
 }
+
+public class EXPConf : XMLConfig
+{
+    public int level;
+    public int minExp;
+    public int maxExp;
+
+    public override void Read(XmlNode item)
+    {
+        level = GetInt(item, "level");
+        minExp = GetInt(item, "minExp");
+        maxExp = GetInt(item, "maxExp");
+    }
+}

@@ -123,6 +123,19 @@ public class XMLData
         }
     }
 
+    static List<EXPConf> eXPConfs;
+    public static List<EXPConf> EXPConfs
+    {
+        get
+        {
+            if (eXPConfs == null)
+            {
+                eXPConfs = GetAll<EXPConf>();
+            }
+            return eXPConfs;
+        }
+    }
+
     #region xml读取
     /// <summary>
     /// xml地址
@@ -207,7 +220,8 @@ public class XMLData
         xml.LoadXml(textAsset.text);
         XmlNode node = xml.SelectSingleNode("RECORDS");
         XmlNodeList list = node.ChildNodes;
-
+        GameDatas[0].score = score;
+        GameDatas[0].talent = talent;
         foreach (XmlNode item in list)
         {
             item.SelectSingleNode("score").InnerText = score + "";

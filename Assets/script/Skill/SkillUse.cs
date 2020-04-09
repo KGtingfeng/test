@@ -92,8 +92,6 @@ public class SkillUse: MonoBehaviour
                 open.Remove(open[0]);
             }
             
-            Debug.LogError("open  " + open.Count);
-            Debug.LogError("close  " + close.Count);
         }
         open.AddRange(close);
         open.Remove(my);
@@ -119,7 +117,10 @@ public class SkillUse: MonoBehaviour
     {
         CreateSkill();
         int damage = (int)GameTools.CalculateDamage(GameManage.Instance.role,skillLevel,skill);
-        foreach(SkillPoint point in damageList)
+        if (skill.skillAreaType == SkillAreaType.Circle || skill.skillAreaType == SkillAreaType.OuterCircle)
+            if(damageList.Find(a => a.x == GameManage.Instance.role.x && a.y == GameManage.Instance.role.y)!=null)
+            damageList.Remove(damageList.Find(a => a.x == GameManage.Instance.role.x && a.y == GameManage.Instance.role.y));
+        foreach (SkillPoint point in damageList)
         {
             if(GameManage.Instance.groundList[point.x][point.y].character!=null)
             GameTools.Damage(GameManage.Instance.groundList[point.x][point.y].character,damage,skill.skillEffectType,skillLevel);
@@ -171,6 +172,8 @@ public class SkillUse: MonoBehaviour
                                 GetOuterCircleSkill(rangeList.Find(a => a.x == g.x && a.y == g.y));
                                 break;
                             case SkillAreaType.Point:
+                                CloseSkill();
+                                damageList.Clear();
                                 damageList.Add(rangeList.Find(a => a.x == g.x && a.y == g.y));
                                 ShowSkill();
                                 break;
@@ -178,16 +181,23 @@ public class SkillUse: MonoBehaviour
                     }
                     else
                     {
-                        CloseSkill();
-                        damageList.Clear();
-                        ShowRange();
+                        if(skill.skillAreaType!=SkillAreaType.Self&& skill.skillAreaType != SkillAreaType.Circle)
+                        {
+                            CloseSkill();
+                            damageList.Clear();
+                            ShowRange();
+                        }
+                        
                     }
                 }
                 else
                 {
-                    CloseSkill();
-                    damageList.Clear();
-                    ShowRange();
+                    if (skill.skillAreaType != SkillAreaType.Self && skill.skillAreaType != SkillAreaType.Circle)
+                    {
+                        CloseSkill();
+                        damageList.Clear();
+                        ShowRange();
+                    }
                 }
             }
             
@@ -225,6 +235,7 @@ public class SkillUse: MonoBehaviour
 
     void GetOuterCircleSkill(SkillPoint point)
     {
+        CloseSkill();
         damageList.Clear();
         damageList.Add(point);
         if (point.y + 1 < GameManage.col)

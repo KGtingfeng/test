@@ -15,7 +15,7 @@ public class Role : Character
     public SkillConf skillConf;
     public SkillLevelConf skillLevel;
 
-    public int id;
+
 
     public void Create( CharacterConf character)
     {
@@ -49,6 +49,18 @@ public class Role : Character
         totalGas = roundGas * 2+ equTotalGas;
     }
 
+    public void GetExp(int exp)
+    {
+        EXP += exp;
+        EXPConf conf = XMLData.EXPConfs.Find(a=>a.minExp<=exp&&exp<a.maxExp);
+        if (level == 20)
+            return;
+        if (conf.level > level)
+        {
+            while((conf.level-level)>0)
+                LevelUp();
+        }
+    }
 
     public void ShowWalkable()
     {
@@ -60,24 +72,12 @@ public class Role : Character
     }
 
     public void CreateSkillArea(int id, int level)
-    {        
+    {                
         skillConf = XMLData.SkillConfigs.Find(a=>a.id==id);
         skillLevel = XMLData.SkillLevelConfs.Find(a=>a.id==id&&a.level==level);
+        if (gas < skillLevel.gas)
+            return;
         SkillUse.GetSkillArea(skillConf, skillLevel);
-        //if (skillConf.skillAreaType == SkillAreaType.Self)
-        //{
-        //    GameObject go = Instantiate(Resources.Load(SKILLPATH + skillConf.id.ToString())) as GameObject;
-        //    go.transform.parent = transform;
-        //    go.transform.localPosition = Vector3.zero;
-        //    float damage = GameTools.CalculateDamage(GetComponent<Character>(), skillLevel, skillConf);
-        //    GameTools.Damage(GetComponent<Character>(), (int)damage, skillConf.skillEffectType, skillLevel);
-        //}
-        //else
-        //{
-        //    skillArea = gameObject.AddComponent<SkillArea>();           
-        //    skillArea.skillArea(skillLevel, skillConf, gameObject);
-        //    GameManage.Instance.IsSkill = true;
-        //}
 
     }
 
@@ -164,4 +164,10 @@ public class Role : Character
     }
 
     #endregion
+
+    public override void Dead()
+    {
+        int score = XMLData.GameDatas[0].score + GameManage.Instance.round + GameManage.Instance.score;
+        XMLData.SetGameData(score, XMLData.GameDatas[0].talent);
+    }
 }

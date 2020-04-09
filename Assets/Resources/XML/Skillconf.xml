@@ -10,23 +10,39 @@
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
-		<skillAreaType>0</skillAreaType>
+		<skillAreaType>2</skillAreaType>
 		<skillEffectType>1</skillEffectType>
-		<skillAdditionType>0</skillAdditionType>
+		<skillAdditionType>1</skillAdditionType>
 		<skillName>回复</skillName>
 		<range>0</range>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
-		<skillAreaType>1</skillAreaType>
+		<skillAreaType>0</skillAreaType>
 		<skillEffectType>1</skillEffectType>
-		<skillAdditionType>1</skillAdditionType>
+		<skillAdditionType>2</skillAdditionType>
 		<skillName>火焰冲击</skillName>
 		<range>2</range>
 	</RECORD>
 	<RECORD>
+		<id>1004</id>
+		<skillAreaType>3</skillAreaType>
+		<skillEffectType>1</skillEffectType>
+		<skillAdditionType>3</skillAdditionType>
+		<skillName>爆炸</skillName>
+		<range>2</range>
+	</RECORD>
+	<RECORD>
+		<id>1005</id>
+		<skillAreaType>4</skillAreaType>
+		<skillEffectType>1</skillEffectType>
+		<skillAdditionType>2</skillAdditionType>
+		<skillName>火焰冲天</skillName>
+		<range>3</range>
+	</RECORD>
+	<RECORD>
 		<id>1101</id>
-		<skillAreaType>0</skillAreaType>
+		<skillAreaType>4</skillAreaType>
 		<skillEffectType>1</skillEffectType>
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>火球</skillName>
@@ -34,7 +50,7 @@
 	</RECORD>
 	<RECORD>
 		<id>1102</id>
-		<skillAreaType>0</skillAreaType>
+		<skillAreaType>4</skillAreaType>
 		<skillEffectType>1</skillEffectType>
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>冲击波</skillName>
@@ -42,7 +58,7 @@
 	</RECORD>
 	<RECORD>
 		<id>1103</id>
-		<skillAreaType>0</skillAreaType>
+		<skillAreaType>4</skillAreaType>
 		<skillEffectType>1</skillEffectType>
 		<skillAdditionType>1</skillAdditionType>
 		<skillName>精神冲击</skillName>
@@ -50,7 +66,7 @@
 	</RECORD>
 	<RECORD>
 		<id>1104</id>
-		<skillAreaType>0</skillAreaType>
+		<skillAreaType>4</skillAreaType>
 		<skillEffectType>1</skillEffectType>
 		<skillAdditionType>2</skillAdditionType>
 		<skillName>切割</skillName>
@@ -58,7 +74,7 @@
 	</RECORD>
 	<RECORD>
 		<id>1105</id>
-		<skillAreaType>1</skillAreaType>
+		<skillAreaType>4</skillAreaType>
 		<skillEffectType>1</skillEffectType>
 		<skillAdditionType>3</skillAdditionType>
 		<skillName>火圈</skillName>
@@ -66,7 +82,7 @@
 	</RECORD>
 	<RECORD>
 		<id>1106</id>
-		<skillAreaType>1</skillAreaType>
+		<skillAreaType>4</skillAreaType>
 		<skillEffectType>1</skillEffectType>
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>火环</skillName>
