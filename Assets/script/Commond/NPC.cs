@@ -112,6 +112,7 @@ public class NPC : Character
         GameManage.Instance.groundList[x][y].character = null;
         GameManage.Instance.mapPoints[x][y].vaule = 0;
         GameManage.Instance.score += level;
+        GameTools.ItemDrop(level);
         Destroy(gameObject);
     }
 }

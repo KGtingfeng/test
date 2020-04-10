@@ -36,7 +36,11 @@ public class SkillUse: MonoBehaviour
                 break;
             case SkillAreaType.Circle:
                 GetArea();
-                damageList = rangeList;
+                foreach(SkillPoint p in rangeList)
+                {
+                    SkillPoint point = new SkillPoint(p.x,p.y,PointType.LEFT);
+                    damageList.Add(point);
+                }
                 ShowSkill();
                 break;
             case SkillAreaType.Point:
@@ -96,6 +100,7 @@ public class SkillUse: MonoBehaviour
         open.AddRange(close);
         open.Remove(my);
         rangeList = open;
+        //Debug.LogError("rangeList " + rangeList.Count);
         GameManage.Instance.IsSkill = true;
     }
 
@@ -109,6 +114,10 @@ public class SkillUse: MonoBehaviour
 
     void addOpen(mapPoint p,PointType type)
     {
+        if (close.Find(a => a.x == p.x && a.y == p.y) != null)
+            return;
+        if (open.Find(a => a.x == p.x && a.y == p.y) != null)
+            return;
         SkillPoint point = new SkillPoint(p.x,p.y,type);
         open.Add(point);
     }
@@ -116,18 +125,22 @@ public class SkillUse: MonoBehaviour
     void Attack()
     {
         CreateSkill();
+        CloseRange();
+        CloseSkill();
         int damage = (int)GameTools.CalculateDamage(GameManage.Instance.role,skillLevel,skill);
-        if (skill.skillAreaType == SkillAreaType.Circle || skill.skillAreaType == SkillAreaType.OuterCircle)
-            if(damageList.Find(a => a.x == GameManage.Instance.role.x && a.y == GameManage.Instance.role.y)!=null)
-            damageList.Remove(damageList.Find(a => a.x == GameManage.Instance.role.x && a.y == GameManage.Instance.role.y));
+        if (skill.skillAreaType != SkillAreaType.Self)
+            if (damageList.Find(a => a.x == GameManage.Instance.role.x && a.y == GameManage.Instance.role.y) != null)
+                damageList.Remove(damageList.Find(a => a.x == GameManage.Instance.role.x && a.y == GameManage.Instance.role.y));
+        //Debug.LogError("damageList.Count   " + damageList.Count);
         foreach (SkillPoint point in damageList)
         {
+            //Debug.LogError(point.x + "   " + point.y);
             if(GameManage.Instance.groundList[point.x][point.y].character!=null)
             GameTools.Damage(GameManage.Instance.groundList[point.x][point.y].character,damage,skill.skillEffectType,skillLevel);
         }
-        CloseRange();
-        CloseSkill();
+        
         damageList.Clear();
+        rangeList.Clear();
         GameManage.Instance.IsSkill = false;
         GameManage.Instance.role.gas -= skillLevel.gas;
     }
@@ -163,6 +176,7 @@ public class SkillUse: MonoBehaviour
                     ground = g;
                     if( rangeList.Find(a => a.x == g.x && a.y == g.y) != null)
                     {
+                        //Debug.LogError(g.x + "   "+g.y);
                         switch (skill.skillAreaType)
                         {
                             case SkillAreaType.Line:
@@ -172,10 +186,7 @@ public class SkillUse: MonoBehaviour
                                 GetOuterCircleSkill(rangeList.Find(a => a.x == g.x && a.y == g.y));
                                 break;
                             case SkillAreaType.Point:
-                                CloseSkill();
-                                damageList.Clear();
-                                damageList.Add(rangeList.Find(a => a.x == g.x && a.y == g.y));
-                                ShowSkill();
+                                GetPointSkill(rangeList.Find(a => a.x == g.x && a.y == g.y));
                                 break;
                         }
                     }
@@ -194,6 +205,7 @@ public class SkillUse: MonoBehaviour
                 {
                     if (skill.skillAreaType != SkillAreaType.Self && skill.skillAreaType != SkillAreaType.Circle)
                     {
+                        //Debug.LogError( "  !=ground  "  +rangeList.Count);
                         CloseSkill();
                         damageList.Clear();
                         ShowRange();
@@ -294,6 +306,14 @@ public class SkillUse: MonoBehaviour
                 damageList.Add(p);
             }
         }
+        ShowSkill();
+    }
+
+    void GetPointSkill(SkillPoint point)
+    {
+        CloseSkill();
+        damageList.Clear();
+        damageList.Add(point);
         ShowSkill();
     }
 

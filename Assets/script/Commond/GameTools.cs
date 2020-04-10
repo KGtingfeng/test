@@ -69,7 +69,7 @@ public class GameTools : MonoBehaviour
         List<Buff> buffs=new List<Buff>();
         for(int i=0;i< bList.Length-1;i++)
         {
-            Debug.LogError(bList[i]);
+            //Debug.LogError(bList[i]);
             string[] list = bList[i].Split('，');
             Buff buff = new Buff();
             if(list.Length>4)
@@ -77,7 +77,7 @@ public class GameTools : MonoBehaviour
                 Debug.LogError("Buff格式错误");
                 return null;
             }
-            Debug.LogError(list[0]);
+            //Debug.LogError(list[0]);
             buff.skillEffectType = (SkillEffectType)int.Parse(list[0]);
             buff.buffName = list[1];
             buff.times = int.Parse(list[2]);
@@ -90,22 +90,22 @@ public class GameTools : MonoBehaviour
     /// 更换装备
     /// </summary>
     /// <returns></returns>
-    public static void ChangeEquipment(Equipment old , Equipment now)
+    public static void ChangeEquipment(Equipment old, Equipment now)
     {
-        EquipmentConf oldEquip = XMLData.EquipmentConfs.Find(a => a.equipmentType == old.equipmentType&& a.equipmentEffectType == old.equipmentEffectType);
-        EquipmentConf nowEquip= XMLData.EquipmentConfs.Find(a => a.equipmentType == now.equipmentType && a.equipmentEffectType == now.equipmentEffectType);
+        EquipmentConf oldEquip = XMLData.EquipmentConfs.Find(a => a.equipmentType == old.equipmentType && a.equipmentEffectType == old.equipmentEffectType);
+        EquipmentConf nowEquip = XMLData.EquipmentConfs.Find(a => a.equipmentType == now.equipmentType && a.equipmentEffectType == now.equipmentEffectType);
         if (old != null)
         {
             switch (old.equipmentType)
             {
                 case EquipmentType.helmet:
-                    GameManage.Instance.role.strength -= oldEquip.equipTypeAdd * old.level;
+                    GameManage.Instance.role.energy -= oldEquip.equipTypeAdd * old.level;
                     break;
                 case EquipmentType.armor:
-                    GameManage.Instance.role.blood -= oldEquip.equipTypeAdd * old.level;
+                    GameManage.Instance.role.strength -= oldEquip.equipTypeAdd * old.level;
                     break;
                 case EquipmentType.shoes:
-                    GameManage.Instance.role.moves -= oldEquip.equipTypeAdd * old.level;
+                    GameManage.Instance.role.speed -= oldEquip.equipTypeAdd * old.level;
                     break;
             }
         }
@@ -114,13 +114,13 @@ public class GameTools : MonoBehaviour
             switch (now.equipmentType)
             {
                 case EquipmentType.helmet:
-                    GameManage.Instance.role.strength += nowEquip.equipTypeAdd * now.level;
+                    GameManage.Instance.role.energy += nowEquip.equipTypeAdd * now.level;
                     break;
                 case EquipmentType.armor:
-                    GameManage.Instance.role.blood += nowEquip.equipTypeAdd * now.level;
+                    GameManage.Instance.role.strength += nowEquip.equipTypeAdd * now.level;
                     break;
                 case EquipmentType.shoes:
-                    GameManage.Instance.role.moves += nowEquip.equipTypeAdd * now.level;
+                    GameManage.Instance.role.speed += nowEquip.equipTypeAdd * now.level;
                     break;
             }
         }
@@ -130,7 +130,7 @@ public class GameTools : MonoBehaviour
             {
                 case EquipmentEffectType.no: break;
                 case EquipmentEffectType.blood:
-                    GameManage.Instance.role.blood -= oldEquip.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.totalBlood -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
                 case EquipmentEffectType.roundGas:
                     GameManage.Instance.role.roundGas -= oldEquip.equipEffectTypeAdd * old.color;
@@ -161,7 +161,7 @@ public class GameTools : MonoBehaviour
             {
                 case EquipmentEffectType.no: break;
                 case EquipmentEffectType.blood:
-                    GameManage.Instance.role.blood += nowEquip.equipEffectTypeAdd * now.color;
+                    GameManage.Instance.role.totalBlood += nowEquip.equipEffectTypeAdd * now.color;
                     break;
                 case EquipmentEffectType.roundGas:
                     GameManage.Instance.role.roundGas += oldEquip.equipEffectTypeAdd * old.color;
@@ -186,8 +186,48 @@ public class GameTools : MonoBehaviour
                     break;
             }
         }
+        GameManage.Instance.role.CalculateArr();
     }
 
+    /// <summary>
+    /// 物品掉落
+    /// </summary>
+    /// <param name="level"></param>
+    public static void ItemDrop(int level)
+    {
+        System.Random random = new System.Random(DateTime.Now.Millisecond);
+        int r = random.Next(99);
+        if (r >= 0 && r < 20)
+        {
+            GetEqu(level);
+        }
+        else if (r >= 20 && r < 70)
+        {
+            List<PropsConf> confs = XMLData.PropsConfs.FindAll(a => a.id < 4500);
+            r = random.Next(confs.Count - 1);
+            GetPorp(confs[r].id);
+        }
+        else
+        {
+            List<PropsConf> confs = XMLData.PropsConfs.FindAll(a => a.id > 4500);
+            r = random.Next(confs.Count - 1);
+            GetPorp(confs[r].id);
+        }
+    }
+    public static void GetEqu(int level)
+    {
+        System.Random random = new System.Random(DateTime.Now.Millisecond);
+        Equipment equipment = new Equipment();
+        int r = random.Next(-1, 2);
+        equipment.level = level + r;
+        r = random.Next(7);
+        equipment.equipmentEffectType = (EquipmentEffectType)r;
+        r = random.Next(2);
+        equipment.equipmentType = (EquipmentType)r;
+        r = random.Next(4);
+        equipment.color = r;
+        GameManage.Instance.userData.equipments.Add(equipment);
+    }
     public static void GetPorp(int id)
     {
         if (GameManage.Instance.userData.props.Find(a => a.conf.id == id) != null)
@@ -213,7 +253,17 @@ public class GameTools : MonoBehaviour
                 GameManage.Instance.role.CalculateBuff(buff);
                 GameManage.Instance.role.buffList.Add(buff);
                 break;
-            case PropType.SKILL: break;
+            case PropType.SKILL:
+                if(GameManage.Instance.userData.skills.Find(a=>a.id== int.Parse(propsConf.buff))==null)
+                {
+                    Skill skill = new Skill(int.Parse(propsConf.buff),1);
+                    GameManage.Instance.userData.skills.Add(skill);
+                }
+                else
+                {
+                    Debug.LogError("已拥有技能");
+                }
+                break;
         }
     }
 

@@ -105,10 +105,11 @@ public class Character : MonoBehaviour {
     {
         GameManage.Instance.mapPoints[x][y].vaule = 1;
         GameManage.Instance.mapPoints[this.x][this.y].vaule = 0;
+        GameManage.Instance.groundList[x][y].character = this;
+        GameManage.Instance.groundList[this.x][this.y].character = null;
         this.x = x;
         this.y = y;
-        GameManage.Instance.groundList[x][y].character = null;
-        GameManage.Instance.groundList[this.x][this.y].character = this;
+        
     }
 
     public Vector2 GetPosition()

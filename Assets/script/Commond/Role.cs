@@ -15,8 +15,6 @@ public class Role : Character
     public SkillConf skillConf;
     public SkillLevelConf skillLevel;
 
-
-
     public void Create( CharacterConf character)
     {
         this.id = character.id;
@@ -42,11 +40,16 @@ public class Role : Character
         speed +=   character.levelSpeed;
         strength +=   character.levelStrength;
         energy += character.levelEnergy;
-        totalBlood = character.levelBlood + (character.levelStrength * 20);
+        totalBlood =totalBlood + character.levelBlood + (character.levelStrength * 20);
         blood = totalBlood;
-        moves = speed / 5+ equMove;
-        roundGas = energy / 5+ equRoundGas;
-        totalGas = roundGas * 2+ equTotalGas;
+        CalculateArr();
+    }
+
+    public void CalculateArr()
+    {
+        moves = speed / 5 + equMove;
+        roundGas = energy / 5 + equRoundGas;
+        totalGas = roundGas * 2 + equTotalGas;
     }
 
     public void GetExp(int exp)
@@ -128,11 +131,6 @@ public class Role : Character
             if (roundMove > 0)
             {
                 SetPosition(point.x, point.y);
-                if (GameManage.Instance.mapPoints[point.x][point.y].vaule == 2)
-                {
-                    GameTools.GetPorp(GameManage.Instance.mapPoints[point.x][point.y].id);
-                    GameManage.Instance.mapPoints[point.x][point.y].vaule = 0;
-                }
                 this.point = new mapPoint(point);
                 transform.LookAt(GameManage.Instance.groundList[point.x][point.y].transform);
                 GameManage.Instance.IsWalk = true;

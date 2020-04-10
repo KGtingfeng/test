@@ -34,6 +34,14 @@ public enum EquipmentType
     shoes,
 }
 
+public enum ColorType
+{
+    Green,
+    Blue,
+    Purple,
+    Red,
+    Orange,
+}
 /// <summary>
 /// 技能释放类型
 /// </summary>

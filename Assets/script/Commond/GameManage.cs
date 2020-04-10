@@ -111,7 +111,7 @@ public class GameManage : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Alpha5) && IsMyRound && !IsWalk)
         {
-            Debug.LogError("skill5");
+            //Debug.LogError("skill5");
             if (!IsSkill)
             {
                 role.CreateSkillArea(1005, 1);
@@ -140,7 +140,7 @@ public class GameManage : MonoBehaviour
     int[,] map;
     void CreateGround()
     {
-        List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2500);
+        List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2400);
         List<CharacterConf> bossChar = XMLData.CharacterConfs.FindAll(a => a.id > 2500 && a.id <= 3000);
         npcConf= XMLData.CharacterConfs.FindAll(a => a.id > 2400 && a.id <= 2500);
         CreateMap();

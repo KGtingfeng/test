@@ -215,7 +215,7 @@ public class XMLData
         string file = "gamedata";
         string path = xmlPath + file;
         TextAsset textAsset = Resources.Load<TextAsset>(path);
-        Debug.LogError("file " + file + "   is open ");
+        //Debug.LogError("file " + file + "   is open ");
         XmlDocument xml = new XmlDocument();
         xml.LoadXml(textAsset.text);
         XmlNode node = xml.SelectSingleNode("RECORDS");
