@@ -17,6 +17,7 @@ public class Role : Character
 
     public void Create( CharacterConf character)
     {
+        IsNPC = false;
         this.id = character.id;
         this.level = 1;
         speed = character.speed  ;

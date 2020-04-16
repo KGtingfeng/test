@@ -10,6 +10,7 @@ public class NPC : Character
 
     public void Create(int level, CharacterConf character)
     {
+        IsNPC = true;
         this.id = character.id;
         this.level = level;
         speed = character.speed+((level-1)* character.levelSpeed);

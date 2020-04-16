@@ -4,50 +4,53 @@ using UnityEngine;
 
 public class UIManage : MonoBehaviour
 {
-    UIBase LeftView;
-    UIBase RightView;
+    public static Transform Root;
+    UIBaseView LeftView;
+    UIBaseView RightView;
+
     const string UIPATH = "Prefabs/";
 
     public static UIManage Instance;
     public void Start()
     {
         Instance = this;
-        UIBase view = CreateView<MainView>();
+
+        UIBaseView view = CreateView(new MainController());
     }
 
-    public void ShowLeft<T>() where T : UIBase
+    public void ShowLeft(BaseController baseController) 
     {
         if (LeftView == null)
         {
-            LeftView = CreateView<T>();
+            LeftView = CreateView(baseController);
         }
         else
         {
-            if(LeftView.GetType().ToString()== typeof(T).Name)
+            if(LeftView.GetType().ToString()== baseController.name)
             {
                 LeftView.Destory();
                 return;
             }
             LeftView.Destory();
-            LeftView = CreateView<T>();
+            LeftView = CreateView(baseController);
         }
     }
 
-    public void ShowRight<T>() where T : UIBase
+    public void ShowRight(BaseController baseController) 
     {
         if (RightView == null)
         {
-            RightView = CreateView<T>();
+            RightView = CreateView(baseController);
         }
         else
         {
-            if (RightView.GetType().ToString() == typeof(T).Name)
+            if (RightView.GetType().ToString() == baseController.name)
             {
                 RightView.Destory();
                 return;
             }
             RightView.Destory();
-            RightView = CreateView<T>();
+            RightView = CreateView(baseController);
         }
     }
 
@@ -61,11 +64,12 @@ public class UIManage : MonoBehaviour
         RightView = null;
     }
 
-    public static UIBase CreateView<T>() where T : UIBase
+    public static UIBaseView CreateView(BaseController baseController)
     {
-        string name = typeof(T).Name;
-        UIBase go = Instantiate(Resources.Load(UIPATH + name)) as UIBase;
-        go.InitView();
+        string name = baseController.name;
+        UIBaseView go = Instantiate(Resources.Load(UIPATH +name)) as UIBaseView;
+        go.transform.parent = Root;
+        go.InitView(baseController);
         return go;
     }
 }

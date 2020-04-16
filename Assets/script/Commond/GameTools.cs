@@ -56,6 +56,8 @@ public class GameTools : MonoBehaviour
             if(buffs!=null)
                 character.buffList.AddRange(buffs);
         }
+        if (character.IsNPC)
+            character.GetComponent<AIBase>().IsAttack = true;
     }
 
     public static List<Buff> GetBuff(string buffList)

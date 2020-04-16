@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainView : UIBase
+public class MainView : UIBaseView
 {
-    public override void InitView()
+    public override void InitView(BaseController controller)
     {
-        
+        base.InitView(controller);
+
     }
 
 

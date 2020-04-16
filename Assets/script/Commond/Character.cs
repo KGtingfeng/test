@@ -51,7 +51,7 @@ public class Character : MonoBehaviour {
     /// </summary>
     public int EXP;
     public int id;
-
+    public bool IsNPC;
     public List<Buff> buffList=new List<Buff>();
 
     public int x;

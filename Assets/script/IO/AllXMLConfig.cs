@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Xml;
-
+using System.Collections.Generic;
 public class SkillConf:XMLConfig
 {
     public SkillAreaType skillAreaType;
@@ -176,6 +176,7 @@ public class TalentConf : XMLConfig
     public string buff;
     public string introduction;
     public string talentName;
+    public int num;
 
     public override void Read(XmlNode item)
     {
@@ -183,6 +184,7 @@ public class TalentConf : XMLConfig
         buff = GetString(item, "buff");
         introduction = GetString(item, "introduction");
         talentName = GetString(item, "propsName");
+        num = GetInt(item, "num");
     }
 }
 
@@ -190,6 +192,7 @@ public class GameData:XMLConfig
 {
     public int score;
     public string talent;
+    public List<TalentConf> talents= new List<TalentConf>();
 
     public override void Read(XmlNode item)
     {
