@@ -11,6 +11,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>25</levelBlood>
 		<skill>1001</skill>
+		<name>骑士</name>
 	</RECORD>
 	<RECORD>
 		<id>2002</id>
@@ -23,6 +24,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>30</levelBlood>
 		<skill>1001</skill>
+		<name>血王</name>
 	</RECORD>
 	<RECORD>
 		<id>2003</id>
@@ -35,6 +37,33 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>25</levelBlood>
 		<skill>1001</skill>
+		<name>法师</name>
+	</RECORD>
+	<RECORD>
+		<id>2004</id>
+		<speed>10</speed>
+		<strength>5</strength>
+		<energy>5</energy>
+		<blood>550</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>1</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>25</levelBlood>
+		<skill>1001</skill>
+		<name>超速者</name>
+	</RECORD>
+	<RECORD>
+		<id>2005</id>
+		<speed>10</speed>
+		<strength>10</strength>
+		<energy>10</energy>
+		<blood>500</blood>
+		<levelSpeed>1</levelSpeed>
+		<levelStrength>1</levelStrength>
+		<levelEnergy>1</levelEnergy>
+		<levelBlood>30</levelBlood>
+		<skill>1001</skill>
+		<name>全能者</name>
 	</RECORD>
 	<RECORD>
 		<id>2201</id>
@@ -47,6 +76,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>20</levelBlood>
 		<skill>1101</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2202</id>
@@ -59,6 +89,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>20</levelBlood>
 		<skill>1102</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2203</id>
@@ -71,6 +102,7 @@
 		<levelEnergy>2</levelEnergy>
 		<levelBlood>25</levelBlood>
 		<skill>1103</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2204</id>
@@ -83,6 +115,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>25</levelBlood>
 		<skill>1105</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2401</id>
@@ -94,7 +127,8 @@
 		<levelStrength>1</levelStrength>
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>40</levelBlood>
-		<skill>1001</skill>
+		<skill>1101</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2402</id>
@@ -107,6 +141,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>20</levelBlood>
 		<skill>1101</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2403</id>
@@ -119,6 +154,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>20</levelBlood>
 		<skill>1103</skill>
+		<name>小怪</name>
 	</RECORD>
 	<RECORD>
 		<id>2501</id>
@@ -131,6 +167,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>30</levelBlood>
 		<skill>1105</skill>
+		<name>BOSS</name>
 	</RECORD>
 	<RECORD>
 		<id>2502</id>
@@ -143,6 +180,7 @@
 		<levelEnergy>1</levelEnergy>
 		<levelBlood>20</levelBlood>
 		<skill>1106</skill>
+		<name>BOSS</name>
 	</RECORD>
 </RECORDS>
 

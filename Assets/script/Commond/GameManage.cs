@@ -34,7 +34,9 @@ public class GameManage : MonoBehaviour
         List<GameData> talentConfs= XMLData.GameDatas;
         Instance = this;
         CreateGround();
-        CreateRole();
+
+        //UIManage.CreateView(new SelectRoleController());
+        CreateRole(2001);
         IsMyRound = true;
     }
 
@@ -128,10 +130,15 @@ public class GameManage : MonoBehaviour
             {
                 npc.StartRound();
             }
-            Vector2 pos = GameTools.GetPoint(role.GetPosition());            
-            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y,groundList[(int)pos.x][(int)pos.y].transform,role.level);
-            mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
-            round ++;
+            if (npcList.Count < 100)
+            {
+                Vector2 pos = GameTools.GetPoint(role.GetPosition());
+                Debug.LogError("mapPointvaule" + mapPoints[(int)pos.x][(int)pos.y].vaule);
+                GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y, groundList[(int)pos.x][(int)pos.y].transform, role.level);
+                mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
+               
+            }
+            round++;
             role.StartRound();
             IsMyRound = true;
         }
@@ -184,13 +191,13 @@ public class GameManage : MonoBehaviour
         }
     }
 
-    private void CreateRole()
+    public void CreateRole(int id)
     {
-        roleGameObject = Resources.Load(ROLEPATH + "knight") as GameObject;
+        roleGameObject = Resources.Load(ROLEPATH + id) as GameObject;
         roleGameObject = Instantiate(roleGameObject);
         roleGameObject.transform.localPosition = groundList[0][0].transform.position;
         role = roleGameObject.GetComponent<Role>();
-        role.Create(XMLData.CharacterConfs.Find(a=>a.id==2001));
+        role.Create(XMLData.CharacterConfs.Find(a=>a.id== id));
         role.SetPosition(0, 0);
         roleGameObject.SetActive(true);
         mapPoints[0][0].vaule = 1;

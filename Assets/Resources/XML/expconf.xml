@@ -1,10 +1,10 @@
 <?xml version="1.0" standalone="yes"?>
 <RECORDS>
-  <RECORD>
-    <level>1</level>
-    <minExp>1</minExp>
-    <maxExp>500</maxExp>
-  </RECORD>
+	<RECORD>
+		<level>1</level>
+		<minExp>1</minExp>
+		<maxExp>500</maxExp>
+	</RECORD>
 	<RECORD>
 		<level>2</level>
 		<minExp>500</minExp>

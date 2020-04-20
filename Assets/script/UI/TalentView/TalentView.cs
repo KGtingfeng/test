@@ -33,8 +33,10 @@ public class TalentView : UIBaseView
 
     public void OnClickTalent(GameObject go)
     {
+
         id = (int)UIEventListener.Get(go).parameter;
         TalentConf conf = XMLData.TalentConfs.Find(a => a.id == id);
+        //Debug.LogError(id);
         nameLabel.text = conf.talentName;
         des.text = conf.introduction;
         num.text = conf.num+"";
@@ -49,6 +51,16 @@ public class TalentView : UIBaseView
 
     public void OnClickBuy()
     {
+        TalentConf conf = XMLData.TalentConfs.Find(a => a.id == id);
+        if (conf.num > XMLData.GameDatas[0].score)
+        {
 
+        }
+        else
+        {
+            XMLData.GameDatas[0].score -= conf.num;
+            XMLData.GameDatas[0].talent += conf.id+ "；";
+            XMLData.SetGameData(XMLData.GameDatas[0].score, XMLData.GameDatas[0].talent);
+        }
     }
 }

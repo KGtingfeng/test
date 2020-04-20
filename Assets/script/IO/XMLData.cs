@@ -118,16 +118,18 @@ public class XMLData
             if (gameData == null)
             {
                 gameData = GetGameData<GameData>();
-                string[] bList = gameData[0].talent.Split('；');
-                if (bList.Length == 1)
-                {
-                    return null;
-                }
-                for (int i = 0; i < bList.Length - 1; i++)
-                {
-                    TalentConf conf = new TalentConf();
-                    conf.id =int.Parse(bList[i]);
-                    gameData[0].talents.Add(conf);
+                if (gameData[0].talent!=null){
+                    string[] bList = gameData[0].talent.Split('；');
+                    if (bList.Length == 1)
+                    {
+                        return null;
+                    }
+                    for (int i = 0; i < bList.Length - 1; i++)
+                    {
+                        TalentConf conf = new TalentConf();
+                        conf.id = int.Parse(bList[i]);
+                        gameData[0].talents.Add(conf);
+                    }
                 }
             }
             return gameData;

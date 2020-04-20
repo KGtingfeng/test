@@ -87,6 +87,7 @@ public class CharacterConf : XMLConfig
     /// </summary>
     public int levelBlood;
     public int skill;
+    public string name;
 
     public override void Read(XmlNode item)
     {
@@ -100,22 +101,27 @@ public class CharacterConf : XMLConfig
         levelEnergy = GetInt(item, "levelEnergy");
         levelBlood = GetInt(item, "levelBlood");
         skill = GetInt(item, "skill");
+        name= GetString(item, "name");
     }
 }
 
 public class EquipmentConf: XMLConfig
 {
+    public int id;
     public EquipmentType equipmentType;
-    public EquipmentEffectType equipmentEffectType;
+    public AtrrType equipmentEffectType;
     public int equipTypeAdd;
     public int equipEffectTypeAdd;
+    public string equName;
 
     public override void Read(XmlNode item)
     {
+        id = GetInt(item, "id");
         equipmentType = (EquipmentType)GetInt(item, "equipmentType");
-        equipmentEffectType = (EquipmentEffectType)GetInt(item, "equipmentEffectType");
+        equipmentEffectType = (AtrrType)GetInt(item, "equipmentEffectType");
         equipTypeAdd = GetInt(item, "equipTypeAdd");
         equipEffectTypeAdd = GetInt(item, "equipEffectTypeAdd");
+        equName = GetString(item, "equName");
     }
 }
 
@@ -177,14 +183,16 @@ public class TalentConf : XMLConfig
     public string introduction;
     public string talentName;
     public int num;
+    public TalentType type;
 
     public override void Read(XmlNode item)
     {
         id = GetInt(item, "id");
         buff = GetString(item, "buff");
         introduction = GetString(item, "introduction");
-        talentName = GetString(item, "propsName");
+        talentName = GetString(item, "talentName");
         num = GetInt(item, "num");
+        type =(TalentType) GetInt(item, "type");
     }
 }
 

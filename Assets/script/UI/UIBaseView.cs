@@ -3,10 +3,12 @@ using UnityEditor;
 
 public class UIBaseView : MonoBehaviour 
 {
-    BaseController controller;
+    public BaseController controller;
     public virtual void InitView(BaseController controller)
     {
         this.controller = controller;
     }
-    public virtual void Destory() { }
+    public virtual void CloseView() {
+        Destroy(this);
+    }
 }

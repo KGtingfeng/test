@@ -103,8 +103,8 @@ public class Character : MonoBehaviour {
 
     public virtual void SetPosition(int x, int y)
     {
-        GameManage.Instance.mapPoints[x][y].vaule = 1;
-        GameManage.Instance.mapPoints[this.x][this.y].vaule = 0;
+        GameManage.Instance.mapPoints[x][y].vaule = 0;
+        GameManage.Instance.mapPoints[this.x][this.y].vaule = 1;
         GameManage.Instance.groundList[x][y].character = this;
         GameManage.Instance.groundList[this.x][this.y].character = null;
         this.x = x;

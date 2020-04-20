@@ -130,28 +130,24 @@ public class GameTools : MonoBehaviour
         {
             switch (old.equipmentEffectType)
             {
-                case EquipmentEffectType.no: break;
-                case EquipmentEffectType.blood:
+                case AtrrType.no: break;
+                case AtrrType.blood:
                     GameManage.Instance.role.totalBlood -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
-                case EquipmentEffectType.roundGas:
+                case AtrrType.roundGas:
                     GameManage.Instance.role.roundGas -= oldEquip.equipEffectTypeAdd * old.color;
                     GameManage.Instance.role.equRoundGas -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
-                case EquipmentEffectType.totalGas:
-                    GameManage.Instance.role.totalGas -= oldEquip.equipEffectTypeAdd * old.color;
-                    GameManage.Instance.role.equTotalGas -= oldEquip.equipEffectTypeAdd * old.color;
-                    break;
-                case EquipmentEffectType.energy:
+                case AtrrType.energy:
                     GameManage.Instance.role.energy -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
-                case EquipmentEffectType.speed:
+                case AtrrType.speed:
                     GameManage.Instance.role.speed -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
-                case EquipmentEffectType.strength:
+                case AtrrType.strength:
                     GameManage.Instance.role.strength -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
-                case EquipmentEffectType.moves:
+                case AtrrType.moves:
                     GameManage.Instance.role.moves -= oldEquip.equipEffectTypeAdd * old.color;
                     GameManage.Instance.role.equMove -= oldEquip.equipEffectTypeAdd * old.color;
                     break;
@@ -161,28 +157,24 @@ public class GameTools : MonoBehaviour
         {
             switch (now.equipmentEffectType)
             {
-                case EquipmentEffectType.no: break;
-                case EquipmentEffectType.blood:
+                case AtrrType.no: break;
+                case AtrrType.blood:
                     GameManage.Instance.role.totalBlood += nowEquip.equipEffectTypeAdd * now.color;
                     break;
-                case EquipmentEffectType.roundGas:
+                case AtrrType.roundGas:
                     GameManage.Instance.role.roundGas += oldEquip.equipEffectTypeAdd * old.color;
                     GameManage.Instance.role.equRoundGas += oldEquip.equipEffectTypeAdd * old.color;
                     break;
-                case EquipmentEffectType.totalGas:
-                    GameManage.Instance.role.totalGas += oldEquip.equipEffectTypeAdd * old.color;
-                    GameManage.Instance.role.equTotalGas += oldEquip.equipEffectTypeAdd * old.color;
-                    break;
-                case EquipmentEffectType.energy:
+                case AtrrType.energy:
                     GameManage.Instance.role.energy += nowEquip.equipEffectTypeAdd * now.color;
                     break;
-                case EquipmentEffectType.speed:
+                case AtrrType.speed:
                     GameManage.Instance.role.speed += nowEquip.equipEffectTypeAdd * now.color;
                     break;
-                case EquipmentEffectType.strength:
+                case AtrrType.strength:
                     GameManage.Instance.role.strength += nowEquip.equipEffectTypeAdd * now.color;
                     break;
-                case EquipmentEffectType.moves:
+                case AtrrType.moves:
                     GameManage.Instance.role.moves += nowEquip.equipEffectTypeAdd * now.color;
                     GameManage.Instance.role.equMove += nowEquip.equipEffectTypeAdd * now.color;
                     break;
@@ -223,7 +215,7 @@ public class GameTools : MonoBehaviour
         int r = random.Next(-1, 2);
         equipment.level = level + r;
         r = random.Next(7);
-        equipment.equipmentEffectType = (EquipmentEffectType)r;
+        equipment.equipmentEffectType = (AtrrType)r;
         r = random.Next(2);
         equipment.equipmentType = (EquipmentType)r;
         r = random.Next(4);

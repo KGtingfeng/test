@@ -16,10 +16,10 @@ public class StartMain :MonoBehaviour
 
     public void OnClickStart()
     {
-        StartCoroutine("BeginLoading");
+        StartCoroutine(BeginLoading());
     }
 
-    IEnumerable BeginLoading()
+    IEnumerator BeginLoading()
     {
         async = EditorSceneManager.LoadSceneAsync("test");
         yield return async;
@@ -28,10 +28,12 @@ public class StartMain :MonoBehaviour
     public void OnClickTalent()
     {
         TalentController controller = new TalentController();
-        string name = controller.name;
-        UIBaseView go = Instantiate(Resources.Load(UIPATH + name)) as UIBaseView;
+        string name = controller.GetPath();
+        GameObject go = Instantiate(Resources.Load(UIPATH + name)) as GameObject;
+        UIBaseView view = go.GetComponent<UIBaseView>();
         go.transform.parent = Root;
-        go.InitView(controller);
+        go.transform.localScale = Vector3.one;
+        view.InitView(controller);
     }
 
 

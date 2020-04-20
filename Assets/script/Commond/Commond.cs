@@ -6,7 +6,10 @@
     GOODS,
 }
 
-public enum EquipmentEffectType
+/// <summary>
+/// 属性类型
+/// </summary>
+public enum AtrrType
 {
     no,
     speed,
@@ -15,9 +18,11 @@ public enum EquipmentEffectType
     blood,
     moves,
     roundGas,
-    totalGas,
 }
 
+/// <summary>
+/// 装备类型
+/// </summary>
 public enum EquipmentType
 {
     /// <summary>
@@ -100,6 +105,14 @@ public enum PointType
     LEFTUP,
     LEFTDOWN,
 }
+
+public enum TalentType
+{
+    Atrribute,
+    Role,
+    Prop,
+}
+
 public class mapPoint
 {
     public int x;
@@ -136,6 +149,9 @@ public class SkillPoint
         this.type = type;
     }
 }
+
+
+
 public class Buff 
 {
     public SkillEffectType skillEffectType;
@@ -147,7 +163,7 @@ public class Buff
 public class Equipment
 {
     public EquipmentType equipmentType;
-    public EquipmentEffectType equipmentEffectType;
+    public AtrrType equipmentEffectType;
     public int level;
     public int color;
     public string name;

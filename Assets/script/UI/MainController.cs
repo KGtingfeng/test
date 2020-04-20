@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+[PrefabPath("MainView")]
 public class MainController : BaseController
 {
-   new public string name = "MainView";
 }

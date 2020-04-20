@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+[PrefabPath("TalentView")]
 public class TalentController : BaseController
 {
-    new public string name = "TalentView";
 }

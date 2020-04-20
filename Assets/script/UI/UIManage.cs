@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UIManage : MonoBehaviour
 {
-    public static Transform Root;
     UIBaseView LeftView;
     UIBaseView RightView;
 
@@ -14,8 +13,8 @@ public class UIManage : MonoBehaviour
     public void Start()
     {
         Instance = this;
-
-        UIBaseView view = CreateView(new MainController());
+        MainController mainController = new MainController();
+        UIBaseView view = CreateView(mainController);
     }
 
     public void ShowLeft(BaseController baseController) 
@@ -26,12 +25,12 @@ public class UIManage : MonoBehaviour
         }
         else
         {
-            if(LeftView.GetType().ToString()== baseController.name)
+            if(LeftView.controller .GetPath() == baseController.GetPath())
             {
-                LeftView.Destory();
+                LeftView.CloseView();
                 return;
             }
-            LeftView.Destory();
+            LeftView.CloseView();
             LeftView = CreateView(baseController);
         }
     }
@@ -44,12 +43,12 @@ public class UIManage : MonoBehaviour
         }
         else
         {
-            if (RightView.GetType().ToString() == baseController.name)
+            if (RightView.controller.GetPath() == baseController.GetPath())
             {
-                RightView.Destory();
+                RightView.CloseView();
                 return;
             }
-            RightView.Destory();
+            RightView.CloseView();
             RightView = CreateView(baseController);
         }
     }
@@ -66,10 +65,13 @@ public class UIManage : MonoBehaviour
 
     public static UIBaseView CreateView(BaseController baseController)
     {
-        string name = baseController.name;
-        UIBaseView go = Instantiate(Resources.Load(UIPATH +name)) as UIBaseView;
-        go.transform.parent = Root;
-        go.InitView(baseController);
-        return go;
+        string name = baseController.GetPath();
+        Debug.LogError(name);
+        GameObject go = Instantiate(Resources.Load(UIPATH + name)) as GameObject;
+        UIBaseView view = go.GetComponent<UIBaseView>();
+        go.transform.parent = Instance.transform;
+        go.transform.localScale = Vector3.one;
+        view.InitView(baseController);
+        return view;
     }
 }

@@ -5,126 +5,144 @@
 		<equipmentEffectType>1</equipmentEffectType>
 		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6008</id>
+		<equName>速度之铠甲</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>1</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6001</id>
+		<equName>速度之头盔</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>2</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6002</id>
+		<equName>体力之头盔</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>3</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6003</id>
+		<equName>能量之头盔</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>4</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>10</equipEffectTypeAdd>
+		<id>6004</id>
+		<equName>血量之头盔</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>5</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6005</id>
+		<equName>移动之头盔</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>2</equipmentEffectType>
 		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6009</id>
+		<equName>体力之铠甲</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>3</equipmentEffectType>
 		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6010</id>
+		<equName>能量之铠甲</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>4</equipmentEffectType>
 		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>10</equipEffectTypeAdd>
+		<id>6011</id>
+		<equName>血量之铠甲</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>5</equipmentEffectType>
 		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6012</id>
+		<equName>移动之铠甲</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>1</equipmentType>
 		<equipmentEffectType>6</equipmentEffectType>
 		<equipTypeAdd>10</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6013</id>
+		<equName>气之铠甲</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>1</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6015</id>
+		<equName>速度之靴</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>2</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6016</id>
+		<equName>体力之靴</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>3</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6017</id>
+		<equName>能量之靴</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>4</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>10</equipEffectTypeAdd>
+		<id>6018</id>
+		<equName>血量之靴</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>6</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6019</id>
+		<equName>移动之靴</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>0</equipmentType>
 		<equipmentEffectType>6</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6006</id>
+		<equName>气之头盔</equName>
 	</RECORD>
 	<RECORD>
 		<equipmentType>2</equipmentType>
 		<equipmentEffectType>5</equipmentEffectType>
 		<equipTypeAdd>1</equipTypeAdd>
 		<equipEffectTypeAdd>1</equipEffectTypeAdd>
-	</RECORD>
-	<RECORD>
-		<equipmentType>0</equipmentType>
-		<equipmentEffectType>7</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
-		<equipEffectTypeAdd>1</equipEffectTypeAdd>
-	</RECORD>
-	<RECORD>
-		<equipmentType>1</equipmentType>
-		<equipmentEffectType>7</equipmentEffectType>
-		<equipTypeAdd>10</equipTypeAdd>
-		<equipEffectTypeAdd>1</equipEffectTypeAdd>
-	</RECORD>
-	<RECORD>
-		<equipmentType>2</equipmentType>
-		<equipmentEffectType>7</equipmentEffectType>
-		<equipTypeAdd>1</equipTypeAdd>
-		<equipEffectTypeAdd>1</equipEffectTypeAdd>
+		<id>6020</id>
+		<equName>气之靴</equName>
 	</RECORD>
 </RECORDS>
 
