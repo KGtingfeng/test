@@ -328,37 +328,24 @@ public class GameTools : MonoBehaviour
 
     public static Vector2 GetPoint(Vector2 old)
     {
-        Vector2 point = old;
-        point.x += UnityEngine.Random.Range(-10, 10);
-        if (point.x < 0)
-            point.x = 0;
-        if (point.x >= GameManage.row)
-            point.x = GameManage.row - 1;
-        point.y += UnityEngine.Random.Range(-10, 10);
-        if (point.y < 0)
-            point.y = 0;
-        if (point.y >= GameManage.row)
-            point.y = GameManage.row - 1;
+        Vector2 point = Vector2.zero;
         GetPPoint(point);
         return point;
     }
 
     public static void GetPPoint(Vector2 point)
     {
+        Debug.LogError(GameManage.Instance.mapPoints[(int)point.x][(int)point.y].vaule);
+        int count = 0;
         while (true)
         {
             if (GameManage.Instance.mapPoints[(int)point.x][(int)point.y].vaule == 1)
             {
-                point.x += UnityEngine.Random.Range(-1, 1);
-                if (point.x < 0)
-                    point.x = 0;
-                if (point.x >= GameManage.row)
-                    point.x = GameManage.row - 1;
-                point.y += UnityEngine.Random.Range(-1, 1);
-                if (point.y < 0)
-                    point.y = 0;
-                if (point.y >= GameManage.row)
-                    point.y = GameManage.row - 1;
+                if (count % 2 == 0)
+                    point.x += 1;
+                else
+                    point.y += 1;
+                count++;
                 continue;
             }
             return;
@@ -376,8 +363,8 @@ public class GameTools : MonoBehaviour
         go.GetComponent<NPC>().Create(level, charaConf[r]);
         go.GetComponent<NPC>().x = x;
         go.GetComponent<NPC>().y = y;
-        go.transform.parent = parent;
-        go.transform.localPosition = Vector3.zero;
+        go.transform.parent = GameManage.Instance.NPCManage;
+        go.transform.position = parent.position;
         GameManage.Instance.npcList.Add(go.GetComponent<NPC>());
         parent.GetComponent<Ground>().character = go.GetComponent<NPC>();
     }

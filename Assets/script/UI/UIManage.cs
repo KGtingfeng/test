@@ -70,6 +70,7 @@ public class UIManage : MonoBehaviour
         GameObject go = Instantiate(Resources.Load(UIPATH + name)) as GameObject;
         UIBaseView view = go.GetComponent<UIBaseView>();
         go.transform.parent = Instance.transform;
+        go.transform.localPosition = Vector3.zero;
         go.transform.localScale = Vector3.one;
         view.InitView(baseController);
         return view;

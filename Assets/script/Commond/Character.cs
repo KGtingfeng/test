@@ -30,7 +30,7 @@ public class Character : MonoBehaviour {
     /// </summary>
     public int totalBlood;
     /// <summary>
-    /// 行动力 速度/3+装备+初始
+    /// 行动力 
     /// </summary>
     public int moves;
     public int roundMove;

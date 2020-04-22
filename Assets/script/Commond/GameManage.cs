@@ -8,8 +8,10 @@ public class GameManage : MonoBehaviour
     public static GameManage Instance;
     static string ROLEPATH = "GameObject/Role/";
     static string TERRAINPATH = "GameObject/Terrain/";
-    public static int row = 50;
-    public static int col = 50;
+    public static int row = 40;
+    public static int col = 40;
+
+    public Transform NPCManage;
 
     List<CharacterConf> npcConf;
     public UserData userData=new UserData();
@@ -18,6 +20,9 @@ public class GameManage : MonoBehaviour
     public List<List<Ground>> groundList=new List<List<Ground>>();
 
     public List<NPC> npcList;     
+
+
+
     public GameObject roleGameObject;
     public Role role;
 
@@ -71,7 +76,9 @@ public class GameManage : MonoBehaviour
         {
             if (!IsSkill)
             {
-                role.CreateSkillArea(1001,1);
+                userData.skill_1 = new Skill(1001, 1);
+                if (userData.skill_1!=null)
+                    role.CreateSkillArea(userData.skill_1);
             }
             else
             {
@@ -82,7 +89,8 @@ public class GameManage : MonoBehaviour
         {
             if (!IsSkill)
             {
-                role.CreateSkillArea(1002, 1);
+                if (userData.skill_2 != null)
+                    role.CreateSkillArea(userData.skill_2);
             }
             else
             {
@@ -93,7 +101,8 @@ public class GameManage : MonoBehaviour
         {
             if (!IsSkill)
             {
-                role.CreateSkillArea(1003, 1);
+                if (userData.skill_3 != null)
+                    role.CreateSkillArea(userData.skill_3);
             }
             else
             {
@@ -104,7 +113,8 @@ public class GameManage : MonoBehaviour
         {
             if (!IsSkill)
             {
-                role.CreateSkillArea(1004, 1);
+                if (userData.skill_4 != null)
+                    role.CreateSkillArea(userData.skill_4);
             }
             else
             {
@@ -116,27 +126,29 @@ public class GameManage : MonoBehaviour
             //Debug.LogError("skill5");
             if (!IsSkill)
             {
-                role.CreateSkillArea(1005, 1);
+                if (userData.skill_5 != null)
+                    role.CreateSkillArea(userData.skill_5);
             }
             else
             {
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound)
+        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound && !IsWalk)
         {
             IsMyRound = false;
+            Debug.LogError("下一回合");
             foreach(var npc in npcList)
             {
                 npc.StartRound();
             }
-            if (npcList.Count < 100)
+            if (npcList.Count < 50)
             {
                 Vector2 pos = GameTools.GetPoint(role.GetPosition());
-                Debug.LogError("mapPointvaule" + mapPoints[(int)pos.x][(int)pos.y].vaule);
+                //Debug.LogError("mapPointvaule" + mapPoints[(int)pos.x][(int)pos.y].vaule);
                 GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y, groundList[(int)pos.x][(int)pos.y].transform, role.level);
                 mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
-               
+
             }
             round++;
             role.StartRound();
@@ -228,9 +240,9 @@ public class GameManage : MonoBehaviour
     {
         List<MapConf> mstr= GetMap();
         map=new int[row, col];
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < row/10; i++)
         {
-            for(int j = 0; j < 5; j++)
+            for(int j = 0; j < col/10; j++)
             {
                 if (i == 0 && j == 0)
                     continue;

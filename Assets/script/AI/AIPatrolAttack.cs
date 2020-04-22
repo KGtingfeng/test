@@ -59,6 +59,7 @@ public class AIPatrolAttack : AIBase
             oldPoint = npc.GetPosition();
             GetPPoint();
         }
+        Debug.LogError("AIPatrolAttack    Patrol");
         npc.Goto(patrolPoint);
     }
 
@@ -81,20 +82,16 @@ public class AIPatrolAttack : AIBase
 
     public void GetPPoint()
     {
+        int count = 0;
         while (true)
         {
             if (GameManage.Instance.mapPoints[(int)patrolPoint.x][(int)patrolPoint.y].vaule == 1)
             {
-                patrolPoint.x += Random.Range(-1, 1);
-                if (patrolPoint.x < 0)
-                    patrolPoint.x = 0;
-                if (patrolPoint.x >= GameManage.row)
-                    patrolPoint.x = GameManage.row - 1;
-                patrolPoint.y += Random.Range(-1, 1);
-                if (patrolPoint.y < 0)
-                    patrolPoint.y = 0;
-                if (patrolPoint.y >= GameManage.row)
-                    patrolPoint.y = GameManage.row - 1;
+                if (count % 2 == 0)
+                    patrolPoint.x += 1;
+                else
+                    patrolPoint.y += 1;
+                count++;
                 continue;
             }
             return;

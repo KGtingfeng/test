@@ -35,7 +35,7 @@ public class NPC : Character
     public override void SetPosition(int x, int y)
     {
         base.SetPosition(x, y);
-        transform.parent = GameManage.Instance.groundList[x][y].transform;
+        transform.position = GameManage.Instance.groundList[x][y].transform.position;
     }
 
     #region 放技能
@@ -78,7 +78,7 @@ public class NPC : Character
         }
         else
         {
-            Debug.LogError("不可走");
+            Debug.LogError(hit.x+"   "+hit.y+"  不可走");
         }
     }
 

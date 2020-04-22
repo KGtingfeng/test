@@ -24,8 +24,10 @@ public class AStar : MonoBehaviour {
         mapPoint now = mapp[start.x][start.y];
         now.parent = null;
         close.Add(now);
-        while (true)
+        int count = 0;
+        while (true&&count<2000)
         {
+            count++;
             if (now.y + 1 < GameManage.col)
                 if (addOpen(mapp[now.x][now.y + 1], now, open))
                 {
@@ -108,7 +110,8 @@ public class AStar : MonoBehaviour {
             open.Remove(open[0]);
             
         }
-
+        if (count >= 2000)
+            Debug.LogError("死循环");
         List<mapPoint> road=new List<mapPoint>();
         //Debug.LogError("       x       "+now.x+"       y      "+now.y);
         while (now.parent != null)

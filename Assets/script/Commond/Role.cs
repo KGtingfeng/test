@@ -28,8 +28,8 @@ public class Role : Character
         moves =  (speed / 5);
         roundGas = energy / 5;
         roundMove = moves;
-        gas = 0;
         totalGas = roundGas * 2;
+        gas = totalGas;
         Skill skill = new Skill(character.skill,1);
         GameManage.Instance.userData.skills.Add(skill);
     }
@@ -75,10 +75,10 @@ public class Role : Character
         }
     }
 
-    public void CreateSkillArea(int id, int level)
+    public void CreateSkillArea(Skill skill)
     {                
-        skillConf = XMLData.SkillConfigs.Find(a=>a.id==id);
-        skillLevel = XMLData.SkillLevelConfs.Find(a=>a.id==id&&a.level==level);
+        skillConf = XMLData.SkillConfigs.Find(a=>a.id== skill.id);
+        skillLevel = XMLData.SkillLevelConfs.Find(a=>a.id== skill.id && a.level== skill.level);
         if (gas < skillLevel.gas)
             return;
         SkillUse.GetSkillArea(skillConf, skillLevel);
