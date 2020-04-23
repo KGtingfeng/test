@@ -6,7 +6,6 @@ public class Role : Character
 {    
     public int equMove=0;
     public int equRoundGas=0;
-    public int equTotalGas=0;
 
 
     List<mapPoint> walkables;
@@ -50,7 +49,7 @@ public class Role : Character
     {
         moves = speed / 5 + equMove;
         roundGas = energy / 5 + equRoundGas;
-        totalGas = roundGas * 2 + equTotalGas;
+        totalGas = roundGas * 2 ;
     }
 
     public void GetExp(int exp)

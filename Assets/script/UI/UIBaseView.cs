@@ -9,6 +9,6 @@ public class UIBaseView : MonoBehaviour
         this.controller = controller;
     }
     public virtual void CloseView() {
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

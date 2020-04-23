@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquView : MonoBehaviour
+public class EquView : UIBaseView
 {
-    // Start is called before the first frame update
-    void Start()
+    public EquipmentItem helmet;
+    public EquipmentItem armor;
+    public EquipmentItem shoes;
+
+    public override void InitView(BaseController controller)
     {
-        
+        base.InitView(controller);
+        Refrsh();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Refrsh()
     {
-        
+        helmet.Init(GameManage.Instance.userData.helmet);
+        armor.Init(GameManage.Instance.userData.armor);
+        shoes.Init(GameManage.Instance.userData.shoes);
     }
 }

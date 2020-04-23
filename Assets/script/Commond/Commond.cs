@@ -162,11 +162,10 @@ public class Buff
 
 public class Equipment
 {
-    public EquipmentType equipmentType;
-    public AtrrType equipmentEffectType;
+    public EquipmentConf Conf;
     public int level;
     public int color;
-    public string name;
+
 }
 
 public class Skill

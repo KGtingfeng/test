@@ -29,7 +29,7 @@ public class GameManage : MonoBehaviour
     public bool IsMyRound;
     public bool IsSkill;
     public bool IsWalk;
-    public bool IsChangeEEquipment;
+    public bool IsUI;
 
     public int round = 1;
     public int score = 0;
@@ -50,11 +50,11 @@ public class GameManage : MonoBehaviour
     LayerMask whatIsGround = ~(1 << 0);
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound)
+        if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound&&!IsUI)
         {
             
         }
-        if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk )
+        if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk && !IsUI)
         {
             if (IsSkill)
             {
@@ -72,7 +72,7 @@ public class GameManage : MonoBehaviour
                 }
             }          
         }
-        if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk )
+        if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk && !IsUI)
         {
             if (!IsSkill)
             {
@@ -85,7 +85,7 @@ public class GameManage : MonoBehaviour
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha2) && IsMyRound && !IsWalk)
+        if (Input.GetKeyUp(KeyCode.Alpha2) && IsMyRound && !IsWalk && !IsUI)
         {
             if (!IsSkill)
             {
@@ -97,7 +97,7 @@ public class GameManage : MonoBehaviour
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha3) && IsMyRound && !IsWalk)
+        if (Input.GetKeyUp(KeyCode.Alpha3) && IsMyRound && !IsWalk && !IsUI)
         {
             if (!IsSkill)
             {
@@ -109,7 +109,7 @@ public class GameManage : MonoBehaviour
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha4) && IsMyRound && !IsWalk)
+        if (Input.GetKeyUp(KeyCode.Alpha4) && IsMyRound && !IsWalk && !IsUI)
         {
             if (!IsSkill)
             {
@@ -121,7 +121,7 @@ public class GameManage : MonoBehaviour
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha5) && IsMyRound && !IsWalk)
+        if (Input.GetKeyUp(KeyCode.Alpha5) && IsMyRound && !IsWalk && !IsUI)
         {
             //Debug.LogError("skill5");
             if (!IsSkill)
@@ -134,7 +134,28 @@ public class GameManage : MonoBehaviour
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound && !IsWalk)
+        if (Input.GetKeyUp(KeyCode.Z)  && !IsWalk )
+        {
+            UIManage.Instance.ShowLeft(new EquController());
+        }
+        if (Input.GetKeyUp(KeyCode.X)  && !IsWalk )
+        {
+            GameTools.GetEqu(10);
+        }
+        if (Input.GetKeyUp(KeyCode.C)  && !IsWalk )
+        {
+            UIManage.Instance.ShowLeft(new RoleController());
+        }
+        if (Input.GetKeyUp(KeyCode.V)  && !IsWalk )
+        {
+            UIManage.Instance.ShowRight(new EquPropController());
+        }
+        if (Input.GetKeyUp(KeyCode.B)  && !IsWalk )
+        {
+            userData.armor = userData.equipments.Find(a => a.Conf.equipmentType == EquipmentType.armor);
+            GameTools.ChangeEquipment(null, userData.armor);
+        }
+        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound && !IsWalk && !IsUI)
         {
             IsMyRound = false;
             Debug.LogError("下一回合");

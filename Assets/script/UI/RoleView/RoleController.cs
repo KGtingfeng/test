@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[PrefabPath("TalentView")]
+[PrefabPath("RoleView")]
 public class RoleController : BaseController
 {
     
