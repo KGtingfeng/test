@@ -32,7 +32,7 @@ public class UIDragDropItem : MonoBehaviour
 	/// </summary>
 
 	public bool cloneOnDrag = false;
-
+    public GameObject clone;
 	/// <summary>
 	/// How long the user has to press on an item before the drag action activates.
 	/// </summary>
@@ -162,7 +162,7 @@ public class UIDragDropItem : MonoBehaviour
 				clone.transform.localPosition = transform.localPosition;
 				clone.transform.localRotation = transform.localRotation;
 				clone.transform.localScale = transform.localScale;
-
+                this.clone = clone;
 				UIButtonColor bc = clone.GetComponent<UIButtonColor>();
 				if (bc != null) bc.defaultColor = GetComponent<UIButtonColor>().defaultColor;
 

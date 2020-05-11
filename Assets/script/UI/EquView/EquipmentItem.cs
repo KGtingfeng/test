@@ -3,10 +3,13 @@ using UnityEditor;
 using System.Collections.Generic;
 public class EquipmentItem : MonoBehaviour
 {
+    
     public UILabel equName;
     public UILabel add;
     public UILabel add1;
     public UISprite icon;
+    public EquipmentType type;
+
     Dictionary<int, string> color = new Dictionary<int, string>() {
         {0,"" },
         {1,"[00ff00]" },
@@ -30,8 +33,10 @@ public class EquipmentItem : MonoBehaviour
         {AtrrType.strength,"体力+" },
     };
 
-    public void Init(Equipment equipment)
+    public void Init(Equipment equipment, EquipmentType type)
     {
+        this.type = type;
+
         if (equipment == null)
         {
             equName.gameObject.SetActive(false);
@@ -57,5 +62,40 @@ public class EquipmentItem : MonoBehaviour
             icon.gameObject.SetActive(true);
         }
             
+    }
+
+    public bool ChangeEqu(Equipment equipment)
+    {
+        if(type== equipment.Conf.equipmentType)
+        {
+            if (equipment.level <= GameManage.Instance.role.level)
+            {
+                switch (type)
+                {
+                    case EquipmentType.armor:
+                        GameTools.ChangeEquipment(GameManage.Instance.userData.armor, equipment);
+                        GameManage.Instance.userData.armor = equipment;                       
+                        break;
+                    case EquipmentType.helmet:
+                        GameTools.ChangeEquipment(GameManage.Instance.userData.helmet, equipment);
+                        GameManage.Instance.userData.helmet = equipment;
+                        break;
+                    case EquipmentType.shoes:
+                        GameTools.ChangeEquipment(GameManage.Instance.userData.shoes, equipment);
+                        GameManage.Instance.userData.shoes = equipment;
+                        break;
+                }
+                GameManage.Instance.userData.equipments.Remove(equipment);
+                EquView.Instance.Refrsh();
+                return true;
+            }
+            UIManage.CreateTips("角色等级不足！");
+            return false;
+        }
+        else
+        {
+            UIManage.CreateTips("装备类型不对！");
+            return false;
+        }
     }
 }

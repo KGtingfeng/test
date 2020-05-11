@@ -81,6 +81,14 @@
 		<type>2</type>
 	</RECORD>
 	<RECORD>
+		<id>5800</id>
+		<buff>2001</buff>
+		<introduction>可以使用骑士</introduction>
+		<talentName>骑士</talentName>
+		<num>0</num>
+		<type>1</type>
+	</RECORD>
+	<RECORD>
 		<id>5801</id>
 		<buff>2002</buff>
 		<introduction>可以选择血王使用</introduction>

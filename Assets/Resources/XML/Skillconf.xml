@@ -7,6 +7,7 @@
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>喷火</skillName>
 		<range>1</range>
+		<des>对直线敌人造成{0}+{1}X速度的伤害</des>
 	</RECORD>
 	<RECORD>
 		<id>1002</id>
@@ -15,6 +16,7 @@
 		<skillAdditionType>1</skillAdditionType>
 		<skillName>回复</skillName>
 		<range>0</range>
+		<des>回复{0}+{1}X体力的血量</des>
 	</RECORD>
 	<RECORD>
 		<id>1003</id>
@@ -23,6 +25,7 @@
 		<skillAdditionType>2</skillAdditionType>
 		<skillName>火焰冲击</skillName>
 		<range>2</range>
+		<des>对周围敌人造成{0}+{1}X能量的伤害</des>
 	</RECORD>
 	<RECORD>
 		<id>1004</id>
@@ -31,6 +34,7 @@
 		<skillAdditionType>3</skillAdditionType>
 		<skillName>爆炸</skillName>
 		<range>2</range>
+		<des>对范围内敌人造成{0}+{1}X等级的伤害</des>
 	</RECORD>
 	<RECORD>
 		<id>1005</id>
@@ -39,6 +43,7 @@
 		<skillAdditionType>2</skillAdditionType>
 		<skillName>火焰冲天</skillName>
 		<range>3</range>
+		<des>对一个敌人造成{0}+{1}X能量的伤害</des>
 	</RECORD>
 	<RECORD>
 		<id>1101</id>
@@ -47,6 +52,7 @@
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>火球</skillName>
 		<range>2</range>
+		<des/>
 	</RECORD>
 	<RECORD>
 		<id>1102</id>
@@ -55,6 +61,7 @@
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>冲击波</skillName>
 		<range>2</range>
+		<des/>
 	</RECORD>
 	<RECORD>
 		<id>1103</id>
@@ -63,6 +70,7 @@
 		<skillAdditionType>1</skillAdditionType>
 		<skillName>精神冲击</skillName>
 		<range>2</range>
+		<des/>
 	</RECORD>
 	<RECORD>
 		<id>1104</id>
@@ -71,6 +79,7 @@
 		<skillAdditionType>2</skillAdditionType>
 		<skillName>切割</skillName>
 		<range>2</range>
+		<des/>
 	</RECORD>
 	<RECORD>
 		<id>1105</id>
@@ -79,6 +88,7 @@
 		<skillAdditionType>3</skillAdditionType>
 		<skillName>火圈</skillName>
 		<range>3</range>
+		<des/>
 	</RECORD>
 	<RECORD>
 		<id>1106</id>
@@ -87,6 +97,7 @@
 		<skillAdditionType>0</skillAdditionType>
 		<skillName>火环</skillName>
 		<range>3</range>
+		<des/>
 	</RECORD>
 </RECORDS>
 

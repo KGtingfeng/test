@@ -5,13 +5,16 @@ using UnityEditor.SceneManagement;
 
 public class StartMain :MonoBehaviour
 {
+    public static StartMain Instance;
     public UILabel num;
     public Transform Root;
     AsyncOperation async;
     const string UIPATH = "Prefabs/";
     private void Start()
     {
+        Instance = this;
         num.text = XMLData.GameDatas[0].score+"";
+
     }
 
     public void OnClickStart()
@@ -27,13 +30,7 @@ public class StartMain :MonoBehaviour
 
     public void OnClickTalent()
     {
-        TalentController controller = new TalentController();
-        string name = controller.GetPath();
-        GameObject go = Instantiate(Resources.Load(UIPATH + name)) as GameObject;
-        UIBaseView view = go.GetComponent<UIBaseView>();
-        go.transform.parent = Root;
-        go.transform.localScale = Vector3.one;
-        view.InitView(controller);
+        CreateView(new TalentController());
     }
 
 
@@ -42,4 +39,22 @@ public class StartMain :MonoBehaviour
         Application.Quit();
     }
 
+    public UIBaseView CreateView(BaseController baseController)
+    {
+        string name = baseController.GetPath();
+        Debug.LogError(name);
+        GameObject go = Instantiate(Resources.Load(UIPATH + name)) as GameObject;
+        UIBaseView view = go.GetComponent<UIBaseView>();
+        go.transform.parent = Root;
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localScale = Vector3.one;
+        view.InitView(baseController);
+        return view;
+    }
+
+    public void CreateTips(string tip)
+    {
+        TipsView tipsView = (TipsView)CreateView(new TipsController());
+        tipsView.Tips(tip);
+    }
 }

@@ -62,6 +62,7 @@ public class GameTools : MonoBehaviour
 
     public static List<Buff> GetBuff(string buffList)
     {
+        Debug.LogError(buffList);
         string[] bList = buffList.Split('；');
         if (bList.Length == 1)
         {
@@ -71,7 +72,7 @@ public class GameTools : MonoBehaviour
         List<Buff> buffs=new List<Buff>();
         for(int i=0;i< bList.Length-1;i++)
         {
-            //Debug.LogError(bList[i]);
+            Debug.LogError(bList[i]);
             string[] list = bList[i].Split('，');
             Buff buff = new Buff();
             if(list.Length>4)
@@ -84,6 +85,7 @@ public class GameTools : MonoBehaviour
             buff.buffName = list[1];
             buff.times = int.Parse(list[2]);
             buff.original = int.Parse(list[3]);
+            buffs.Add(buff);
         }
         return buffs;
     }
@@ -103,6 +105,7 @@ public class GameTools : MonoBehaviour
                     break;
                 case EquipmentType.armor:
                     GameManage.Instance.role.strength -= old.Conf.equipTypeAdd * old.level;
+                    GameManage.Instance.role.totalBlood -= (old.Conf.equipTypeAdd * old.level)*20;
                     break;
                 case EquipmentType.shoes:
                     GameManage.Instance.role.speed -= old.Conf.equipTypeAdd * old.level;
@@ -118,6 +121,7 @@ public class GameTools : MonoBehaviour
                     break;
                 case EquipmentType.armor:
                     GameManage.Instance.role.strength += now.Conf.equipTypeAdd * now.level;
+                    GameManage.Instance.role.totalBlood += (now.Conf.equipTypeAdd * now.level) * 20;
                     break;
                 case EquipmentType.shoes:
                     GameManage.Instance.role.speed += now.Conf.equipTypeAdd * now.level;
@@ -178,6 +182,10 @@ public class GameTools : MonoBehaviour
                     break;
             }
         }
+        if(GameManage.Instance.role.blood> GameManage.Instance.role.totalBlood)
+        {
+            GameManage.Instance.role.blood = GameManage.Instance.role.totalBlood;
+        }
         GameManage.Instance.role.CalculateArr();
     }
 
@@ -213,7 +221,17 @@ public class GameTools : MonoBehaviour
         System.Random random = new System.Random(DateTime.Now.Millisecond);
         Equipment equipment = new Equipment();
         int r = random.Next(-1, 2);
-        equipment.level = level + r;
+        if ((level + r) <= 0)
+        {
+            equipment.level = 1;
+        }else if((level + r) > 20)
+        {
+            equipment.level = 20;
+        }
+        else
+        {
+            equipment.level = level + r;
+        }
         r = random.Next(XMLData.EquipmentConfs.Count-1);
         equipment.Conf = XMLData.EquipmentConfs[r];
         r = random.Next(4);
@@ -223,6 +241,10 @@ public class GameTools : MonoBehaviour
 
     public static void GetPorp(int id,int num=1)
     {
+        if(XMLData.PropsConfs.Find(a => a.id == id) == null)
+        {
+            UIManage.CreateTips("不存在该物品!");
+        }
         if (GameManage.Instance.userData.props.Find(a => a.conf.id == id) != null)
         {
             GameManage.Instance.userData.props.Find(a => a.conf.id == id).num+=num;
@@ -243,7 +265,7 @@ public class GameTools : MonoBehaviour
             case PropType.GOODS:
                 Buff buff = GetBuff(propsConf.buff)[0];
                 GameManage.Instance.role.CalculateBuff(buff);
-                GameManage.Instance.role.buffList.Add(buff);
+                GameManage.Instance.role.buffList.Add(buff);                
                 break;
             case PropType.SKILL:
                 if(GameManage.Instance.userData.skills.Find(a=>a.id== int.Parse(propsConf.buff))==null)
@@ -253,10 +275,11 @@ public class GameTools : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("已拥有技能");
+                    UIManage.CreateTips("该技能已学习！");
                 }
                 break;
         }
+
     }
 
     public static int GetDistance(Vector2 pos)
@@ -326,12 +349,11 @@ public class GameTools : MonoBehaviour
 
     public static Vector2 GetPoint(Vector2 old)
     {
-        Vector2 point = Vector2.zero;
-        GetPPoint(point);
-        return point;
+        Vector2 point = old;
+        return GetPPoint(point);
     }
 
-    public static void GetPPoint(Vector2 point)
+    public static Vector2 GetPPoint(Vector2 point)
     {
         Debug.LogError(GameManage.Instance.mapPoints[(int)point.x][(int)point.y].vaule);
         int count = 0;
@@ -346,7 +368,7 @@ public class GameTools : MonoBehaviour
                 count++;
                 continue;
             }
-            return;
+            return point;
         }
     }
 
@@ -367,4 +389,12 @@ public class GameTools : MonoBehaviour
         parent.GetComponent<Ground>().character = go.GetComponent<NPC>();
     }
 
+    public static void DeleteAllChild(Transform transform)
+    {
+        int count = transform.childCount;
+        for (int i = 0; i < count; i++)
+        {
+            Destroy(transform.GetChild(0).gameObject);
+        }
+    }
 }

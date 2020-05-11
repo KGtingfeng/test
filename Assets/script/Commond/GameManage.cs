@@ -29,7 +29,7 @@ public class GameManage : MonoBehaviour
     public bool IsMyRound;
     public bool IsSkill;
     public bool IsWalk;
-    public bool IsUI;
+    //public bool IsUI;
 
     public int round = 1;
     public int score = 0;
@@ -40,8 +40,8 @@ public class GameManage : MonoBehaviour
         Instance = this;
         CreateGround();
 
-        //UIManage.CreateView(new SelectRoleController());
-        CreateRole(2001);
+        UIManage.CreateView(new SelectRoleController());
+        //CreateRole(2001);
         IsMyRound = true;
     }
 
@@ -50,11 +50,11 @@ public class GameManage : MonoBehaviour
     LayerMask whatIsGround = ~(1 << 0);
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound&&!IsUI)
+        if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound)
         {
             
         }
-        if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk && !IsUI)
+        if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk )
         {
             if (IsSkill)
             {
@@ -72,62 +72,61 @@ public class GameManage : MonoBehaviour
                 }
             }          
         }
-        if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk && !IsUI)
+        if (Input.GetKeyUp(KeyCode.Alpha1) && IsMyRound && !IsWalk )
         {
             if (!IsSkill)
             {
-                userData.skill_1 = new Skill(1001, 1);
-                if (userData.skill_1!=null)
-                    role.CreateSkillArea(userData.skill_1);
+                if (userData.skill[0].id!=0)
+                    role.CreateSkillArea(userData.skill[0]);
             }
             else
             {
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha2) && IsMyRound && !IsWalk && !IsUI)
+        if (Input.GetKeyUp(KeyCode.Alpha2) && IsMyRound && !IsWalk )
         {
             if (!IsSkill)
             {
-                if (userData.skill_2 != null)
-                    role.CreateSkillArea(userData.skill_2);
+                if (userData.skill[1].id != 0)
+                    role.CreateSkillArea(userData.skill[1]);
             }
             else
             {
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha3) && IsMyRound && !IsWalk && !IsUI)
+        if (Input.GetKeyUp(KeyCode.Alpha3) && IsMyRound && !IsWalk )
         {
             if (!IsSkill)
             {
-                if (userData.skill_3 != null)
-                    role.CreateSkillArea(userData.skill_3);
+                if (userData.skill[2].id != 0)
+                    role.CreateSkillArea(userData.skill[2]);
             }
             else
             {
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha4) && IsMyRound && !IsWalk && !IsUI)
+        if (Input.GetKeyUp(KeyCode.Alpha4) && IsMyRound && !IsWalk )
         {
             if (!IsSkill)
             {
-                if (userData.skill_4 != null)
-                    role.CreateSkillArea(userData.skill_4);
+                if (userData.skill[3].id != 0)
+                    role.CreateSkillArea(userData.skill[3]);
             }
             else
             {
                 role.DelectSkillArea();
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha5) && IsMyRound && !IsWalk && !IsUI)
+        if (Input.GetKeyUp(KeyCode.Alpha5) && IsMyRound && !IsWalk )
         {
             //Debug.LogError("skill5");
             if (!IsSkill)
             {
-                if (userData.skill_5 != null)
-                    role.CreateSkillArea(userData.skill_5);
+                if (userData.skill[4].id != 0)
+                    role.CreateSkillArea(userData.skill[4]);
             }
             else
             {
@@ -140,7 +139,7 @@ public class GameManage : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.X)  && !IsWalk )
         {
-            GameTools.GetEqu(10);
+            UIManage.Instance.ShowLeft(new SkillController());
         }
         if (Input.GetKeyUp(KeyCode.C)  && !IsWalk )
         {
@@ -152,10 +151,9 @@ public class GameManage : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.B)  && !IsWalk )
         {
-            userData.armor = userData.equipments.Find(a => a.Conf.equipmentType == EquipmentType.armor);
-            GameTools.ChangeEquipment(null, userData.armor);
+            UIManage.Instance.ShowRight(new PropController());
         }
-        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound && !IsWalk && !IsUI)
+        if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound && !IsWalk )
         {
             IsMyRound = false;
             Debug.LogError("下一回合");
@@ -174,7 +172,13 @@ public class GameManage : MonoBehaviour
             round++;
             role.StartRound();
             IsMyRound = true;
+            MainView.Instance.Change();
         }
+        if (Input.GetKeyUp(KeyCode.G) && !IsWalk)
+        {            
+            GameTools.GetEqu(1);
+        }
+
     }
 
     int[,] map;
@@ -235,6 +239,7 @@ public class GameManage : MonoBehaviour
         roleGameObject.SetActive(true);
         mapPoints[0][0].vaule = 1;
         groundList[0][0].character = role;
+        MainView.Instance.Change();
     }
 
     private List<MapConf> GetMap()

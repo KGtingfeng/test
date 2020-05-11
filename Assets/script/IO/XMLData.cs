@@ -205,6 +205,9 @@ public class XMLData
             newxml.Save("Assets/Resources/"+path + ".xml");
             GameData gameData = new GameData();
             gameData.score = 0;
+            gameData.talent = "5800；";
+            gameData.talents.Add(TalentConfs.Find(a => a.id == 5800));
+
             object o = gameData;
             servers.Add((T)o);
             return servers;

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EquPropView : UIBaseView
 {
+    public static EquPropView Instance;
     public GameObject grid;
     public GameObject item;
-
     public UILabel propName;
     public UILabel des;
     public UILabel des1;
@@ -33,11 +33,14 @@ public class EquPropView : UIBaseView
     public override void InitView(BaseController controller)
     {
         base.InitView(controller);
-        CreateItem(GameManage.Instance.userData.equipments);
+        Instance = this;
+        CreateItem();
     }
 
-    public void CreateItem(List<Equipment> props)
+    public void CreateItem()
     {
+        List<Equipment> props = GameManage.Instance.userData.equipments;
+        GameTools.DeleteAllChild(grid.transform);
         foreach (Equipment p in props)
         {
             GameObject go = NGUITools.AddChild(grid, item);

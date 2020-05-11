@@ -41,7 +41,7 @@ public class AIPatrolPeace : AIBase
             oldPoint = npc.GetPosition();
             GetPPoint();
         }
-        Debug.LogError("AIPatrolPeace    Patrol");
+        //Debug.LogError("AIPatrolPeace    Patrol");
         npc.Goto(patrolPoint);
     }
 

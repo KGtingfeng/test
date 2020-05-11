@@ -92,7 +92,6 @@ public class Role : Character
     #region 行走
     public void Goto(RaycastHit hit)
     {
-        roundMove = 5;
         if (roundMove == 0)
             return;
         StartCoroutine(GetFinish(hit));
@@ -135,6 +134,7 @@ public class Role : Character
                 transform.LookAt(GameManage.Instance.groundList[point.x][point.y].transform);
                 GameManage.Instance.IsWalk = true;
                 roundMove--;
+                MainView.Instance.Change();
                 yield return new WaitForSeconds(1f);
             } 
             GameManage.Instance.groundList[point.x][point.y].ReturnMaterial();

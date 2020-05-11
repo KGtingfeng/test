@@ -66,7 +66,7 @@ public class UIManage : MonoBehaviour
     public static UIBaseView CreateView(BaseController baseController)
     {
         string name = baseController.GetPath();
-        Debug.LogError(name);
+        //Debug.LogError(name);
         GameObject go = Instantiate(Resources.Load(UIPATH + name)) as GameObject;
         UIBaseView view = go.GetComponent<UIBaseView>();
         go.transform.parent = Instance.transform;
@@ -74,5 +74,11 @@ public class UIManage : MonoBehaviour
         go.transform.localScale = Vector3.one;
         view.InitView(baseController);
         return view;
+    }
+
+    public static void CreateTips(string tip)
+    {
+        TipsView tipsView =(TipsView) CreateView(new TipsController());
+        tipsView.Tips(tip);
     }
 }

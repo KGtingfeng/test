@@ -52,11 +52,11 @@ public class TalentView : UIBaseView
     public void OnClickBuy()
     {
         if (XMLData.GameDatas[0].talents.Find(a => a.id == id) != null)
-            Debug.LogError("该天赋已购买！");
+            StartMain.Instance.CreateTips("该天赋已购买！");
         TalentConf conf = XMLData.TalentConfs.Find(a => a.id == id);
         if (conf.num > XMLData.GameDatas[0].score)
         {
-            Debug.LogError("天赋点不足！");
+            StartMain.Instance.CreateTips("天赋点不足！");
         }
         else
         {

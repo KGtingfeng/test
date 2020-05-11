@@ -13,6 +13,7 @@ public class SkillConf:XMLConfig
     /// 范围
     /// </summary>
     public int range;
+    public string des;
     public override void Read(XmlNode item)
     {
         skillAreaType = (SkillAreaType)GetInt(item, "skillAreaType");
@@ -21,6 +22,7 @@ public class SkillConf:XMLConfig
         id = GetInt(item, "id");
         skillName = GetString(item, "skillName");
         range = GetInt(item, "range");
+        des= GetString(item, "des");
     }
 }
 
@@ -194,6 +196,7 @@ public class TalentConf : XMLConfig
         num = GetInt(item, "num");
         type =(TalentType) GetInt(item, "type");
     }
+
 }
 
 public class GameData:XMLConfig

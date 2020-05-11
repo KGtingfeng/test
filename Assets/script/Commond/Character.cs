@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour {
+public abstract class Character : MonoBehaviour {
 
     public static string SKILLPATH = "GameObject/Skill/";
     /// <summary>
@@ -103,8 +103,8 @@ public class Character : MonoBehaviour {
 
     public virtual void SetPosition(int x, int y)
     {
-        GameManage.Instance.mapPoints[x][y].vaule = 0;
-        GameManage.Instance.mapPoints[this.x][this.y].vaule = 1;
+        GameManage.Instance.mapPoints[x][y].vaule = 1;
+        GameManage.Instance.mapPoints[this.x][this.y].vaule = 0;
         GameManage.Instance.groundList[x][y].character = this;
         GameManage.Instance.groundList[this.x][this.y].character = null;
         this.x = x;
@@ -118,5 +118,5 @@ public class Character : MonoBehaviour {
     }
 
 
-    public virtual void Dead() { }
+    public abstract void Dead();
 }

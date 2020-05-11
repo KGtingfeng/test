@@ -16,11 +16,13 @@ public class PropView : UIBaseView
     public override void InitView(BaseController controller)
     {
         base.InitView(controller);
-        CreateItem(GameManage.Instance.userData.props);
+        CreateItem();
     }
 
-    public void CreateItem(List<Prop> props)
+    public void CreateItem()
     {
+        List<Prop> props = GameManage.Instance.userData.props;
+        GameTools.DeleteAllChild(grid.transform);
         foreach (Prop p in props)
         {
             GameObject go = NGUITools.AddChild(grid, item);
@@ -36,9 +38,9 @@ public class PropView : UIBaseView
     {
 
         id = (int)UIEventListener.Get(go).parameter;
-        TalentConf conf = XMLData.TalentConfs.Find(a => a.id == id);
+        PropsConf conf = XMLData.PropsConfs.Find(a => a.id == id);
         //Debug.LogError(id);
-        propName.text = conf.talentName;
+        propName.text = conf.propsName;
         des.text = conf.introduction;
         icon.spriteName = ""+conf.id;
         propName.gameObject.SetActive(true);
@@ -50,18 +52,21 @@ public class PropView : UIBaseView
 
     public void OnClickUse()
     {
-        if (XMLData.GameDatas[0].talents.Find(a => a.id == id) != null)
-            Debug.LogError("该天赋已购买！");
-        TalentConf conf = XMLData.TalentConfs.Find(a => a.id == id);
-        if (conf.num > XMLData.GameDatas[0].score)
+        PropsConf conf = XMLData.PropsConfs.Find(a => a.id == id);
+        GameTools.UseProp(conf);
+        Prop prop = GameManage.Instance.userData.props.Find(a => a.conf.id == conf.id);
+        if (prop.num == 1)
         {
-            Debug.LogError("天赋点不足！");
+            GameManage.Instance.userData.props.Remove(prop);
+            propName.gameObject.SetActive(false);
+            des.gameObject.SetActive(false);
+            icon.gameObject.SetActive(false);
+            useItem.SetActive(false);
         }
         else
         {
-            XMLData.GameDatas[0].score -= conf.num;
-            XMLData.GameDatas[0].talent += conf.id + "；";
-            XMLData.SetGameData(XMLData.GameDatas[0].score, XMLData.GameDatas[0].talent);
+            prop.num--;
         }
+        CreateItem();
     }
 }

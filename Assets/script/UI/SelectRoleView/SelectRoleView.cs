@@ -6,6 +6,8 @@ public class SelectRoleView : UIBaseView
 {
     public GameObject grid;
     public GameObject item;
+    public UILabel roleName;
+    public GameObject button;
     int id;
     public override void InitView(BaseController controller)
     {
@@ -15,13 +17,7 @@ public class SelectRoleView : UIBaseView
     }
 
     public void CreateItem(List<TalentConf> talents)
-    {
-        CharacterConf chara = XMLData.CharacterConfs.Find(a => a.id == 2001);
-        GameObject g = NGUITools.AddChild(grid, item);
-        g.GetComponent<RoleItem>().Init(chara);
-        UIEventListener.Get(g).onClick = OnClickTalent;
-        UIEventListener.Get(g).parameter = chara.id;
-        g.SetActive(true);
+    {        
         foreach (TalentConf conf in talents)
         {
             CharacterConf character = XMLData.CharacterConfs.Find(a => a.id == int.Parse(conf.buff));
@@ -36,7 +32,10 @@ public class SelectRoleView : UIBaseView
 
     public void OnClickTalent(GameObject go)
     {
-        id = (int)UIEventListener.Get(go).parameter;       
+        id = (int)UIEventListener.Get(go).parameter;
+        roleName.text= XMLData.CharacterConfs.Find(a => a.id == id).name;
+        roleName.gameObject.SetActive(true);
+        button.SetActive(true);
     }
 
     public void OnClickSelect()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class MainView : UIBaseView
 {
-    public List<UISprite> Skill;
+    public static MainView Instance;
     public GameObject guai;
     public GameObject blood;
     public GameObject gas;
@@ -14,9 +14,15 @@ public class MainView : UIBaseView
     public override void InitView(BaseController controller)
     {
         base.InitView(controller);
-
+        Instance = this;
     }
 
+    public void Change()
+    {
+        ChangeBlood();
+        ChangeGas();
+        ChangeMoves();
+    }
 
     public void ChangeBlood()
     {
@@ -27,7 +33,15 @@ public class MainView : UIBaseView
 
     public void ChangeGas()
     {
-        float value = GameManage.Instance.role.totalGas / GameManage.Instance.role.gas;
+        float value;
+        if (GameManage.Instance.role.gas == 0)
+        {
+            value = 0;
+        }
+        else
+        {
+            value = GameManage.Instance.role.totalGas / GameManage.Instance.role.gas;
+        }
         gas.transform.Find("Sprite").GetComponent<UIProgressBar>().value = value;
         gas.transform.Find("Label").GetComponent<UILabel>().text = GameManage.Instance.role.gas + "/" + GameManage.Instance.role.totalGas;
     }

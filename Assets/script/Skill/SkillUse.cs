@@ -138,11 +138,11 @@ public class SkillUse: MonoBehaviour
             if(GameManage.Instance.groundList[point.x][point.y].character!=null)
             GameTools.Damage(GameManage.Instance.groundList[point.x][point.y].character,damage,skill.skillEffectType,skillLevel);
         }
-        
         damageList.Clear();
         rangeList.Clear();
         GameManage.Instance.IsSkill = false;
         GameManage.Instance.role.gas -= skillLevel.gas;
+        MainView.Instance.Change();
     }
 
     public void Cancel()
@@ -455,7 +455,7 @@ public class SkillUse: MonoBehaviour
         {
             case SkillAreaType.Line:
                 transform.LookAt(GameManage.Instance.groundList[damageList[0].x][damageList[0].y].transform);          
-                go.transform.parent = transform;
+                go.transform.parent = GameManage.Instance.groundList[damageList[0].x][damageList[0].y].transform;
                 go.transform.localPosition = new Vector3(0, 0.3f, 0);
                 go.transform.LookAt(GameManage.Instance.groundList[damageList[0].x][damageList[0].y].transform);
                 break;
