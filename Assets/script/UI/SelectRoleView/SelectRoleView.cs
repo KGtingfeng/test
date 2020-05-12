@@ -17,7 +17,8 @@ public class SelectRoleView : UIBaseView
     }
 
     public void CreateItem(List<TalentConf> talents)
-    {        
+    {
+        //Debug.LogError(talents.Count);
         foreach (TalentConf conf in talents)
         {
             CharacterConf character = XMLData.CharacterConfs.Find(a => a.id == int.Parse(conf.buff));

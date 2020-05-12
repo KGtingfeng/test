@@ -64,9 +64,12 @@ public abstract class Character : MonoBehaviour {
     {
         gas += roundGas;        
         roundMove = moves;
-        foreach (Buff buff in buffList)
+        for(int i= buffList.Count-1;i>=0;i--)
         {
-            CalculateBuff(buff);
+            if (CalculateBuff(buffList[i]))
+            {
+                buffList.Remove(buffList[i]);
+            }
         }
         if (blood <= 0)
             Dead();
@@ -80,7 +83,7 @@ public abstract class Character : MonoBehaviour {
             roundMove = 0;
     }
 
-    public void CalculateBuff(Buff buff)
+    public bool CalculateBuff(Buff buff)
     {
         Debug.LogError("buff   " + buff.original);
         switch (buff.skillEffectType)
@@ -95,10 +98,11 @@ public abstract class Character : MonoBehaviour {
                 roundMove -= buff.original;
                 break;
         }
-        if (buff.times <= 1)
-            buffList.Remove(buff);
+        buff.times--;
+        if (buff.times <= 0)
+            return true;
         else
-            buff.times--;
+            return false;
     }
 
     public virtual void SetPosition(int x, int y)

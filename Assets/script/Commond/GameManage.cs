@@ -41,7 +41,6 @@ public class GameManage : MonoBehaviour
         CreateGround();
 
         UIManage.CreateView(new SelectRoleController());
-        //CreateRole(2001);
         IsMyRound = true;
     }
 
@@ -178,10 +177,16 @@ public class GameManage : MonoBehaviour
         {            
             GameTools.GetEqu(1);
         }
-
+        if (Input.GetKeyUp(KeyCode.Escape) && !IsWalk)
+        {
+            UIManage.Instance.EscView();
+        }
     }
 
     int[,] map;
+    /// <summary>
+    /// 根据随机出的数组创建地图
+    /// </summary>
     void CreateGround()
     {
         List<CharacterConf> smallChar = XMLData.CharacterConfs.FindAll(a => a.id > 2200 && a.id <=2400);
@@ -227,21 +232,10 @@ public class GameManage : MonoBehaviour
             groundList.Add(pointRow);
         }
     }
-
-    public void CreateRole(int id)
-    {
-        roleGameObject = Resources.Load(ROLEPATH + id) as GameObject;
-        roleGameObject = Instantiate(roleGameObject);
-        roleGameObject.transform.localPosition = groundList[0][0].transform.position;
-        role = roleGameObject.GetComponent<Role>();
-        role.Create(XMLData.CharacterConfs.Find(a=>a.id== id));
-        role.SetPosition(0, 0);
-        roleGameObject.SetActive(true);
-        mapPoints[0][0].vaule = 1;
-        groundList[0][0].character = role;
-        MainView.Instance.Change();
-    }
-
+    /// <summary>
+    /// 随机地图
+    /// </summary>
+    /// <returns></returns>
     private List<MapConf> GetMap()
     {
         List<MapConf> bigMap = XMLData.MapConfs.FindAll(a => a.mapType == 0);
@@ -261,7 +255,9 @@ public class GameManage : MonoBehaviour
         }
         return bigMap;
     }
-
+    /// <summary>
+    /// 地图块赋值
+    /// </summary>
     private void CreateMap()
     {
         List<MapConf> mstr= GetMap();
@@ -294,5 +290,71 @@ public class GameManage : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 创建人物
+    /// </summary>
+    /// <param name="id"></param>
+    public void CreateRole(int id)
+    {
+        roleGameObject = Resources.Load(ROLEPATH + id) as GameObject;
+        roleGameObject = Instantiate(roleGameObject);
+        roleGameObject.transform.localPosition = groundList[0][0].transform.position;
+        role = roleGameObject.GetComponent<Role>();
+        role.Create(XMLData.CharacterConfs.Find(a=>a.id== id));
+        role.SetPosition(0, 0);
+        roleGameObject.SetActive(true);
+        mapPoints[0][0].vaule = 1;
+        groundList[0][0].character = role;
+        MainView.Instance.Change();
+        ReadTalent();
+    }
+
+    /// <summary>
+    /// 读取天赋
+    /// </summary>
+    public void ReadTalent()
+    {
+        List<TalentConf> roleTalent = XMLData.GameDatas[0].talents.FindAll(a => a.type == TalentType.Atrribute);
+        //Debug.LogError(roleTalent.Count);
+        if (roleTalent.Count > 0)
+        {
+            foreach(TalentConf talent in roleTalent)
+            {
+                string[] str = talent.buff.Split('，');
+                if (str.Length >= 2)
+                {
+                    switch (int.Parse(str[0]))
+                    {
+                        case (int)AtrrType.speed:
+                            GameManage.Instance.role.speed +=int.Parse(str[1]);
+                            break;
+                        case (int)AtrrType.strength:
+                            GameManage.Instance.role.strength += int.Parse(str[1]);
+                            GameManage.Instance.role.totalBlood += int.Parse(str[1]) * 20;
+                            GameManage.Instance.role.blood = GameManage.Instance.role.totalBlood;
+                            break;
+                        case (int)AtrrType.energy:
+                            GameManage.Instance.role.energy += int.Parse(str[1]);
+                            break;
+                    }
+                }
+            }
+            GameManage.Instance.role.CalculateArr();
+        }
+        List<TalentConf> propTalent = XMLData.GameDatas[0].talents.FindAll(a => a.type == TalentType.Prop);
+        if(propTalent.Count>0)
+        {
+            foreach (TalentConf talent in propTalent)
+            {
+                string[] str = talent.buff.Split('，');
+                if (str.Length >= 2)
+                {
+                    GameTools.GetPorp(int.Parse(str[0]), int.Parse(str[1]));
+                }
+            }
+        }
+    }
+
 }
 

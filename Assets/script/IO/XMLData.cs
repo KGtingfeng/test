@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
-
 using System;
 using System.IO;
 using System.Linq;
@@ -120,15 +118,15 @@ public class XMLData
                 gameData = GetGameData<GameData>();
                 if (gameData[0].talent!=null){
                     string[] bList = gameData[0].talent.Split('；');
-                    if (bList.Length == 1)
+                    //Debug.LogError(bList.Length);
+                    if (bList.Length <=1)
                     {
                         return null;
                     }
                     for (int i = 0; i < bList.Length - 1; i++)
                     {
-                        TalentConf conf = new TalentConf();
-                        conf.id = int.Parse(bList[i]);
-                        gameData[0].talents.Add(conf);
+                        //Debug.LogError(bList[i]+"*******");
+                        gameData[0].talents.Add(TalentConfs.Find(a => a.id == int.Parse(bList[i])));
                     }
                 }
             }
@@ -186,36 +184,37 @@ public class XMLData
     {
         List<T> servers = new List<T>();
         string file = typeof(T).Name;
-        string path = xmlPath + file;
-        if(!File.Exists(path))
+        string uri = UnityEngine.Application.persistentDataPath + "/" + xmlPath + file + ".xml";
+        //string path = xmlPath + file;
+        if(!File.Exists(uri))
         {
-            File.Create("Assets/Resources/" + path + ".xml").Dispose();
+            File.Create(uri).Dispose();
             XmlDocument newxml = new XmlDocument();
-            XmlDeclaration xmldecl = newxml.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            newxml.AppendChild(xmldecl);
+            //XmlDeclaration xmldecl = newxml.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+            //newxml.AppendChild(xmldecl);
             XmlElement root = newxml.CreateElement("RECORDS");//创建根节点
             XmlElement info = newxml.CreateElement("RECORD");//创建子节点
             XmlElement score = newxml.CreateElement("score");
             score.InnerText = "0";
             XmlElement talent = newxml.CreateElement("talent");
+            talent.InnerText= "5800；";
             info.AppendChild(score);
             info.AppendChild(talent);
             root.AppendChild(info);
             newxml.AppendChild(root);
-            newxml.Save("Assets/Resources/"+path + ".xml");
+            newxml.Save(uri);
             GameData gameData = new GameData();
             gameData.score = 0;
             gameData.talent = "5800；";
             gameData.talents.Add(TalentConfs.Find(a => a.id == 5800));
-
+            Debug.LogError("file " + file + "   is create ");
             object o = gameData;
             servers.Add((T)o);
             return servers;
         }
-        TextAsset textAsset = Resources.Load<TextAsset>(path);
         Debug.LogError("file " + file + "   is open ");
         XmlDocument xml = new XmlDocument();
-        xml.LoadXml(textAsset.text);
+        xml.Load(uri);
         XmlNode node = xml.SelectSingleNode("RECORDS");
         XmlNodeList list = node.ChildNodes;
 
@@ -229,11 +228,12 @@ public class XMLData
     public static void SetGameData(int score,string talent)
     {
         string file = "gamedata";
-        string path = xmlPath + file;
-        TextAsset textAsset = Resources.Load<TextAsset>(path);
+        string uri = UnityEngine.Application.persistentDataPath + "/" + xmlPath + file + ".xml";
+        //string path = xmlPath + file;
+        //TextAsset textAsset = Resources.Load<TextAsset>(path);
         //Debug.LogError("file " + file + "   is open ");
         XmlDocument xml = new XmlDocument();
-        xml.LoadXml(textAsset.text);
+        xml.Load(uri);
         XmlNode node = xml.SelectSingleNode("RECORDS");
         XmlNodeList list = node.ChildNodes;
         GameDatas[0].score = score;
@@ -243,6 +243,7 @@ public class XMLData
             item.SelectSingleNode("score").InnerText = score + "";
             item.SelectSingleNode("talent").InnerText = talent;
         }
+        xml.Save(uri);
     }
 
     public static object ReadObj(XmlNode item,Type c)

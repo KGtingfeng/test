@@ -167,5 +167,6 @@ public class Role : Character
     {
         int score = XMLData.GameDatas[0].score + GameManage.Instance.round + GameManage.Instance.score;
         XMLData.SetGameData(score, XMLData.GameDatas[0].talent);
+        UIManage.CreateView(new EndController());
     }
 }

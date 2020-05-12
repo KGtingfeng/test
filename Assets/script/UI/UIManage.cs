@@ -6,6 +6,7 @@ public class UIManage : MonoBehaviour
 {
     UIBaseView LeftView;
     UIBaseView RightView;
+    UIBaseView escView;
 
     const string UIPATH = "Prefabs/";
 
@@ -46,6 +47,7 @@ public class UIManage : MonoBehaviour
             if (RightView.controller.GetPath() == baseController.GetPath())
             {
                 RightView.CloseView();
+                RightView = null;
                 return;
             }
             RightView.CloseView();
@@ -61,6 +63,19 @@ public class UIManage : MonoBehaviour
     public void DeleteRight()
     {
         RightView = null;
+    }
+
+    public void EscView()
+    {
+        if (escView == null)
+        {
+            CreateView(new EscController());
+        }
+        else
+        {
+            escView.CloseView();
+            escView = null;
+        }
     }
 
     public static UIBaseView CreateView(BaseController baseController)
