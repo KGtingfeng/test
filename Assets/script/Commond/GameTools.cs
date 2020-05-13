@@ -349,13 +349,31 @@ public class GameTools : MonoBehaviour
 
     public static Vector2 GetPoint(Vector2 old)
     {
-        Vector2 point = old;
+        Vector2 point=new Vector2();
+        System.Random random = new System.Random();
+        int x = random.Next(-10, 10);
+        int y = random.Next(-10, 10);
+        if (old.x + x < 0)
+        {
+            point.x = 0;
+        }else if(old.x + x > GameManage.col)
+        {
+            point.x = GameManage.col-1;
+        }
+        if (old.y + y < 0)
+        {
+            point.y = 0;
+        }
+        else if (old.y + y > GameManage.col)
+        {
+            point.y = GameManage.col - 1;
+        }
         return GetPPoint(point);
     }
 
     public static Vector2 GetPPoint(Vector2 point)
     {
-        Debug.LogError(GameManage.Instance.mapPoints[(int)point.x][(int)point.y].vaule);
+        //Debug.LogError(GameManage.Instance.mapPoints[(int)point.x][(int)point.y].vaule);
         int count = 0;
         while (true)
         {

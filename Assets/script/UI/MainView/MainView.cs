@@ -6,10 +6,15 @@ using System.Collections.Generic;
 public class MainView : UIBaseView
 {
     public static MainView Instance;
+    public UILabel round;
     public GameObject guai;
+    public GameObject guaiBlood;
+    public GameObject guaiGas;
+    public UISprite guaiIcon;
     public GameObject blood;
     public GameObject gas;
     public UILabel moves;
+    public GameObject waitPanel;
 
     public override void InitView(BaseController controller)
     {
@@ -17,11 +22,24 @@ public class MainView : UIBaseView
         Instance = this;
     }
 
+    public void GetNpc(Transform go)
+    {
+        NPC npc = go.GetComponent<NPC>();
+        float blood = npc.totalBlood / npc.blood;
+        float gas = npc.totalGas / npc.gas;
+        guaiBlood.transform.Find("Sprite").GetComponent<UIProgressBar>().value = blood;
+        guaiBlood.transform.Find("Label").GetComponent<UILabel>().text = npc.blood + "/" + npc.totalBlood;
+        guaiGas.transform.Find("Sprite").GetComponent<UIProgressBar>().value = gas;
+        guaiGas.transform.Find("Label").GetComponent<UILabel>().text = npc.blood + "/" + npc.totalBlood;
+        guai.SetActive(true);
+    }
+
     public void Change()
     {
         ChangeBlood();
         ChangeGas();
         ChangeMoves();
+        round.text = GameManage.Instance.round + "";
     }
 
     public void ChangeBlood()
@@ -48,6 +66,16 @@ public class MainView : UIBaseView
 
     public void ChangeMoves()
     {
-        moves.text = "" + GameManage.Instance.role.moves;
+        moves.text = "" + GameManage.Instance.role.roundMove;
+    }
+
+    public void ShowWait()
+    {
+        waitPanel.SetActive(true);
+    }
+
+    public void HideWait()
+    {
+        waitPanel.SetActive(false);
     }
 }

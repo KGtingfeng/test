@@ -7,6 +7,7 @@ public class UIManage : MonoBehaviour
     UIBaseView LeftView;
     UIBaseView RightView;
     UIBaseView escView;
+    UIBaseView ConsoleView;
 
     const string UIPATH = "Prefabs/";
 
@@ -75,6 +76,19 @@ public class UIManage : MonoBehaviour
         {
             escView.CloseView();
             escView = null;
+        }
+    }
+
+    public void Console()
+    {
+        if (ConsoleView == null)
+        {
+            CreateView(new ConsoleController());
+        }
+        else
+        {
+            ConsoleView.CloseView();
+            ConsoleView = null;
         }
     }
 

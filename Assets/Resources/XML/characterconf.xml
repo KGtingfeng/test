@@ -2,7 +2,7 @@
 <RECORDS>
 	<RECORD>
 		<id>2001</id>
-		<speed>5</speed>
+		<speed>10</speed>
 		<strength>5</strength>
 		<energy>5</energy>
 		<blood>500</blood>
@@ -15,7 +15,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2002</id>
-		<speed>5</speed>
+		<speed>10</speed>
 		<strength>5</strength>
 		<energy>5</energy>
 		<blood>600</blood>
@@ -28,7 +28,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2003</id>
-		<speed>5</speed>
+		<speed>10</speed>
 		<strength>2</strength>
 		<energy>7</energy>
 		<blood>400</blood>
@@ -41,7 +41,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2004</id>
-		<speed>10</speed>
+		<speed>15</speed>
 		<strength>5</strength>
 		<energy>5</energy>
 		<blood>550</blood>
@@ -54,7 +54,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2005</id>
-		<speed>10</speed>
+		<speed>15</speed>
 		<strength>10</strength>
 		<energy>10</energy>
 		<blood>500</blood>
@@ -80,7 +80,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2202</id>
-		<speed>10</speed>
+		<speed>5</speed>
 		<strength>5</strength>
 		<energy>6</energy>
 		<blood>300</blood>
@@ -93,7 +93,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2203</id>
-		<speed>15</speed>
+		<speed>10</speed>
 		<strength>6</strength>
 		<energy>6</energy>
 		<blood>240</blood>
@@ -106,7 +106,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2204</id>
-		<speed>10</speed>
+		<speed>5</speed>
 		<strength>5</strength>
 		<energy>5</energy>
 		<blood>320</blood>
@@ -119,7 +119,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2401</id>
-		<speed>10</speed>
+		<speed>5</speed>
 		<strength>5</strength>
 		<energy>6</energy>
 		<blood>350</blood>
@@ -132,7 +132,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2402</id>
-		<speed>10</speed>
+		<speed>5</speed>
 		<strength>5</strength>
 		<energy>5</energy>
 		<blood>270</blood>
@@ -145,7 +145,7 @@
 	</RECORD>
 	<RECORD>
 		<id>2403</id>
-		<speed>10</speed>
+		<speed>5</speed>
 		<strength>5</strength>
 		<energy>5</energy>
 		<blood>200</blood>

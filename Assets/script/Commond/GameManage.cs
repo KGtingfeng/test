@@ -51,7 +51,14 @@ public class GameManage : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound)
         {
-            
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.tag == "npc")
+                {
+                    MainView.Instance.GetNpc(hit.transform);
+                }
+            }
         }
         if (Input.GetMouseButtonUp(1)&&IsMyRound&&!IsWalk )
         {
@@ -154,28 +161,12 @@ public class GameManage : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Q)&&IsMyRound && !IsWalk )
         {
-            IsMyRound = false;
-            Debug.LogError("下一回合");
-            foreach(var npc in npcList)
-            {
-                npc.StartRound();
-            }
-            if (npcList.Count < 50)
-            {
-                Vector2 pos = GameTools.GetPoint(role.GetPosition());
-                //Debug.LogError("mapPointvaule" + mapPoints[(int)pos.x][(int)pos.y].vaule);
-                GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y, groundList[(int)pos.x][(int)pos.y].transform, role.level);
-                mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
-
-            }
-            round++;
-            role.StartRound();
-            IsMyRound = true;
-            MainView.Instance.Change();
+            StartCoroutine(DoRound());
+            
         }
         if (Input.GetKeyUp(KeyCode.G) && !IsWalk)
-        {            
-            GameTools.GetEqu(1);
+        {
+            UIManage.Instance.Console();
         }
         if (Input.GetKeyUp(KeyCode.Escape) && !IsWalk)
         {
@@ -321,7 +312,10 @@ public class GameManage : MonoBehaviour
         {
             foreach(TalentConf talent in roleTalent)
             {
+                //Debug.LogError(talent.buff);
                 string[] str = talent.buff.Split('，');
+                //Debug.LogError(str[0]);
+                //Debug.LogError(str[1]);
                 if (str.Length >= 2)
                 {
                     switch (int.Parse(str[0]))
@@ -356,5 +350,30 @@ public class GameManage : MonoBehaviour
         }
     }
 
+    IEnumerator DoRound()
+    {
+        yield return 0;
+        IsMyRound = false;
+        MainView.Instance.ShowWait();
+        Debug.LogError("下一回合");
+        foreach (var npc in npcList)
+        {
+            npc.StartRound();
+            yield return new WaitForSeconds(0.1f);
+        }
+        if (npcList.Count < 50)
+        {
+            Vector2 pos = GameTools.GetPoint(role.GetPosition());
+            //Debug.LogError("mapPointvaule" + mapPoints[(int)pos.x][(int)pos.y].vaule);
+            GameTools.CreateNPC(npcConf, (int)pos.x, (int)pos.y, groundList[(int)pos.x][(int)pos.y].transform, role.level);
+            mapPoints[(int)pos.x][(int)pos.y].vaule = 1;
+
+        }
+        round++;
+        role.StartRound();
+        IsMyRound = true;
+        MainView.Instance.Change();
+        MainView.Instance.HideWait();
+    }
 }
 

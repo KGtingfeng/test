@@ -2,7 +2,7 @@
 <RECORDS>
 	<RECORD>
 		<id>5001</id>
-		<buff>2，5；</buff>
+		<buff>2，5</buff>
 		<introduction>初始体力+5</introduction>
 		<talentName>体力天赋</talentName>
 		<num>20</num>
@@ -10,7 +10,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5002</id>
-		<buff>1，5；</buff>
+		<buff>1，5</buff>
 		<introduction>初始速度+5</introduction>
 		<talentName>速度天赋</talentName>
 		<num>20</num>
@@ -18,7 +18,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5003</id>
-		<buff>3，5；</buff>
+		<buff>3，5</buff>
 		<introduction>初始能量+5</introduction>
 		<talentName>能量天赋</talentName>
 		<num>20</num>
@@ -26,7 +26,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5301</id>
-		<buff>4001，5；</buff>
+		<buff>4001，5</buff>
 		<introduction>初始获得5瓶微量治疗药剂</introduction>
 		<talentName>微量治疗药剂</talentName>
 		<num>10</num>
@@ -34,7 +34,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5302</id>
-		<buff>4002，5；</buff>
+		<buff>4002，5</buff>
 		<introduction>初始获得5瓶少量治疗药剂</introduction>
 		<talentName>少量治疗药剂</talentName>
 		<num>20</num>
@@ -42,7 +42,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5303</id>
-		<buff>4003，5；</buff>
+		<buff>4003，5</buff>
 		<introduction>初始获得5瓶中量治疗药剂</introduction>
 		<talentName>中量治疗药剂</talentName>
 		<num>30</num>
@@ -50,7 +50,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5304</id>
-		<buff>4004，5；</buff>
+		<buff>4004，5</buff>
 		<introduction>初始获得5瓶大量治疗药剂</introduction>
 		<talentName>大量治疗药剂</talentName>
 		<num>50</num>
@@ -58,7 +58,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5305</id>
-		<buff>4005，3；</buff>
+		<buff>4005，3</buff>
 		<introduction>初始获得3瓶小型加速药剂</introduction>
 		<talentName>小型加速药剂</talentName>
 		<num>20</num>
@@ -66,7 +66,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5306</id>
-		<buff>4006，3；</buff>
+		<buff>4006，3</buff>
 		<introduction>初始获得3瓶中型加速药剂</introduction>
 		<talentName>中型加速药剂</talentName>
 		<num>30</num>
@@ -74,7 +74,7 @@
 	</RECORD>
 	<RECORD>
 		<id>5307</id>
-		<buff>4007，3；</buff>
+		<buff>4007，3</buff>
 		<introduction>初始获得3瓶大型加速药剂</introduction>
 		<talentName>大型加速药剂</talentName>
 		<num>50</num>

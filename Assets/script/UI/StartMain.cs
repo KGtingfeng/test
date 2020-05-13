@@ -39,6 +39,11 @@ public class StartMain :MonoBehaviour
         Application.Quit();
     }
 
+    public void UpdateScore()
+    {
+        num.text = XMLData.GameDatas[0].score + "";
+    }
+
     public UIBaseView CreateView(BaseController baseController)
     {
         string name = baseController.GetPath();

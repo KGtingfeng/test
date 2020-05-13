@@ -15,12 +15,14 @@ public class TalentView : UIBaseView
     public override void InitView(BaseController controller)
     {
         base.InitView(controller);
-        CreateItem(XMLData.TalentConfs);
+        CreateItem();
     }
 
-    public void CreateItem(List<TalentConf> talentConfs)
+    public void CreateItem()
     {
-        foreach(TalentConf conf in talentConfs)
+        GameTools.DeleteAllChild(grid.transform);
+        List<TalentConf> talentConfs = XMLData.TalentConfs;
+        foreach (TalentConf conf in talentConfs)
         {
             GameObject go = NGUITools.AddChild(grid, item);
             go.GetComponent<TalentItem>().Init(conf);
@@ -63,6 +65,9 @@ public class TalentView : UIBaseView
             XMLData.GameDatas[0].score -= conf.num;
             XMLData.GameDatas[0].talent += conf.id+ "；";
             XMLData.SetGameData(XMLData.GameDatas[0].score, XMLData.GameDatas[0].talent);
+            StartMain.Instance.CreateTips("购买成功！");
+            CreateItem();
+            StartMain.Instance.UpdateScore();
         }
     }
 }

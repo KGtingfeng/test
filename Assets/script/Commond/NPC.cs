@@ -105,7 +105,7 @@ public class NPC : Character
     public override void Dead()
     {
         GameObject go = Instantiate(Resources.Load(SKILLPATH + "dead")) as GameObject;
-        go.transform.parent = transform;
+        go.transform.parent = GameManage.Instance.groundList[x][y].transform;
         go.transform.localPosition = new Vector3(0, 0.2f, 0);
 
         GameManage.Instance.role.GetExp(level*100);
