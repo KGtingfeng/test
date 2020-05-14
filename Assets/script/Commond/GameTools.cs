@@ -164,8 +164,8 @@ public class GameTools : MonoBehaviour
                     GameManage.Instance.role.totalBlood += now.Conf.equipEffectTypeAdd * now.color;
                     break;
                 case AtrrType.roundGas:
-                    GameManage.Instance.role.roundGas += now.Conf.equipEffectTypeAdd * old.color;
-                    GameManage.Instance.role.equRoundGas += now.Conf.equipEffectTypeAdd * old.color;
+                    GameManage.Instance.role.roundGas += now.Conf.equipEffectTypeAdd * now.color;
+                    GameManage.Instance.role.equRoundGas += now.Conf.equipEffectTypeAdd * now.color;
                     break;
                 case AtrrType.energy:
                     GameManage.Instance.role.energy += now.Conf.equipEffectTypeAdd * now.color;
@@ -258,28 +258,32 @@ public class GameTools : MonoBehaviour
         }
     }
 
-    public static void UseProp(PropsConf propsConf)
+    public static bool UseProp(PropsConf propsConf)
     {
         switch (propsConf.type)
         {
             case PropType.GOODS:
                 Buff buff = GetBuff(propsConf.buff)[0];
                 GameManage.Instance.role.CalculateBuff(buff);
-                GameManage.Instance.role.buffList.Add(buff);                
-                break;
+                GameManage.Instance.role.buffList.Add(buff);
+                UIManage.CreateTips("使用物品成功！");
+                MainView.Instance.Change();
+                return true;
             case PropType.SKILL:
                 if(GameManage.Instance.userData.skills.Find(a=>a.id== int.Parse(propsConf.buff))==null)
                 {
                     Skill skill = new Skill(int.Parse(propsConf.buff),1);
                     GameManage.Instance.userData.skills.Add(skill);
+                    UIManage.CreateTips("学习技能成功！");
+                    return true;
                 }
                 else
                 {
                     UIManage.CreateTips("该技能已学习！");
+                    return false;
                 }
-                break;
         }
-
+        return false;
     }
 
     public static int GetDistance(Vector2 pos)
@@ -401,18 +405,23 @@ public class GameTools : MonoBehaviour
         go.GetComponent<NPC>().Create(level, charaConf[r]);
         go.GetComponent<NPC>().x = x;
         go.GetComponent<NPC>().y = y;
-        go.transform.parent = GameManage.Instance.NPCManage;
-        go.transform.position = parent.position;
+        go.transform.parent = parent;
+        go.transform.localPosition = Vector3.zero;
         GameManage.Instance.npcList.Add(go.GetComponent<NPC>());
         parent.GetComponent<Ground>().character = go.GetComponent<NPC>();
     }
 
-    public static void DeleteAllChild(Transform transform)
+    public static void DeleteAllChild(Transform grid)
     {
-        int count = transform.childCount;
-        for (int i = 0; i < count; i++)
+        if (grid.transform.childCount > 0)
         {
-            Destroy(transform.GetChild(0).gameObject);
+            for (int i = 0; i < grid.transform.childCount; i++)
+            {
+                grid.GetComponent<UIGrid>().RemoveChild(grid.transform.GetChild(i));
+                Destroy(grid.transform.GetChild(i).gameObject);
+            }
+            grid.transform.DetachChildren();
         }
+        grid.GetComponent<UIGrid>().repositionNow = true;
     }
 }

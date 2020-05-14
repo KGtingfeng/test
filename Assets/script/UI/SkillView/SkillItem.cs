@@ -29,6 +29,7 @@ public class SkillItem : MonoBehaviour
         }
         if( GameManage.Instance.userData.props.Find(a=>a.conf.type== PropType.SKILL&& a.conf.buff == skill.id.ToString()) != null)
         {
+            GameManage.Instance.userData.skills.Find(a => a.id == skill.id).level++;
             Prop prop = GameManage.Instance.userData.props.Find(a => a.conf.type == PropType.SKILL && a.conf.buff == skill.id.ToString());
             if (prop.num == 1)
             {
@@ -38,6 +39,8 @@ public class SkillItem : MonoBehaviour
             {
                 prop.num--;
             }
+            UIManage.CreateTips("技能升级成功！");
+            SkillView.Instance.CreateItem();
         }
         else
         {

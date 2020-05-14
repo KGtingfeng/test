@@ -25,7 +25,7 @@ public class EquipmentItem : MonoBehaviour
     };
 
     Dictionary<AtrrType, string> atrrType = new Dictionary<AtrrType, string>() {
-        {AtrrType.blood,"血量" },
+        {AtrrType.blood,"血量+" },
         {AtrrType.energy,"能量+" },
         {AtrrType.moves,"移动值+" },
         {AtrrType.roundGas,"每回合加气+" },
@@ -50,7 +50,7 @@ public class EquipmentItem : MonoBehaviour
             add.text = equType[equipment.Conf.equipmentType] + (equipment.Conf.equipTypeAdd * equipment.level);
             if (equipment.Conf.equipmentEffectType != AtrrType.no)
             {
-                add1.text = atrrType[equipment.Conf.equipmentEffectType] + (equipment.Conf.equipEffectTypeAdd * equipment.color);
+                add1.text = atrrType[equipment.Conf.equipmentEffectType] + (equipment.Conf.equipEffectTypeAdd * (equipment.color+1));
                 add1.gameObject.SetActive(true);
             }
             else

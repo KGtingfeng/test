@@ -59,7 +59,7 @@ public class EquPropView : UIBaseView
         des.text = equType[equ.Conf.equipmentType]+ (equ.Conf.equipTypeAdd*equ.level);
         if (equ.Conf.equipmentEffectType != AtrrType.no)
         {
-            des1.text = atrrType[equ.Conf.equipmentEffectType] + (equ.Conf.equipEffectTypeAdd * equ.color);
+            des1.text = atrrType[equ.Conf.equipmentEffectType] + (equ.Conf.equipEffectTypeAdd * (equ.color+1));
             des1.gameObject.SetActive(true);
         }
         else

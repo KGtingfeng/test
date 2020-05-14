@@ -35,7 +35,9 @@ public class NPC : Character
     public override void SetPosition(int x, int y)
     {
         base.SetPosition(x, y);
-        transform.position = GameManage.Instance.groundList[x][y].transform.position;
+        transform.parent = GameManage.Instance.groundList[x][y].transform;
+        transform.localPosition = Vector3.zero;
+        //Debug.LogError(x + "    " + y + "    " + GameManage.Instance.groundList[x][y].transform.position+"   "+ transform.position);
     }
 
     #region 放技能
@@ -88,6 +90,8 @@ public class NPC : Character
         {
             if (roundMove > 0)
             {
+                if (GameManage.Instance.mapPoints[point.x][point.y].vaule == 1)
+                    return;
                 SetPosition(point.x, point.y);
                 this.point = new mapPoint(point);
                 transform.LookAt(GameManage.Instance.groundList[point.x][point.y].transform);

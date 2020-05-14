@@ -22,15 +22,20 @@ public class MainView : UIBaseView
         Instance = this;
     }
 
+    public void HideNpc()
+    {
+        guai.SetActive(false);
+    }
+
     public void GetNpc(Transform go)
     {
         NPC npc = go.GetComponent<NPC>();
-        float blood = npc.totalBlood / npc.blood;
-        float gas = npc.totalGas / npc.gas;
+        float blood = (float)npc.blood / npc.totalBlood;
+        float gas = (float)npc.gas / npc.totalGas;
         guaiBlood.transform.Find("Sprite").GetComponent<UIProgressBar>().value = blood;
         guaiBlood.transform.Find("Label").GetComponent<UILabel>().text = npc.blood + "/" + npc.totalBlood;
         guaiGas.transform.Find("Sprite").GetComponent<UIProgressBar>().value = gas;
-        guaiGas.transform.Find("Label").GetComponent<UILabel>().text = npc.blood + "/" + npc.totalBlood;
+        guaiGas.transform.Find("Label").GetComponent<UILabel>().text = npc.gas + "/" + npc.totalGas;
         guai.SetActive(true);
     }
 
@@ -44,7 +49,8 @@ public class MainView : UIBaseView
 
     public void ChangeBlood()
     {
-        float value=GameManage.Instance.role.totalBlood/ GameManage.Instance.role.blood;
+        float value=(float)GameManage.Instance.role.blood/ GameManage.Instance.role.totalBlood;
+        //Debug.LogError(value);
         blood.transform.Find("Sprite").GetComponent<UIProgressBar>().value= value;
         blood.transform.Find("Label").GetComponent<UILabel>().text = GameManage.Instance.role.blood + "/" + GameManage.Instance.role.totalBlood;
     }
@@ -58,7 +64,7 @@ public class MainView : UIBaseView
         }
         else
         {
-            value = GameManage.Instance.role.totalGas / GameManage.Instance.role.gas;
+            value = (float)GameManage.Instance.role.gas / GameManage.Instance.role.totalGas;
         }
         gas.transform.Find("Sprite").GetComponent<UIProgressBar>().value = value;
         gas.transform.Find("Label").GetComponent<UILabel>().text = GameManage.Instance.role.gas + "/" + GameManage.Instance.role.totalGas;

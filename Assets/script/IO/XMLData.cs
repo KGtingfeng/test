@@ -240,7 +240,7 @@ public class XMLData
         GameDatas[0].talent = talent;
         foreach (XmlNode item in list)
         {
-            item.SelectSingleNode("score").InnerText = score + "";
+            item.SelectSingleNode("score").InnerText = GameDatas[0].score + "";
             item.SelectSingleNode("talent").InnerText = talent;
         }
         xml.Save(uri);

@@ -50,13 +50,19 @@ public class GameManage : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonUp(0) && !IsWalk && IsMyRound)
-        {
+        {           
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.tag == "npc")
+                //Debug.LogError(hit.transform.tag);
+                if (hit.transform.tag == "NPC")
                 {
+                    
                     MainView.Instance.GetNpc(hit.transform);
+                }
+                else
+                {
+                    MainView.Instance.HideNpc();
                 }
             }
         }
@@ -297,8 +303,9 @@ public class GameManage : MonoBehaviour
         roleGameObject.SetActive(true);
         mapPoints[0][0].vaule = 1;
         groundList[0][0].character = role;
-        MainView.Instance.Change();
         ReadTalent();
+        MainView.Instance.Change();
+       
     }
 
     /// <summary>
@@ -361,7 +368,7 @@ public class GameManage : MonoBehaviour
             npc.StartRound();
             yield return new WaitForSeconds(0.1f);
         }
-        if (npcList.Count < 50)
+        if (npcList.Count < 100&&round%2==1)
         {
             Vector2 pos = GameTools.GetPoint(role.GetPosition());
             //Debug.LogError("mapPointvaule" + mapPoints[(int)pos.x][(int)pos.y].vaule);

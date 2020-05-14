@@ -6,7 +6,7 @@ public class Role : Character
 {    
     public int equMove=0;
     public int equRoundGas=0;
-
+    bool isDead;
 
     List<mapPoint> walkables;
     //public SkillArea skillArea;
@@ -165,7 +165,13 @@ public class Role : Character
 
     public override void Dead()
     {
-        int score = XMLData.GameDatas[0].score + GameManage.Instance.round + GameManage.Instance.score;
+        if (isDead)
+        {
+            return;
+        }
+        isDead = true;
+        int score = XMLData.GameDatas[0].score+ GameManage.Instance.round + GameManage.Instance.score;
+        Debug.LogError(XMLData.GameDatas[0].score +"    "+ GameManage.Instance.round +"     "+ GameManage.Instance.score);
         XMLData.SetGameData(score, XMLData.GameDatas[0].talent);
         UIManage.CreateView(new EndController());
     }

@@ -64,8 +64,10 @@ public class TalentView : UIBaseView
         {
             XMLData.GameDatas[0].score -= conf.num;
             XMLData.GameDatas[0].talent += conf.id+ "；";
+            XMLData.GameDatas[0].talents.Add(XMLData.TalentConfs.Find(a => a.id == id));
             XMLData.SetGameData(XMLData.GameDatas[0].score, XMLData.GameDatas[0].talent);
             StartMain.Instance.CreateTips("购买成功！");
+            button.SetActive(false);
             CreateItem();
             StartMain.Instance.UpdateScore();
         }

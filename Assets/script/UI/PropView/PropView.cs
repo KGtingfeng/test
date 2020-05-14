@@ -53,20 +53,22 @@ public class PropView : UIBaseView
     public void OnClickUse()
     {
         PropsConf conf = XMLData.PropsConfs.Find(a => a.id == id);
-        GameTools.UseProp(conf);
-        Prop prop = GameManage.Instance.userData.props.Find(a => a.conf.id == conf.id);
-        if (prop.num == 1)
+        if (GameTools.UseProp(conf))
         {
-            GameManage.Instance.userData.props.Remove(prop);
-            propName.gameObject.SetActive(false);
-            des.gameObject.SetActive(false);
-            icon.gameObject.SetActive(false);
-            useItem.SetActive(false);
+            Prop prop = GameManage.Instance.userData.props.Find(a => a.conf.id == conf.id);
+            if (prop.num == 1)
+            {
+                GameManage.Instance.userData.props.Remove(prop);
+                propName.gameObject.SetActive(false);
+                des.gameObject.SetActive(false);
+                icon.gameObject.SetActive(false);
+                useItem.SetActive(false);
+            }
+            else
+            {
+                prop.num--;
+            }
+            CreateItem();
         }
-        else
-        {
-            prop.num--;
-        }
-        CreateItem();
     }
 }
